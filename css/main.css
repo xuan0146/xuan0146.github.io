@@ -434,6 +434,70 @@ th {
 td {
   border-bottom-width: 1px;
 }
+@media (max-width: 567px) {
+  .header-inner {
+    margin-bottom: initial !important;
+  }
+  .main-inner {
+    margin-top: initial !important;
+  }
+  .content-wrap {
+    padding: initial !important;
+  }
+  .posts-expand {
+    padding-top: 8px !important;
+    margin: initial !important;
+  }
+  .posts-expand .post-header {
+    padding: 0 18px;
+  }
+  .posts-expand .post-meta {
+    margin: 3px 0 10px 0 !important;
+  }
+  .post-block {
+    padding: 8px 0 !important;
+  }
+  .post-body h2,
+  .post-body h3,
+  .post-body h4,
+  .post-body h5,
+  .post-body h6 {
+    margin: 10px 18px 8px;
+  }
+  .post-body .note h2,
+  .post-body .tabs .tab-content .tab-pane h2,
+  .post-body .note h3,
+  .post-body .tabs .tab-content .tab-pane h3,
+  .post-body .note h4,
+  .post-body .tabs .tab-content .tab-pane h4,
+  .post-body .note h5,
+  .post-body .tabs .tab-content .tab-pane h5,
+  .post-body .note h6,
+  .post-body .tabs .tab-content .tab-pane h6 {
+    margin: 0 5px;
+  }
+  .post-body p {
+    margin: 0 0 10px 0;
+    padding: 0 18px;
+  }
+  .post-body .note > p,
+  .post-body .tabs .tab-content .tab-pane > p {
+    padding: 0 5px;
+  }
+  .post-body .video-container .fluid-vids {
+    margin-bottom: 10px !important;
+  }
+  .post-body .note {
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+  }
+  .post-body .tabs .tab-content .tab-pane {
+    padding: 10px 10px 0 10px !important;
+  }
+  .post-nav {
+    padding-bottom: 2px;
+  }
+}
 html,
 body {
   height: 100%;
@@ -1667,12 +1731,125 @@ pre {
 .fancybox-close:hover {
   border: none;
 }
-.post-copyright {
-  margin: 2em 0 0;
-  padding: 0.5em 1em;
-  border-left: 3px solid #ff1700;
-  background-color: #f9f9f9;
-  list-style: none;
+#rewardButton {
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  padding: 0;
+  margin: 0;
+  letter-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+}
+#rewardButton span {
+  display: inline-block;
+  width: 80px;
+  height: 35px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 400;
+  font-style: normal;
+  font-variant: normal;
+  font-stretch: normal;
+  font-size: 18px;
+  font-family: "Microsoft Yahei";
+  background: #f44336;
+}
+#rewardButton span:hover {
+  background: #f7877f;
+}
+#QR {
+  padding-top: 20px;
+}
+#QR a {
+  border: 0;
+}
+#QR img {
+  width: 180px;
+  max-width: 100%;
+  display: inline-block;
+  margin: 0.8em 2em 0 2em;
+}
+#wechat:hover p {
+  animation: roll 1s infinite linear;
+  -webkit-animation: roll 1s infinite linear;
+  -moz-animation: roll 1s infinite linear;
+}
+#alipay:hover p {
+  animation: roll 1s infinite linear;
+  -webkit-animation: roll 1s infinite linear;
+  -moz-animation: roll 1s infinite linear;
+}
+#bitcoin:hover p {
+  animation: roll 0.1s infinite linear;
+  -webkit-animation: roll 0.1s infinite linear;
+  -moz-animation: roll 0.1s infinite linear;
+}
+@-moz-keyframes roll {
+  from {
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -ms-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
+  }
+  to {
+    -webkit-transform: rotateZ(360deg);
+    -moz-transform: rotateZ(360deg);
+    -ms-transform: rotateZ(360deg);
+    -o-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
+  }
+}
+@-webkit-keyframes roll {
+  from {
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -ms-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
+  }
+  to {
+    -webkit-transform: rotateZ(360deg);
+    -moz-transform: rotateZ(360deg);
+    -ms-transform: rotateZ(360deg);
+    -o-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
+  }
+}
+@-o-keyframes roll {
+  from {
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -ms-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
+  }
+  to {
+    -webkit-transform: rotateZ(360deg);
+    -moz-transform: rotateZ(360deg);
+    -ms-transform: rotateZ(360deg);
+    -o-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
+  }
+}
+@keyframes roll {
+  from {
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -ms-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
+  }
+  to {
+    -webkit-transform: rotateZ(360deg);
+    -moz-transform: rotateZ(360deg);
+    -ms-transform: rotateZ(360deg);
+    -o-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
+  }
 }
 .rtl.post-body p,
 .rtl.post-body a,
@@ -1916,7 +2093,7 @@ pre {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #99c2cc;
+  background: #ffdfff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3026,6 +3203,9 @@ pre {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
 }
 .links-of-author-item a {
   display: block;
@@ -3078,6 +3258,9 @@ pre {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0s;
 }
 @media (max-width: 767px) {
   .post-body {
@@ -3091,69 +3274,3 @@ pre {
   -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
   -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
 }
-/* 打赏 */
-#rewardButton {
-    cursor: pointer;
-    border: 0;
-    outline: 0;
-    border-radius: 5px;
-    padding: 0;
-    margin: 0;
-    letter-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-}
-#rewardButton span {
-    display: inline-block;
-    width: 80px;
-    height: 35px;
-    border-radius: 5px;
-    color: #fff;
-    font-weight: 400;
-    font-style: normal;
-    font-variant: normal;
-    font-stretch: normal;
-    font-size: 18px;
-    font-family: "Microsoft Yahei";
-    background: #F44336;
-}
-#rewardButton span:hover{
-    background: #F7877F;
-}
-#QR{
-    padding-top:20px;
-}
-#QR a{
-    border:0;
-}
-#QR img{
-    width: 180px;
-    max-width: 100%;
-    display: inline-block;
-    margin: 0.8em 2em 0 2em;
-}
-#wechat:hover p{
-    animation: roll 1s infinite linear;
-    -webkit-animation: roll 1s infinite linear;
-    -moz-animation: roll 1s infinite linear;
-}
-#alipay:hover p{
-    animation: roll 1s infinite linear;
-    -webkit-animation: roll 1s infinite linear;
-    -moz-animation: roll 1s infinite linear;
-}
-#bitcoin:hover p {
-    animation: roll 0.1s infinite linear;
-    -webkit-animation: roll 0.1s infinite linear;
-    -moz-animation: roll 0.1s infinite linear;
-}
-@keyframes roll {
-    from {
-      transform(rotateZ(0deg));
-    }
-    to {
-      transform(rotateZ(360deg));
-    }
-}
-
