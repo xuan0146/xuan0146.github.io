@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[test]]></title>
+    <url>%2F2019%2F02%2F22%2Ftest%2F</url>
+    <content type="text"><![CDATA[PC test at home]]></content>
+      <tags>
+        <tag>PC测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue打包后map文件处理]]></title>
+    <url>%2F2019%2F02%2F22%2FVue%E6%89%93%E5%8C%85%E5%90%8Emap%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[前言最近踩坑vue，打包之后js中，会自动生成一些map文件，无形之中就增大了dist包的体积，可能会增加服务器压力。那我们怎么把它去掉呢？ 1.找到productionSourceMap在项目下进入目录：项目包/config/index.js找到productionSourceMap123456 /** * Source Maps */productionSourceMap: true,// https://webpack.js.org/configuration/devtool/#productiondevtool: &apos;#source-map&apos;, 2.改为false将productionSourceMap的true改为false即可123productionSourceMap: false,// https://webpack.js.org/configuration/devtool/#productiondevtool: &apos;#source-map&apos;, 3.打生产包打包:npm run build12345678910111213141516171819202122Hash: 450e46e5a578d8ed5832Version: webpack 3.12.0Time: 19211ms Asset Size Chunks Chunk Names static/js/2.f45baf9afd59da355a2c.js 17.9 kB 2 [emitted] static/img/healthIcon2.0a76940.png 21.7 kB [emitted] static/img/healthIcon1.7f9e278.png 21 kB [emitted] static/img/healthIcon3.a2530d6.png 20.3 kB [emitted] static/js/0.2623d3f24b6cb900e249.js 182 kB 0 [emitted] static/js/1.68a7b37dd5366d3385bc.js 62.6 kB 1 [emitted] static/img/healthIcon4.42cd92c.png 18.9 kB [emitted] static/js/3.dd658b712540b545b1a8.js 6.57 kB 3 [emitted] static/js/vendor.ed30b6e3d0cfb8529feb.js 962 kB 4 [emitted] [big] vendor static/js/app.ab727f325a694968cc20.js 1.22 kB 5 [emitted] app static/js/manifest.bad9ce278a16a20c8817.js 1.48 kB 6 [emitted] manifeststatic/css/app.e93cb55eadaef6e12f4bccfcc6e2e3cc.css 35.6 kB 5 [emitted] app index.html 555 bytes [emitted] Build complete. Tip: built files are meant to be served over an HTTP server. Opening index.html over file:// won&apos;t work. 4.解决打包成功，看项目/dist/static/js/xxxx.js已经没有各种.map文件，问题解决。 【注】.map文件的作用：项目打包后，代码都是经过压缩加密的，如果运行时报错，输出的错误信息无法准确得知是哪里的代码报错。有了map就可以像未加密的代码一样，准确的输出是哪一行哪一列有错。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[浮世三千]]></title>
+    <url>%2F2019%2F02%2F22%2F%E6%97%A7%E6%83%85%E4%B9%A6%2F</url>
+    <content type="text"><![CDATA[浮世三千，吾爱有三：日、月与卿。日为朝、月为暮，卿为朝朝暮暮 我是个俗气至顶的人，见山是山，见海是海，见花便是花。唯独见了你，云海开始翻涌，江潮开始澎湃，昆虫的小触须挠着全世界的痒。你无需开口，我和天地万物便通通奔向你。]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+</search>
