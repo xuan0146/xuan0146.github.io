@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[to 2019]]></title>
+    <url>%2F2019%2F02%2F25%2Fto-2019%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vue中axios跨域问题]]></title>
     <url>%2F2019%2F02%2F24%2Fvue%E4%B8%ADaxios%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[前言兴冲冲的开始用vue封装组件、自定义指令之后，开始实战。诶，等等，貌似少了……交互？大致研究了一下axios，但是存在以下两个问题： 跨域问题 数据格式问题跨域信息示例：1234Failed to load http://localhost:8080/login:Response to preflight request doesn&apos;t pass access control check:No &apos;Access-Control-Allow-Origin&apos; header is present on the requested resource. Origin &apos;http://localhost:8080&apos; is therefore not allowed access. 所以针对该问题给出一套解决方案（以post请求为例）： 1.跨域处理cinfig/index.js中对proxyTable做如下配置：123456789proxyTable: &#123; &apos;/api&apos;: &#123; target: &apos;https://0.0.0.0:8080/login&apos;, //设置url公用部分，记得加http/https和端口号 changeOrigin: true, pathRewrite: &#123; &apos;^/api&apos;: &apos;/&apos; //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用&apos;http://40.00.100.100:3002/user/add&apos;，直接写‘/api/user/add’即可 &#125; &#125; &#125;, main.js中引入axios并作为Vue属性使用123import axios from &apos;axios&apos;Vue.prototype.HOST = &apos;/api&apos; 在调取数据组件中，axios配置如下（可以自行封装）：12345678910111213141516getData () &#123; this.$axios(&#123; method: &apos;post&apos;, //请求方式 一般为get\post 此处以post为例 url: this.HOST + &apos;/login&apos;, //url data: &#123; //数据 loginId: &apos;123456&apos;, password: &apos;123456&apos; &#125;, &#125;).then(function (res) &#123; console.log(res); debugger; &#125;.bind(this)).catch(function (err) &#123; //bind 绑定当前作用域 console.log(err); debugger; &#125;) &#125; ok，保存，然后npm run dev咦？发生了什么？没跨域啊？数据发过去了啊？为什么服务器给我抛异常==、12345&#123; code:100, data: &#123;&#125;, msg: &quot;服务器异常&quot; &#125; 检查发现错误原因：数据发送时没有走formdata，接下来处理该问题。 2.数据格式修正formdata形式提交数据处理方法则是在刚才配置的getData()中的this.$axios()加上一段格式化代码配置即可，代码如下：123456789101112//formdata transformRequest: [function (data) &#123; let ret = &apos;&apos;; for (let it in data) &#123; ret += encodeURIComponent(it) + &apos;=&apos; + encodeURIComponent(data[it]) + &apos;&amp;&apos;; &#125; return ret &#125;],//头信息 headers: &#123; &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos; &#125; 注：说明步骤2 formdata形式提交数据，可直接解决跨域问题，不用执行步骤1完整axios的post配置如下：1234567891011121314151617181920212223242526getData () &#123; this.$axios(&#123; method: &apos;post&apos;, //请求方式 一般为get\post 此处以post为例 url: &apos;http://localhost:8080/login&apos;, data: &#123; //数据 loginId: &apos;123456&apos;, password: &apos;123456&apos; &#125;, transformRequest: [function (data) &#123; let ret = &apos;&apos;; for (let it in data) &#123; ret += encodeURIComponent(it) + &apos;=&apos; + encodeURIComponent(data[it]) + &apos;&amp;&apos;; &#125; return ret &#125;], headers: &#123; &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos; &#125; &#125;).then(function (res) &#123; console.log(res); debugger; &#125;.bind(this)).catch(function (err) &#123; console.log(err); debugger; &#125;)&#125; 继续测试：保存之后npm run dev完美~~，接下来看返回数据： ok，解决方案到此结束，希望对大家有所帮助。继续快乐的采坑吧各位~]]></content>

@@ -11,7 +11,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
-
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
 
 
   
@@ -78,8 +87,6 @@
 
 
 
-
-  <link rel="alternate" href="/atom.xml" title="Lomo | 朱幸民" type="application/atom+xml">
 
 
 
@@ -172,7 +179,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">on the way</p>
+        <h1 class="site-subtitle" itemprop="description">on the way</h1>
       
   </div>
 
@@ -303,7 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">vue中axios跨域问题</h1>
+          <h2 class="post-title" itemprop="name headline">vue中axios跨域问题</h2>
         
 
         <div class="post-meta">
@@ -565,6 +572,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/02/25/to-2019/" rel="prev" title="to 2019">
+                to 2019 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -636,7 +647,7 @@
               <img class="site-author-image" itemprop="image" src="/images/headImg.png" alt="Lomo 朱幸民">
             
               <p class="site-author-name" itemprop="name">Lomo 朱幸民</p>
-              <p class="site-description motion-element" itemprop="description">Lomo blog | 朱幸民个人博客</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -646,7 +657,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -677,14 +688,7 @@
           </nav>
 
           <!--
-		  
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-             </a>
-            </div>
-          */
+		  */
 		  -->
 
 

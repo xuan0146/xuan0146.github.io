@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.zhuxingmin.com/"/>
-  <updated>2019-02-25T00:55:05.465Z</updated>
+  <updated>2019-02-25T10:58:40.053Z</updated>
   <id>https://www.zhuxingmin.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>to 2019</title>
+    <link href="https://www.zhuxingmin.com/2019/02/25/to-2019/"/>
+    <id>https://www.zhuxingmin.com/2019/02/25/to-2019/</id>
+    <published>2019-02-25T09:29:07.000Z</published>
+    <updated>2019-02-25T10:58:40.053Z</updated>
+    
+    <summary type="html">
+    
+      2019悄然来袭，且2月将逝。值此春天即醒之际，
+    
+    </summary>
+    
+      <category term="随笔" scheme="https://www.zhuxingmin.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="https://www.zhuxingmin.com/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
   
   <entry>
     <title>vue中axios跨域问题</title>
