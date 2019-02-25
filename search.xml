@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[new]]></title>
-    <url>%2F2019%2F02%2F22%2Fnew%2F</url>
-    <content type="text"></content>
+    <title><![CDATA[vue中axios跨域问题]]></title>
+    <url>%2F2019%2F02%2F24%2Fvue%E4%B8%ADaxios%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[前言兴冲冲的开始用vue封装组件、自定义指令之后，开始实战。诶，等等，貌似少了……交互？大致研究了一下axios，但是存在以下两个问题： 跨域问题 数据格式问题跨域信息示例：1234Failed to load http://localhost:8080/login:Response to preflight request doesn&apos;t pass access control check:No &apos;Access-Control-Allow-Origin&apos; header is present on the requested resource. Origin &apos;http://localhost:8080&apos; is therefore not allowed access. 所以针对该问题给出一套解决方案（以post请求为例）： 1.跨域处理cinfig/index.js中对proxyTable做如下配置：123456789proxyTable: &#123; &apos;/api&apos;: &#123; target: &apos;https://0.0.0.0:8080/login&apos;, //设置url公用部分，记得加http/https和端口号 changeOrigin: true, pathRewrite: &#123; &apos;^/api&apos;: &apos;/&apos; //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用&apos;http://40.00.100.100:3002/user/add&apos;，直接写‘/api/user/add’即可 &#125; &#125; &#125;, main.js中引入axios并作为Vue属性使用123import axios from &apos;axios&apos;Vue.prototype.HOST = &apos;/api&apos; 在调取数据组件中，axios配置如下（可以自行封装）：12345678910111213141516getData () &#123; this.$axios(&#123; method: &apos;post&apos;, //请求方式 一般为get\post 此处以post为例 url: this.HOST + &apos;/login&apos;, //url data: &#123; //数据 loginId: &apos;123456&apos;, password: &apos;123456&apos; &#125;, &#125;).then(function (res) &#123; console.log(res); debugger; &#125;.bind(this)).catch(function (err) &#123; //bind 绑定当前作用域 console.log(err); debugger; &#125;) &#125; ok，保存，然后npm run dev咦？发生了什么？没跨域啊？数据发过去了啊？为什么服务器给我抛异常==、12345&#123; code:100, data: &#123;&#125;, msg: &quot;服务器异常&quot; &#125; 检查发现错误原因：数据发送时没有走formdata，接下来处理该问题。 2.数据格式修正formdata形式提交数据处理方法则是在刚才配置的getData()中的this.$axios()加上一段格式化代码配置即可，代码如下：123456789101112//formdata transformRequest: [function (data) &#123; let ret = &apos;&apos;; for (let it in data) &#123; ret += encodeURIComponent(it) + &apos;=&apos; + encodeURIComponent(data[it]) + &apos;&amp;&apos;; &#125; return ret &#125;],//头信息 headers: &#123; &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos; &#125; 注：说明步骤2 formdata形式提交数据，可直接解决跨域问题，不用执行步骤1完整axios的post配置如下：1234567891011121314151617181920212223242526getData () &#123; this.$axios(&#123; method: &apos;post&apos;, //请求方式 一般为get\post 此处以post为例 url: &apos;http://localhost:8080/login&apos;, data: &#123; //数据 loginId: &apos;123456&apos;, password: &apos;123456&apos; &#125;, transformRequest: [function (data) &#123; let ret = &apos;&apos;; for (let it in data) &#123; ret += encodeURIComponent(it) + &apos;=&apos; + encodeURIComponent(data[it]) + &apos;&amp;&apos;; &#125; return ret &#125;], headers: &#123; &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos; &#125; &#125;).then(function (res) &#123; console.log(res); debugger; &#125;.bind(this)).catch(function (err) &#123; console.log(err); debugger; &#125;)&#125; 继续测试：保存之后npm run dev完美~~，接下来看返回数据： ok，解决方案到此结束，希望对大家有所帮助。继续快乐的采坑吧各位~]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>vue</tag>
+      </tags>
   </entry>
   <entry>
-    <title><![CDATA[test]]></title>
-    <url>%2F2019%2F02%2F22%2Ftest%2F</url>
-    <content type="text"></content>
+    <title><![CDATA[vue-cli自适应|flexible屏幕字体自适应布局及配置]]></title>
+    <url>%2F2019%2F02%2F23%2Fvue-cli%E8%87%AA%E9%80%82%E5%BA%94-flexible%E5%B1%8F%E5%B9%95%E5%AD%97%E4%BD%93%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80%E5%8F%8A%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[前言：很多前端小伙伴在写页面尤其是移动端页面的时候，要求页面布局以及字体大小随屏幕宽度变化而随之按比例自适应【注：非响应式】，那么，在vue-cli脚手架中应该如何去实现呢？ 1.安装flexible库12//在项目库下运行：npm i lib-flexible --save-dev 2.引入项目入口文件main.js中引入lib-flexible:12//main.js中：import &apos;lib-flexible&apos; 3.配置meta在项目index.html的head中配置meta`：12&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&quot;&gt; 4.安装px2rem-loader12//在项目库下运行npm install px2rem-loader --save-dev 5.配置px2rem编译器在build/utils.js中，将px2rem-loader添加到cssLoaders中：123456789101112131415//自适应字体配置const px2remLoader = &#123; loader: &apos;px2rem-loader&apos;, options: &#123; remUnit: 37.5 //设计稿的宽度 除以 10，现阶段一般设计稿的宽度都为750px。如果基于iPhone5设计则为32.0(320 / 10 = 32) &#125;&#125;// generate loader string to be used with extract text plugin function generateLoaders (loader, loaderOptions) &#123; const loaders = options.usePostCSS ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, px2remLoader] /** *其余的不用改 */ &#125; 6.启动项目1npm run dev 后语：启动项目之后会惊讶的发现已经完美解决了，即使在PC端也是适用的哦~想要了解更多关于px2rem的想伙伴可以戳下方飞机票去官方看介绍：点击飞机票：px2rem]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[《小狗钱钱1》随想]]></title>
+    <url>%2F2019%2F02%2F23%2F%E3%80%8A%E5%B0%8F%E7%8B%97%E9%92%B1%E9%92%B11%E3%80%8B%E9%9A%8F%E6%83%B3%2F</url>
+    <content type="text"><![CDATA[前言&emsp;&emsp;相信大家都买过基金吧，比如支付宝的余额宝就是一种货币基金。我的钱一直也在支付宝存放。但是从去年（2018年）年初开始，收益好像走了下坡路。为了追求更高的收益，我便把目光转向了支付宝里面的基金市场，然后再零理财基础的情况下辛辛苦苦选了好几个（我认为）收益高的基金，结果一天掉一百多块……不到半个月 差不多赔了小一千，因此觉得开始学习并积累一些理财知识，但是迟迟没有行动。直到规划本年度（2019）目标时，才想起此事，并提上日程。一顿操作猛如虎，找到了一本理财的启蒙书《小狗钱钱》，并且用了一下午3小时26分钟的时间通读了一遍，由此感悟颇深。&emsp;&emsp;读书不写笔记犹如过眼云烟，学习重在输出。 介绍&emsp;&emsp;《小狗钱钱》讲述的是一个童话故事：有一天，吉娅发现一只受伤的猎狗，并把它带回了家。可是，有谁会想到，这只普通的四脚动物却是一个真正的理财天才呢？吉娅和小狗成为了朋友，并从它那里得知，原来所有的愿望都是可以实现的。&emsp;&emsp;从这个童话故事里可以了解一些金钱的秘密和真相，以及投资、理财的办法。这个故事描述了在实施这些方法的过程中可能遇到的挑战，并且说明了一些令人难以置信的结果。 钱钱语录 金钱有一些秘密和规律，要想了解这些秘密和规律，前提条件是，你自己必须真的有这个愿望。 如果你只是带着试试看的心态，那么你最后只会以失败而告终，你会一事无成。尝试纯粹是一种借口，你还没有做，就已经给自己想好退路了。不能试验。你只有两个选择：做，或者不做。 你是否能挣到钱，最关键的因素并不在于你是不是有一个好点子。你有多聪明也不是主要原因，决定因素是你的自信程度。 一个人把精力集中在自己所能做的，知道的和拥有的东西上的那一天起，他的成功就已经拉开了序幕。这也使得一个孩子完全有能力比成人挣到更多的钱。 你最好想清楚，你喜欢做什么，然后再考虑你怎么用它来挣钱。 你要每天不间断地去做对称的未来意义重大的事情。你为此花费的时间不会超过10分钟，但是就是这10分钟会让一切变得不同。 欠债的人应当毁掉所有的信用卡。 应当尽可能少地偿还贷款。 应当将不用于生活的那部分钱中的一半存起来，另一半用于还债。最好不要申请消费贷款。 每次借债前问自己：“这真的有必要吗？” 当你定下了大目标的时候，就意味着你必须付付出比别人多得多的努力。 假如我没有了我的“鹅”，我就总是得为了赚钱而工作，但是一旦我有了属于自己的“鹅”，我的钱就会自动为我工作了。 幸运其实只是充分准备加上努力工作的结果。 钱只令留在那些为之付出努力的人身边，用非法手段取得不义之财的人，反而会比没钱的时候感觉更糟糕。 恐惧总是在我们设想事情会如何不顺的时候出现。我们对失败的可能性想得越多，就越害怕。而当你朝看积极的目标去思考的时候，就不会心生畏惧。 关于投资 确定自己希望获得财务上的成功。 自信，有想法，做自己喜欢做的事。 把钱分成日常开销、梦想目标和金鹅账户三部分。 进行明智的投资。 享受生活。 如果你没有做今天这件事情，你就永远不会知道，给自己一些压力之后，你能够做到些什么。一个人觉得最引以为自豪的事情，往往是那些做起来最艰难的事情。 挑选基金时的注意事项： 基金应该至少有十年历史。假如它在这么长时间内一直有丰厚的盈利，那我们可以认为，它在未来也会运作良好。 应该选择大型的跨国股票基金，这种基金在世界各地购买股票，以此分做风险，所以十分安全。 对基金的走势图进行比较。我们应该观察在过去10年间哪些基金的年终获利最好。用72除以投资的年收益率的百分比，得出的数字就是这笔钱翻一倍所要的年数。 每当冬天过后，春天就来了，接着是夏天，每个夏天之后又跟着是秋天，然后又是冬天，年年如此。跟大自然的变化一样，交易所里也总有四季更替，循环往复。 最主要的是，在人们眼中钱应该是一种再自然、再普通不过的东西了。 感悟&emsp;&emsp;故事新颖，通俗易懂，并且道出挣钱的终极目的：让钱变得不再重要。&emsp;&emsp;对啊，曾几何时，我们为了生活奔波，打拼，一切都是为了钱。有人说，不忘初心。那货币的本质是一般等价物，一定程度上代替了以物易物。一路发展而来，初心早已更改，到如今的世道上已经完全演变为了“没钱万万不能”的时代。什么世外桃源，田间小居，都是在经济支撑下才能完成的愿望。&emsp;&emsp;书中也提到适量的方法、态度以及对理财中多个名词的通俗解释，都是让理财新人能够快速接受且消化的，不得不说作者是下了大工夫的。书中主人公吉娅以及其家庭遇到的问题相信在大多数人的生活中都有存在，比如： 是否遇到问题的时候经常说，我试着…… 从小被教导，金钱是万恶之源…… 常听父母说，小孩子不用想钱的事儿…… 是否常常入不敷出…… 是否用着信用卡，每个月都在大笔的分期付款…… 是否心里曾有过宏大的目标（精神或者物质），但又告诉自己这不大可能实现…… 是否做什么事情，在没行动前总想着，我没有这个条件，这个事情不能成功…… 是否每个月仍有结余，但是仅仅是存在银行里…… 是否不够自信，但又不知道怎么去提高……等等问题。吉娅出现的每一个问题，都与我们极其相似，但是我们常常只是想想，然后迷茫，彷徨，不自信，忘记。我们却能从这本书里学习到如何想，如何做，一步一步，一个个的习惯养成，大有裨益。 &emsp;&emsp;关于金钱的意义。钱是中性的，没有善恶之分。但是往往金钱能使人性的阴暗面暴露出来，因此怎么有钱，有了钱如何使用，便是一个很大的课题，终究取决于学习，修善，成长等。在此之前，我应该先考虑钱的用途，以及自己要成为怎样的人。 &emsp;&emsp;关于“小金鹅”。故事是这样的： &emsp;&emsp;从前有一个年轻的农夫，他每天的愿望就是从鹅笼里捡一个鹅蛋当早饭。有一天，他竟然在鹅笼里发现了一只金蛋。当然，一开始他不相信这是真的。他想，也许是有人在捉弄他。为了谨慎起见，他把金蛋拿去让金匠看，可是金匠向他保证说，这只蛋完全是纯金铸成的。于是农夫卖了这只金蛋，然后举行了一个盛大的庆祝会。&emsp;&emsp;第二天清晨，他起了个大早，赶到鹅笼处一看，那里果真又放着一个金蛋。这样的情况延续了好几天。&emsp;&emsp;可是这个农夫是一个贪婪的人，他对自己的鹅，非常不满意，因为鹅没法向他解释是怎么下出金蛋的，否则也许他自己就可以制造金蛋了。他还气呼呼地想，这只懒惰的鹅每天至少应该下两只金蛋，现在这样的速度太慢了。他的怒火越来越大，最后，他终于怒不可遏地把鹅揪出鹅笼，劈成两半。从那以后，他再也得不到金蛋了。 &emsp;&emsp;其实，理财不是针对有资产的人，而是所有人。《小狗钱钱》一书中，“养鹅”一事贯穿全文。鹅代表你的钱，如果你存钱，就会得到利息，利息就是金蛋。穷人越穷，每天鸡蛋都生不出来，富人越富，每天有金蛋甚至会有越来越多的鹅。两极分化不是没有道理的。书中将赚到的钱，分成三个账户，分别是“日常开销”、“梦想目标”、“金鹅账户”，并以此达到开源节流的目的。 关于72定理 用72除以年收益率百分比，得出的数字就是这笔钱翻一倍的年数。 在通货膨胀率下，我们的钱在多长时间贬值一半，用72除以通胀率，即可得知多少年后你的钱是现在的一半。 假如目前存（投）一笔1万人民币，年收益为12%，那么72 / 12 = 6年时间就可以翻倍本金。当然，至于如何达到年收益12%甚至更高，则需要继续努力学习相关知识并且不断的实践并积累了。假定以后每年通货膨胀率6%，那么在72 / 6 = 12年后你的钱将只能买到现在购买力能买的的一半。 结语《小狗钱钱》带来最大的收获便是让我获得了一把打开新世界的钥匙。后续需要持续学习不断提高，跑赢通货膨胀，养一只能下优质蛋的鹅。好在年轻即资本，生命不息，学习不止。 后记财商决定后半生是否富裕]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>随想</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Vue打包后map文件处理]]></title>
@@ -24,7 +50,7 @@
   </entry>
   <entry>
     <title><![CDATA[浮世三千]]></title>
-    <url>%2F2019%2F02%2F22%2F%E6%97%A7%E6%83%85%E4%B9%A6%2F</url>
+    <url>%2F2019%2F02%2F22%2F%E6%B5%AE%E4%B8%96%E4%B8%89%E5%8D%83%2F</url>
     <content type="text"><![CDATA[浮世三千，吾爱有三：日、月与卿。日为朝、月为暮，卿为朝朝暮暮 我是个俗气至顶的人，见山是山，见海是海，见花便是花。唯独见了你，云海开始翻涌，江潮开始澎湃，昆虫的小触须挠着全世界的痒。你无需开口，我和天地万物便通通奔向你。]]></content>
       <categories>
         <category>随笔</category>
