@@ -72,7 +72,7 @@ ok，保存，然后
  }
 ```
 检查发现错误原因：数据发送时没有走formdata，接下来处理该问题。
-![错误示例.jpg](https://upload-images.jianshu.io/upload_images/2502265-6ade903d14e80280.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![错误示例.jpg](https://upload-images.jianshu.io/upload_images/2502265-6ade903d14e80280.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240 '错误数据格式')
 
 
 ---
@@ -124,9 +124,9 @@ getData () {
             })
 }
 ```
-继续测试：保存之后`npm run dev`![格式化成功.jpg](https://upload-images.jianshu.io/upload_images/2502265-ad7bfd5a0a0c5411.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+继续测试：保存之后`npm run dev`![格式化成功.jpg](https://upload-images.jianshu.io/upload_images/2502265-ad7bfd5a0a0c5411.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240 'FormData数据格式')
 完美~~，接下来看返回数据：
-![成功状态.png](https://upload-images.jianshu.io/upload_images/2502265-3147d7c476c75f1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![成功状态.png](https://upload-images.jianshu.io/upload_images/2502265-3147d7c476c75f1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240 '成功')
 
 ---
 ok，解决方案到此结束，希望对大家有所帮助。继续快乐的采坑吧各位~
