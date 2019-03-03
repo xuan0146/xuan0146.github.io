@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.zhuxingmin.com/"/>
-  <updated>2019-02-27T01:33:46.191Z</updated>
+  <updated>2019-03-03T03:30:09.037Z</updated>
   <id>https://www.zhuxingmin.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue项目打包后资源路径与背景图路径问题</title>
+    <link href="https://www.zhuxingmin.com/2019/02/28/vue%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E5%90%8E%E8%B5%84%E6%BA%90%E8%B7%AF%E5%BE%84%E4%B8%8E%E8%83%8C%E6%99%AF%E5%9B%BE%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/"/>
+    <id>https://www.zhuxingmin.com/2019/02/28/vue项目打包后资源路径与背景图路径问题/</id>
+    <published>2019-02-28T13:55:51.000Z</published>
+    <updated>2019-03-03T03:30:09.037Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文主要解决基于<code>vue/vuex</code>打包后经常出现的两个问题：</p><ul><li>静态资源路径错位问题</li><li>css背景图路径错位问题<a id="more"></a></li></ul><hr><h3 id="问题的出现"><a href="#问题的出现" class="headerlink" title="问题的出现"></a>问题的出现</h3><p>&emsp;&emsp;一般通过vue-cli脚手架开发的时候，开发模式使用<code>npm run dev</code>进行开发，一切配置正常。但是当打包后会出现各种问题，其中两个最为常见且致命的问题莫过于上述的两个资源路径错位问题，但是当我们分析后，发现依旧是配置问题。尤其是当好多猿把<code>assetsPublicPath: &#39;/&#39;</code>的<code>&#39;/&#39;</code>改为<code>&#39;./&#39;</code>后，一般的资源路径包括css、js、图片音视频等都能校正，然而唯独css设置的背景图却全部失效。接下来请看此bug图。</p><ul><li><strong>bug图：</strong><br><strong>1. 资源路径404</strong><br><img src="https://upload-images.jianshu.io/upload_images/2502265-9327d2c5c190797a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="资源路径404.png" title="资源路径404"><br><strong>2. 背景图路径404</strong><br><img src="https://upload-images.jianshu.io/upload_images/2502265-d9a32ca040d852d4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="背景图404.jpg" title="背景图路径404"><br>可以看到背景图的路径错且重复。</li></ul><hr><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>1. 静态资源路径错位问题解决方案：</strong><br>在<code>项目/config/index.js</code>中找到<code>module.exports</code>中的<code>build</code>，其中的<code>assetsPublicPath</code>项改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assetsPublicPath: &apos;./&apos;, //解决静态资源路径错位问题</span><br></pre></td></tr></table></figure></p><p><strong>2. css背景图路径错位问题解决方案：</strong><br>在<code>项目/build/utils.js</code>中找到<code>ExtractTextPlugin.extract</code>，追加<code>publicPath: &#39;../../&#39;</code>：<br>代码片段为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">return ExtractTextPlugin.extract(&#123;</span><br><span class="line">            use: loaders,</span><br><span class="line">            fallback: &apos;vue-style-loader&apos;,</span><br><span class="line">            publicPath: &apos;../../&apos;  //解决css背景图路径错位问题</span><br><span class="line">      &#125;)</span><br></pre></td></tr></table></figure></p><hr><ul><li><strong>测试结果：</strong><br>ok，配置完毕，打包测试下~<br><code>npm run build</code> 倒数10个数：10,9,8,7,6…<br>控制台空空如也~完美！<br><img src="https://upload-images.jianshu.io/upload_images/2502265-7bd97c7e5bec7d8c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="完美解决.png" title="解决"></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;本文主要解决基于&lt;code&gt;vue/vuex&lt;/code&gt;打包后经常出现的两个问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;静态资源路径错位问题&lt;/li&gt;
+&lt;li&gt;css背景图路径错位问题
+    
+    </summary>
+    
+      <category term="前端笔记" scheme="https://www.zhuxingmin.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="前端" scheme="https://www.zhuxingmin.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
+    
+  </entry>
   
   <entry>
     <title>to 2019</title>
