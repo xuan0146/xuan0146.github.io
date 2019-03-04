@@ -102,7 +102,7 @@
 <meta property="og:description" content="实现功能如下">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/联想.gif">
-<meta property="og:updated_time" content="2019-03-04T08:17:46.850Z">
+<meta property="og:updated_time" content="2019-03-04T08:36:59.112Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js&#x2F;vue输入联想功能">
 <meta name="twitter:description" content="实现功能如下">
@@ -336,7 +336,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-04T16:17:46+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-04T16:36:59+08:00">
                 2019-03-04
               </time>
             
@@ -397,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  656字
+                  683字
                 </span>
               
 
@@ -413,7 +413,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2分钟
+                  3分钟
                 </span>
               
             </div>
@@ -453,63 +453,8 @@
 <hr>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h5 id="1-HTML"><a href="#1-HTML" class="headerlink" title="1.HTML"></a>1.HTML</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//input框</span><br><span class="line"> &lt;input type=&quot;text&quot;</span><br><span class="line">	   @keydown.down=&quot;changeDown&quot;	//键盘事件</span><br><span class="line">	   @keydown.up=&quot;changeUp&quot;	</span><br><span class="line">	   v-model=&quot;searchVal&quot;		//绑定输入的值</span><br><span class="line">	   @keyup=&quot;searchFn&quot;</span><br><span class="line">	   @keyup.enter=&quot;enter&quot;		//回车将选中项目展示到input框中</span><br><span class="line">	   placeholder=&quot;input name&quot;/&gt;</span><br><span class="line">	   </span><br><span class="line">//选项框 判断如果新数组中有值则显示本备选框</span><br><span class="line">&lt;ul class=&quot;ulAdd&quot; v-if=&quot;searchResult&quot;&gt;	</span><br><span class="line">	&lt;li v-for=&quot;(item, index) in searchResult&quot;</span><br><span class="line">		:class=&quot;&#123;bgColor: index === now&#125;&quot;	//渲染样式</span><br><span class="line">		@click=&quot;alertFn&quot;	//点击将选中项目展示到input框中</span><br><span class="line">		@mouseenter=&quot;mouseEnter(index)&quot;	//渲染鼠标移入/移出样式</span><br><span class="line">		@mouseleave=&quot;mouseleave&quot;&gt;&#123;&#123; item.name &#125;&#125;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
 <h5 id="2-数据"><a href="#2-数据" class="headerlink" title="2.数据"></a>2.数据</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">searchVal: &apos;&apos;, //绑定name</span><br><span class="line">searchResult: [],   //匹配结果</span><br><span class="line">now: -1,        //索引</span><br><span class="line">nameList: [	//name列表</span><br><span class="line">	&#123;name: &apos;张三&apos;,id: &apos;9001&apos;&#125;,</span><br><span class="line">	&#123;name: &apos;张四&apos;,id: &apos;9002&apos;&#125;,</span><br><span class="line">	&#123;name: &apos;李三&apos;,id: &apos;9003&apos;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h5 id="3-事件处理"><a href="#3-事件处理" class="headerlink" title="3.事件处理"></a>3.事件处理</h5><pre><code>//过滤
-searchFn (e) {
-    let val = e.target.value;    //输入的值
-    this.searchResult = [];        //清空存结果的数组
-    if (val) {
-        this.nameList.forEach(function(item) {
-            let pattern = new RegExp(&apos;&apos;+val, &apos;g&apos;);    //正则校验
-            if (pattern.test(item.name)) {
-                this.searchResult.push({name: item.name,id: item.id});
-            }
-        }.bind(this)); // 绑定当前实例对象
-    }
-}
-
-//将选中项目展示到input框中
-alertFn () {
-    this.searchVal = this.searchResult[this.now].agentname;
-    this.searchResult = [];
-},
-
-//按键盘↓键
-changeDown () {
-    this.now ++;
-    if(this.now == this.searchResult.length) {
-        this.now = -1;
-    }
-},
-
-//按键盘↑键
-changeUp () {
-    this.now --;
-    if (this.now === -2) {
-        this.now = this.searchResult.length;
-    }
-},
-
-//回车将选中项目展示到input框中
-enter () {
-    this.searchVal = this.searchResult[this.now].agentname;
-    this.searchResult = [];
-},
-
-//清空结果
-deleteList () {
-    this.searchResult = [];
-},
-
-//鼠标移入
-mouseEnter (index) {
-    this.now = index;
-},
-
-//鼠标移出
-mouseleave (index) {
-    this.now = -1;
-}
-</code></pre><h5 id="注"><a href="#注" class="headerlink" title="注"></a>注</h5><p>&emsp;&emsp;样式自定义即可。</p>
+<h5 id="3-事件处理"><a href="#3-事件处理" class="headerlink" title="3.事件处理"></a>3.事件处理</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">//过滤</span><br><span class="line">searchFn (e) &#123;</span><br><span class="line">	let val = e.target.value;	//输入的值</span><br><span class="line">	this.searchResult = [];		//清空存结果的数组</span><br><span class="line">	if (val) &#123;</span><br><span class="line">		this.nameList.forEach(function(item) &#123;</span><br><span class="line">			let pattern = new RegExp(&apos;&apos;+val, &apos;g&apos;);	//正则校验</span><br><span class="line">			if (pattern.test(item.name)) &#123;</span><br><span class="line">				this.searchResult.push(&#123;name: item.name,id: item.id&#125;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;.bind(this)); // 绑定当前实例对象</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//将选中项目展示到input框中</span><br><span class="line">alertFn () &#123;</span><br><span class="line">	this.searchVal = this.searchResult[this.now].agentname;</span><br><span class="line">	this.searchResult = [];</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//按键盘↓键</span><br><span class="line">changeDown () &#123;</span><br><span class="line">	this.now ++;</span><br><span class="line">	if(this.now == this.searchResult.length) &#123;</span><br><span class="line">		this.now = -1;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//按键盘↑键</span><br><span class="line">changeUp () &#123;</span><br><span class="line">	this.now --;</span><br><span class="line">	if (this.now === -2) &#123;</span><br><span class="line">		this.now = this.searchResult.length;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//回车将选中项目展示到input框中</span><br><span class="line">enter () &#123;</span><br><span class="line">	this.searchVal = this.searchResult[this.now].agentname;</span><br><span class="line">	this.searchResult = [];</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//清空结果</span><br><span class="line">deleteList () &#123;</span><br><span class="line">	this.searchResult = [];</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//鼠标移入</span><br><span class="line">mouseEnter (index) &#123;</span><br><span class="line">	this.now = index;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//鼠标移出</span><br><span class="line">mouseleave (index) &#123;</span><br><span class="line">	this.now = -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="注"><a href="#注" class="headerlink" title="注"></a>注</h5><p>&emsp;&emsp;样式自定义即可。</p>
 <hr>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>功能实现，且完成了一定的优化，但存在一定的不足：</p>
 <ol>
@@ -547,7 +492,7 @@ mouseleave (index) {
   <p><span>本文标题:</span>js/vue输入联想功能</p>
   <p><span>文章作者:</span>Lomo 朱幸民</p>
   <p><span>发布时间:</span>2019年03月04日 - 14:22:13</p>
-  <p><span>最后更新:</span>2019年03月04日 - 16:17:46</p>
+  <p><span>最后更新:</span>2019年03月04日 - 16:36:59</p>
   <p><span>原始链接:</span><a href="/2019/03/04/js-vue输入联想功能/" title="js/vue输入联想功能">js/vue输入联想功能</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2019/03/04/js-vue输入联想功能/" aria-label="复制成功！"></i></span>
   </p>
