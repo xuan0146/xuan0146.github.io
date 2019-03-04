@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[js/vue输入联想功能]]></title>
+    <url>%2F2019%2F03%2F04%2Fjs-vue%E8%BE%93%E5%85%A5%E8%81%94%E6%83%B3%E5%8A%9F%E8%83%BD%2F</url>
+    <content type="text"><![CDATA[实现功能如下 介绍&emsp;&emsp;最近需求要有一个输入框模糊搜索功能，且需要匹配输入字符联想。从网上看了一些demo，总结出来一套思路，配合vue将其开发并稍微完善。 思路基础： 1.一个输入框（输入字符）、一个ul框（展示匹配数据） 2.将输入字符与列表中字符比对 3.新建空数组，将比对结果匹配项放入此数组中 4.将数组数据铺到ul中优化： 5.鼠标滑入某一项变更背景色 6.点击选中数据展示到input框中 7.键盘上下键控制上一个下一个 8.回车键将选中项目展示到input框中 代码1.HTML1234567891011121314151617//input框 &lt;input type=&quot;text&quot; @keydown.down=&quot;changeDown&quot; //键盘事件 @keydown.up=&quot;changeUp&quot; v-model=&quot;searchVal&quot; //绑定输入的值 @keyup=&quot;searchFn&quot; @keyup.enter=&quot;enter&quot; //回车将选中项目展示到input框中 placeholder=&quot;input name&quot;/&gt; //选项框 判断如果新数组中有值则显示本备选框&lt;ul class=&quot;ulAdd&quot; v-if=&quot;searchResult&quot;&gt; &lt;li v-for=&quot;(item, index) in searchResult&quot; :class=&quot;&#123;bgColor: index === now&#125;&quot; //渲染样式 @click=&quot;alertFn&quot; //点击将选中项目展示到input框中 @mouseenter=&quot;mouseEnter(index)&quot; //渲染鼠标移入/移出样式 @mouseleave=&quot;mouseleave&quot;&gt;&#123;&#123; item.name &#125;&#125;&lt;/li&gt;&lt;/ul&gt; 2.数据12345678searchVal: &apos;&apos;, //绑定namesearchResult: [], //匹配结果now: -1, //索引nameList: [ //name列表 &#123;name: &apos;张三&apos;,id: &apos;9001&apos;&#125;, &#123;name: &apos;张四&apos;,id: &apos;9002&apos;&#125;, &#123;name: &apos;李三&apos;,id: &apos;9003&apos;&#125;] 3.事件处理//过滤 searchFn (e) { let val = e.target.value; //输入的值 this.searchResult = []; //清空存结果的数组 if (val) { this.nameList.forEach(function(item) { let pattern = new RegExp(&apos;&apos;+val, &apos;g&apos;); //正则校验 if (pattern.test(item.name)) { this.searchResult.push({name: item.name,id: item.id}); } }.bind(this)); // 绑定当前实例对象 } } //将选中项目展示到input框中 alertFn () { this.searchVal = this.searchResult[this.now].agentname; this.searchResult = []; }, //按键盘↓键 changeDown () { this.now ++; if(this.now == this.searchResult.length) { this.now = -1; } }, //按键盘↑键 changeUp () { this.now --; if (this.now === -2) { this.now = this.searchResult.length; } }, //回车将选中项目展示到input框中 enter () { this.searchVal = this.searchResult[this.now].agentname; this.searchResult = []; }, //清空结果 deleteList () { this.searchResult = []; }, //鼠标移入 mouseEnter (index) { this.now = index; }, //鼠标移出 mouseleave (index) { this.now = -1; } 注&emsp;&emsp;样式自定义即可。 总结功能实现，且完成了一定的优化，但存在一定的不足： 数组循环可用新语法； 多个方法可合并； 可以进一步优化，做出输入字母也同样联想。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>vue</tag>
+        <tag>js</tag>
+        <tag>输入框联想</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vue项目打包后资源路径与背景图路径问题]]></title>
     <url>%2F2019%2F02%2F28%2Fvue%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E5%90%8E%E8%B5%84%E6%BA%90%E8%B7%AF%E5%BE%84%E4%B8%8E%E8%83%8C%E6%99%AF%E5%9B%BE%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[前言本文主要解决基于vue/vuex打包后经常出现的两个问题： 静态资源路径错位问题 css背景图路径错位问题 问题的出现&emsp;&emsp;一般通过vue-cli脚手架开发的时候，开发模式使用npm run dev进行开发，一切配置正常。但是当打包后会出现各种问题，其中两个最为常见且致命的问题莫过于上述的两个资源路径错位问题，但是当我们分析后，发现依旧是配置问题。尤其是当好多猿把assetsPublicPath: &#39;/&#39;的&#39;/&#39;改为&#39;./&#39;后，一般的资源路径包括css、js、图片音视频等都能校正，然而唯独css设置的背景图却全部失效。接下来请看此bug图。 bug图：1. 资源路径4042. 背景图路径404可以看到背景图的路径错且重复。 解决方案1. 静态资源路径错位问题解决方案：在项目/config/index.js中找到module.exports中的build，其中的assetsPublicPath项改为：1assetsPublicPath: &apos;./&apos;, //解决静态资源路径错位问题 2. css背景图路径错位问题解决方案：在项目/build/utils.js中找到ExtractTextPlugin.extract，追加publicPath: &#39;../../&#39;：代码片段为：12345return ExtractTextPlugin.extract(&#123; use: loaders, fallback: &apos;vue-style-loader&apos;, publicPath: &apos;../../&apos; //解决css背景图路径错位问题 &#125;) 测试结果：ok，配置完毕，打包测试下~npm run build 倒数10个数：10,9,8,7,6…控制台空空如也~完美！]]></content>
