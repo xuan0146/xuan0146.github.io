@@ -116,7 +116,7 @@ mouseEnter (index) {
 mouseleave (index) {
 	this.now = -1;
 }
-```	
+```
 ##### 注
 &emsp;&emsp;样式自定义即可。
 *******
