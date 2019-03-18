@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.zhuxingmin.com/"/>
-  <updated>2019-03-04T08:36:59.112Z</updated>
+  <updated>2019-03-18T07:24:50.134Z</updated>
   <id>https://www.zhuxingmin.com/</id>
   
   <author>
@@ -15,6 +15,61 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>js监测页面滑至底部响应事件</title>
+    <link href="https://www.zhuxingmin.com/2019/03/18/js%E7%9B%91%E6%B5%8B%E9%A1%B5%E9%9D%A2%E6%BB%91%E8%87%B3%E5%BA%95%E9%83%A8%E5%93%8D%E5%BA%94%E4%BA%8B%E4%BB%B6/"/>
+    <id>https://www.zhuxingmin.com/2019/03/18/js监测页面滑至底部响应事件/</id>
+    <published>2019-03-18T06:16:30.000Z</published>
+    <updated>2019-03-18T07:24:50.134Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>&emsp;&emsp;<font color="#0099ff">页面滑动至底部时候，触发响应</font></p><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ol><li>服务协议滑动完毕可点击同意按钮;</li><li>页面滑至底部加载更多(新闻、列表等);</li><li>自动加载下一页等…<a id="more"></a></li></ol><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>&emsp;&emsp;首先，既然是监听，则首要条件便是监听页面滑动(滚动)事件；其次，由于一般页面不会一屏展示完，因此需要依赖BOM来辅助完成一些计算。最后，达到某种条件，触发方法。</p><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> window.onscroll = function()&#123;</span><br><span class="line">//变量scrollTop是滚动条滚动时，距离顶部的距离</span><br><span class="line">let scrollTop = document.documentElement.scrollTop||document.body.scrollTop;</span><br><span class="line">//变量windowHeight是可视区的高度</span><br><span class="line">let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;</span><br><span class="line">//变量scrollHeight是滚动条的总高度</span><br><span class="line">let scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;</span><br><span class="line">//滚动条到底部的条件</span><br><span class="line">if(scrollTop+windowHeight &gt;= scrollHeight)&#123;</span><br><span class="line">//此处触发响应事件</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">网页可见区域宽：document.body.clientWidth</span><br><span class="line">网页可见区域高：document.body.clientHeight</span><br><span class="line">网页可见区域宽：document.body.offsetWidth (包括边线的宽)</span><br><span class="line">网页可见区域高：document.body.offsetHeight (包括边线的高)</span><br><span class="line">网页正文全文宽：document.body.scrollWidth</span><br><span class="line">网页正文全文高：document.body.scrollHeight</span><br><span class="line">网页被卷去的高：document.body.scrollTop</span><br><span class="line">网页被卷去的左：document.body.scrollLeft</span><br><span class="line">//对应的dom元素的宽高有以下几个常用的：</span><br><span class="line">元素的实际高度：document.getElementById(&quot;div&quot;).offsetHeight</span><br><span class="line">元素的实际宽度：document.getElementById(&quot;div&quot;).offsetWidth</span><br><span class="line">元素的实际距离左边界的距离：document.getElementById(&quot;div&quot;).offsetLeft</span><br><span class="line">元素的实际距离上边界的距离：document.getElementById(&quot;div&quot;).offsetTop</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;需求&quot;&gt;&lt;a href=&quot;#需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求&lt;/h4&gt;&lt;p&gt;&amp;emsp;&amp;emsp;&lt;font color=&quot;#0099ff&quot;&gt;页面滑动至底部时候，触发响应&lt;/font&gt;&lt;/p&gt;
+&lt;h4 id=&quot;应用场景&quot;&gt;&lt;a href=&quot;#应用场景&quot; class=&quot;headerlink&quot; title=&quot;应用场景&quot;&gt;&lt;/a&gt;应用场景&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;服务协议滑动完毕可点击同意按钮;&lt;/li&gt;
+&lt;li&gt;页面滑至底部加载更多(新闻、列表等);&lt;/li&gt;
+&lt;li&gt;自动加载下一页等…
+    
+    </summary>
+    
+      <category term="前端笔记" scheme="https://www.zhuxingmin.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《惊奇队长》随笔</title>
+    <link href="https://www.zhuxingmin.com/2019/03/10/%E3%80%8A%E6%83%8A%E5%A5%87%E9%98%9F%E9%95%BF%E3%80%8B%E9%9A%8F%E7%AC%94/"/>
+    <id>https://www.zhuxingmin.com/2019/03/10/《惊奇队长》随笔/</id>
+    <published>2019-03-10T08:50:38.000Z</published>
+    <updated>2019-03-11T03:35:12.206Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><blockquote><p>&emsp;&emsp;卡罗尔·丹弗斯（布丽·拉尔森饰）是克里人的精英部队一员，但她挣扎着回忆过去，对于怎么获得超能力、以及之前的人生等超能力之前的人生，她只在梦中有片段不成章的记忆，这层困扰引起的情绪波动也进而影响她对超能力的掌控。所幸，在星际战队指挥官（裘德·洛饰）的调教之下，卡罗尔·丹弗斯学会如何控制自己的超能力。<br>&emsp;&emsp;一次外星任务中，卡罗尔·丹弗斯因故来到了地球，并遇到还是低阶探员的尼克·弗瑞（塞缪尔·杰克逊饰），卡罗尔·丹弗斯与尼克·弗瑞一起追捕在地球惹事的变形人塔罗斯（本·门德尔森饰），同时，也发现自己如何获得超能力。</p></blockquote><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1552218574750&amp;di=0faea9b11585b1f211c6c5795e90f261&amp;imgtype=0&amp;src=http%3A%2F%2Fimage14.m1905.cn%2Fuploadfile%2F2018%2F0517%2F20180517050025402068.jpg" alt="惊奇队长" title="惊奇队长"><br><a id="more"></a></p><h4 id="起"><a href="#起" class="headerlink" title="起"></a>起</h4><p>&emsp;&emsp;时间回到前天(2019年3月8日18:00:00)。这是不寻常的一天，不仅仅是女神节，更是跟基友约好看惊奇队长首映的日子。<br>&emsp;&emsp;下午6点，准备下班。但是作为猿，按时下班显然不是我们的风格，于是噼里啪啦一顿操作又改了个产品刚提出的优化，并且自测完毕。ok，天儿也不早了，赶紧挤地铁回家准备观影去吧。没想到的是，为了一场电影，会有一场场刺激等待着我们。</p><h4 id="Then"><a href="#Then" class="headerlink" title="Then"></a>Then</h4><p>&emsp;&emsp;19:35，超市购物了一波回到家，小憩了一下下，喝点酸奶补补体力。<br>&emsp;&emsp;20:35，嘀嘀了一辆优享专车，下楼跟基友等车。<br>&emsp;&emsp;上车。<br>&emsp;&emsp;堵车。<br>&emsp;&emsp;司机人很nice，一个看起来有修养的大龄先生。<br>&emsp;&emsp;两分钟后，我们在后排毫无感觉，司机下了车，前面司机也下了车。<br>&emsp;&emsp;嗯，追尾。<br>&emsp;&emsp;ok,下车，换车。<br>&emsp;&emsp;重新嘀嘀。<br>&emsp;&emsp;“耐心”等待中…<br>&emsp;&emsp;上车。<br>&emsp;&emsp;驾驶过堵车区，一路飞……额，红灯。<br>&emsp;&emsp;“铃铃铃铃铃铃”电话响起来~<br>&emsp;&emsp;“…………”<br>&emsp;&emsp;基友：“完了，一个需求忘记处理”<br>&emsp;&emsp;“……看急不急，不急了明天上午公司处理”<br>&emsp;&emsp;下车。<br>&emsp;&emsp;取票。<br>&emsp;&emsp;21:03，等待进场。<br>&emsp;&emsp;21:05，开始检票。<br>&emsp;&emsp;21:06,，“不行，我得回去先处理需求去了……”。<br>&emsp;&emsp;于是，检票只检了一张，有了下图：<br><img src="/images/posts/《惊奇队长》影票.jpg" alt="票根" title="《惊奇队长》影票"></p><h4 id="So"><a href="#So" class="headerlink" title="So"></a>So</h4><p>&emsp;&emsp;被迫一个人看完了整场。</p><h4 id="随笔"><a href="#随笔" class="headerlink" title="随笔"></a>随笔</h4><h5 id="关于剧情"><a href="#关于剧情" class="headerlink" title="关于剧情"></a>关于剧情</h5><p>&emsp;&emsp;一向的漫威思维，并且在女神节这么个档期，祭出目前最强大的主角英雄，且为女英雄，应景至极。前半篇在不停的铺垫，以及给出一些断断续续的女主回忆。从女主发现自己被骗之后，一系列举动将剧情推向高潮。<br>&emsp;&emsp;故事发生于上世纪90年代，在此之时，复仇者联盟尚未建立。居中也道出了神盾局局长独眼的原因以及建立复仇者联盟的初心。<br>&emsp;&emsp;斯克鲁人怕猫，检测猫为“噬元兽”，克里人怕尬舞。然而关键时刻，猫吞噬“魔方”，吞噬“敌军”，真的救了神盾局长。</p><h5 id="关于彩蛋"><a href="#关于彩蛋" class="headerlink" title="关于彩蛋"></a>关于彩蛋</h5><p>&emsp;&emsp;很多评论说，又是“看彩蛋送电影”，第一个彩蛋比正片好看。确实，在漫威宇宙中，自打复联出来之后，新出的超级英雄好像都与复联有着密不可分的联系，甚至都是为了复联去添砖加瓦。但是在多方面关于复联四的猜测中，惊奇队长却是救世中不可或缺且极为重要的一环。如果只是粗略的一笔带过，进而在复联四中直接使用其几乎藐视现阶段复联所有人所有技能的特殊能力，那在复联四中将会显得极为仓促且莫名其妙。因此，此英雄作为一部新的超级英雄，极有必要对齐以及复联历史进行一些必要的补充，以及填坑。</p><h5 id="关于斯坦●李"><a href="#关于斯坦●李" class="headerlink" title="关于斯坦●李"></a>关于斯坦●李</h5><p>&emsp;&emsp;老爷子去年过世，与东方的金庸大侠先后将生命挪出了时间。至此，东方再无江湖，漫威再无宇宙。<br>&emsp;&emsp;剧中老爷子作为路人，在公交车上看书，与惊奇队长偶遇。上一次同样是在公交车看书，遇到了奇异博士。<br>&emsp;&emsp;所以是不是为我们敲响警钟，多出门，多读书，不要总在家里宅着，说不定也能偶遇超级英雄呢。</p><h5 id="猜测"><a href="#猜测" class="headerlink" title="猜测"></a>猜测</h5><p>&emsp;&emsp;《蚁人2》片尾彩蛋中，蚁人进入量子域，在入口处，小女友及其父母随着灭霸的响指化为了灰烬，因此是否在复联四中也会贡献在即的一份力量呢？</p><center>等待ing复联四…</center>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;卡罗尔·丹弗斯（布丽·拉尔森饰）是克里人的精英部队一员，但她挣扎着回忆过去，对于怎么获得超能力、以及之前的人生等超能力之前的人生，她只在梦中有片段不成章的记忆，这层困扰引起的情绪波动也进而影响她对超能力的掌控。所幸，在星际战队指挥官（裘德·洛饰）的调教之下，卡罗尔·丹弗斯学会如何控制自己的超能力。&lt;br&gt;&amp;emsp;&amp;emsp;一次外星任务中，卡罗尔·丹弗斯因故来到了地球，并遇到还是低阶探员的尼克·弗瑞（塞缪尔·杰克逊饰），卡罗尔·丹弗斯与尼克·弗瑞一起追捕在地球惹事的变形人塔罗斯（本·门德尔森饰），同时，也发现自己如何获得超能力。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://timgsa.baidu.com/timg?image&amp;amp;quality=80&amp;amp;size=b9999_10000&amp;amp;sec=1552218574750&amp;amp;di=0faea9b11585b1f211c6c5795e90f261&amp;amp;imgtype=0&amp;amp;src=http%3A%2F%2Fimage14.m1905.cn%2Fuploadfile%2F2018%2F0517%2F20180517050025402068.jpg&quot; alt=&quot;惊奇队长&quot; title=&quot;惊奇队长&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="读书笔记" scheme="https://www.zhuxingmin.com/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="随笔" scheme="https://www.zhuxingmin.com/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="电影" scheme="https://www.zhuxingmin.com/tags/%E7%94%B5%E5%BD%B1/"/>
+    
+      <category term="读书笔记" scheme="https://www.zhuxingmin.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>js/vue输入联想功能</title>
