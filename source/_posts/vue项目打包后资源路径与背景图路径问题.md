@@ -3,7 +3,7 @@ title: vue项目打包后资源路径与背景图路径问题
 type: categories
 copyright: true
 date: 2019-02-28 21:55:51
-tags: [前端, vue]
+tags: [前端, vue, 打包]
 categories: 前端笔记
 description:
 ---

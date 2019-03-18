@@ -3,7 +3,7 @@ title: Vue打包后map文件处理
 type: categories
 copyright: true
 date: 2019-02-22 11:44:51
-tags: [前端,vue]
+tags: [前端,vue,打包]
 categories: 前端笔记
 #description: Vue打包后JS文件夹中出现一些map文件的解决方法
 ---
