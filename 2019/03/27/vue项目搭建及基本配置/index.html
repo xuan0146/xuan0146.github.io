@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="前端,vue,js,输入框联想,">
+  <meta name="keywords" content="vue,vue-cli,">
 
 
 
@@ -94,20 +94,20 @@
 
 
 
-<meta name="description" content="实现功能如下">
-<meta name="keywords" content="前端,vue,js,输入框联想">
+<meta name="description" content="前言注：适用于windows系统本文讲述要点：  vue-cli项目搭建基本环境配置； 常用插件描述及分享； 项目运行、调试及打包； 项目配置及优化；">
+<meta name="keywords" content="vue,vue-cli">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js&#x2F;vue输入联想功能">
-<meta property="og:url" content="https://www.zhuxingmin.com/2019/03/04/js-vue输入联想功能/index.html">
+<meta property="og:title" content="vue项目搭建及基本配置">
+<meta property="og:url" content="https://www.zhuxingmin.com/2019/03/27/vue项目搭建及基本配置/index.html">
 <meta property="og:site_name" content="Lomo | 朱幸民">
-<meta property="og:description" content="实现功能如下">
+<meta property="og:description" content="前言注：适用于windows系统本文讲述要点：  vue-cli项目搭建基本环境配置； 常用插件描述及分享； 项目运行、调试及打包； 项目配置及优化；">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.zhuxingmin.com/images/posts/联想.gif">
-<meta property="og:updated_time" content="2019-03-04T08:36:59.112Z">
+<meta property="og:image" content="https://www.zhuxingmin.com/images/posts/vue运行成功.jpg">
+<meta property="og:updated_time" content="2019-03-28T11:05:58.601Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js&#x2F;vue输入联想功能">
-<meta name="twitter:description" content="实现功能如下">
-<meta name="twitter:image" content="https://www.zhuxingmin.com/images/posts/联想.gif">
+<meta name="twitter:title" content="vue项目搭建及基本配置">
+<meta name="twitter:description" content="前言注：适用于windows系统本文讲述要点：  vue-cli项目搭建基本环境配置； 常用插件描述及分享； 项目运行、调试及打包； 项目配置及优化；">
+<meta name="twitter:image" content="https://www.zhuxingmin.com/images/posts/vue运行成功.jpg">
 
 
 
@@ -137,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zhuxingmin.com/2019/03/04/js-vue输入联想功能/">
+  <link rel="canonical" href="https://www.zhuxingmin.com/2019/03/27/vue项目搭建及基本配置/">
 
 
 
 
 
-  <title>js/vue输入联想功能 | Lomo | 朱幸民</title>
+  <title>vue项目搭建及基本配置 | Lomo | 朱幸民</title>
   
 
 
@@ -302,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2019/03/04/js-vue输入联想功能/">
+    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2019/03/27/vue项目搭建及基本配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lomo 朱幸民">
@@ -319,7 +319,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">js/vue输入联想功能</h2>
+          <h2 class="post-title" itemprop="name headline">vue项目搭建及基本配置</h2>
         
 
         <div class="post-meta">
@@ -331,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-04T14:22:13+08:00">
-                2019-03-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T17:02:16+08:00">
+                2019-03-27
               </time>
             
 
@@ -347,8 +347,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-04T16:36:59+08:00">
-                2019-03-04
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-28T19:05:58+08:00">
+                2019-03-28
               </time>
             
           </span>
@@ -383,7 +383,7 @@
 
           
           
-             <span id="/2019/03/04/js-vue输入联想功能/" class="leancloud_visitors" data-flag-title="js/vue输入联想功能">
+             <span id="/2019/03/27/vue项目搭建及基本配置/" class="leancloud_visitors" data-flag-title="vue项目搭建及基本配置">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -408,7 +408,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  683字
+                  2.5k字
                 </span>
               
 
@@ -424,7 +424,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3分钟
+                  10分钟
                 </span>
               
             </div>
@@ -445,34 +445,118 @@
       
 
       
-        <h4 id="实现功能如下"><a href="#实现功能如下" class="headerlink" title="实现功能如下"></a>实现功能如下</h4><p><img src="/images/posts/联想.gif" alt="模糊搜索|输入联想" title="模糊搜索|输入联想"><br><a id="more"></a></p>
-<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>&emsp;&emsp;最近需求要有一个输入框模糊搜索功能，且需要匹配输入字符联想。从网上看了一些demo，总结出来一套思路，配合vue将其开发并稍做优化处理。</p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>基础：</p>
-<ul>
-<li>1.一个输入框（输入字符）、一个ul框（展示匹配数据）</li>
-<li>2.将输入字符与列表中字符比对</li>
-<li>3.新建空数组，将比对结果匹配项放入此数组中</li>
-<li>4.将数组数据铺到ul中</li>
-</ul>
-<p>优化：</p>
-<ul>
-<li>5.鼠标滑入某一项变更背景色</li>
-<li>6.点击选中数据展示到input框中</li>
-<li>7.键盘上下键控制上一个下一个</li>
-<li>8.回车键将选中项目展示到input框中</li>
-</ul>
-<hr>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h5 id="1-HTML"><a href="#1-HTML" class="headerlink" title="1.HTML"></a>1.HTML</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//input框</span><br><span class="line"> &lt;input type=&quot;text&quot;</span><br><span class="line">	   @keydown.down=&quot;changeDown&quot;	//键盘事件</span><br><span class="line">	   @keydown.up=&quot;changeUp&quot;	</span><br><span class="line">	   v-model=&quot;searchVal&quot;		//绑定输入的值</span><br><span class="line">	   @keyup=&quot;searchFn&quot;</span><br><span class="line">	   @keyup.enter=&quot;enter&quot;		//回车将选中项目展示到input框中</span><br><span class="line">	   placeholder=&quot;input name&quot;/&gt;</span><br><span class="line">	   </span><br><span class="line">//选项框 判断如果新数组中有值则显示本备选框</span><br><span class="line">&lt;ul class=&quot;ulAdd&quot; v-if=&quot;searchResult&quot;&gt;	</span><br><span class="line">	&lt;li v-for=&quot;(item, index) in searchResult&quot;</span><br><span class="line">		:class=&quot;&#123;bgColor: index === now&#125;&quot;	//渲染样式</span><br><span class="line">		@click=&quot;alertFn&quot;	//点击将选中项目展示到input框中</span><br><span class="line">		@mouseenter=&quot;mouseEnter(index)&quot;	//渲染鼠标移入/移出样式</span><br><span class="line">		@mouseleave=&quot;mouseleave&quot;&gt;&#123;&#123; item.name &#125;&#125;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="2-数据"><a href="#2-数据" class="headerlink" title="2.数据"></a>2.数据</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">searchVal: &apos;&apos;, //绑定name</span><br><span class="line">searchResult: [],   //匹配结果</span><br><span class="line">now: -1,        //索引</span><br><span class="line">nameList: [	//name列表</span><br><span class="line">	&#123;name: &apos;张三&apos;,id: &apos;9001&apos;&#125;,</span><br><span class="line">	&#123;name: &apos;张四&apos;,id: &apos;9002&apos;&#125;,</span><br><span class="line">	&#123;name: &apos;李三&apos;,id: &apos;9003&apos;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h5 id="3-事件处理"><a href="#3-事件处理" class="headerlink" title="3.事件处理"></a>3.事件处理</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">//过滤</span><br><span class="line">searchFn (e) &#123;</span><br><span class="line">	let val = e.target.value;	//输入的值</span><br><span class="line">	this.searchResult = [];		//清空存结果的数组</span><br><span class="line">	if (val) &#123;</span><br><span class="line">		this.nameList.forEach(function(item) &#123;</span><br><span class="line">			let pattern = new RegExp(&apos;&apos;+val, &apos;g&apos;);	//正则校验</span><br><span class="line">			if (pattern.test(item.name)) &#123;</span><br><span class="line">				this.searchResult.push(&#123;name: item.name,id: item.id&#125;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;.bind(this)); // 绑定当前实例对象</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//将选中项目展示到input框中</span><br><span class="line">alertFn () &#123;</span><br><span class="line">	this.searchVal = this.searchResult[this.now].agentname;</span><br><span class="line">	this.searchResult = [];</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//按键盘↓键</span><br><span class="line">changeDown () &#123;</span><br><span class="line">	this.now ++;</span><br><span class="line">	if(this.now == this.searchResult.length) &#123;</span><br><span class="line">		this.now = -1;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//按键盘↑键</span><br><span class="line">changeUp () &#123;</span><br><span class="line">	this.now --;</span><br><span class="line">	if (this.now === -2) &#123;</span><br><span class="line">		this.now = this.searchResult.length;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//回车将选中项目展示到input框中</span><br><span class="line">enter () &#123;</span><br><span class="line">	this.searchVal = this.searchResult[this.now].agentname;</span><br><span class="line">	this.searchResult = [];</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//清空结果</span><br><span class="line">deleteList () &#123;</span><br><span class="line">	this.searchResult = [];</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//鼠标移入</span><br><span class="line">mouseEnter (index) &#123;</span><br><span class="line">	this.now = index;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//鼠标移出</span><br><span class="line">mouseleave (index) &#123;</span><br><span class="line">	this.now = -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="注"><a href="#注" class="headerlink" title="注"></a>注</h5><p>&emsp;&emsp;样式自定义即可。</p>
-<hr>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>功能实现，且完成了一定的优化，但存在一定的不足：</p>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p><font size="2" color="#aaa">注：适用于windows系统</font><br><strong>本文讲述要点：</strong></p>
 <ol>
-<li>数组循环可用新语法；</li>
-<li>多个方法可合并；</li>
-<li>可以进一步优化，做出输入字母也同样联想。</li>
+<li>vue-cli项目搭建基本环境配置；</li>
+<li>常用插件描述及分享；</li>
+<li>项目运行、调试及打包；</li>
+<li>项目配置及优化；</li>
 </ol>
+<a id="more"></a>
+<p><strong>适用人群：</strong></p>
+<ol>
+<li>vue小白；</li>
+<li>有html\css\js编程基础；</li>
+<li>vue项目整体优化（打包后压缩空间）；</li>
+</ol>
+<hr>
+<h4 id="一、准备阶段"><a href="#一、准备阶段" class="headerlink" title="一、准备阶段"></a>一、准备阶段</h4><p><font size="2" color="#aaa">准备阶段会将项目环境配置完毕,包含<code>node</code>、<code>npm</code>、<code>webpack</code>和<code>vue-cli</code>。已经完成的小伙伴可以跳过此步骤看第二阶段。</font></p>
+<h5 id="1-安装node及npm"><a href="#1-安装node及npm" class="headerlink" title="1.安装node及npm"></a>1.安装<code>node</code>及<code>npm</code></h5><p>&emsp;&emsp;从node.js中文网下载并安装<a href="http://nodejs.cn/download/" title="nodejs" target="_blank" rel="noopener">nodejs</a>点击下载<code>.msi</code>的32/64位安装包，然后双击本地文件一路点击<code>下一步</code>完成<code>nodeJs</code>的安装即可。<font size="2" color="#ff6666">注意安装8.10以上版本哟!</font><br>安装完成后，打开命令行工具，输入<code>node -v</code>，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E:\&gt;node -v</span><br><span class="line">v8.12.0		//版本号</span><br></pre></td></tr></table></figure></p>
+<p>顺便在此处继续输入<code>npm -v</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E:\&gt;npm -v</span><br><span class="line">6.4.1		//版本号</span><br></pre></td></tr></table></figure></p>
+<p>你会惊讶的发现<code>npm</code>已经神奇的安装完成了。这是因为<code>npm</code>在安装<code>nodeJs</code>的时候顺带已经装好了。</p>
+<h5 id="2-安装webpack"><a href="#2-安装webpack" class="headerlink" title="2.安装webpack"></a>2.安装<code>webpack</code></h5><p><font size="2" color="blue">注：以下所有<code>npm</code>操作，由于国内速度较慢甚至出现失败，可用淘宝镜像<code>cnpm</code>替代。下列所有<code>npm</code>命令，用<code>cnpm</code>替代即可。方式如下：</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;继续刚才的命令行工具，输入<code>npm install webpack -g</code>，<code>-g代表全局安装</code>。安装完成后继续输入<code>webpack -v</code>，出现相应版本号，代表安装成功。<br>我在安装时出现如下状况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">One CLI for webpack must be installed. These are recommended choices, delivered as separate packages:</span><br><span class="line"> - webpack-cli (https://github.com/webpack/webpack-cli)</span><br><span class="line">   The original webpack full-featured CLI.</span><br><span class="line">We will use &quot;npm&quot; to install the CLI via &quot;npm install -D&quot;.</span><br><span class="line">Do you want to install &apos;webpack-cli&apos; (yes/no):</span><br></pre></td></tr></table></figure></p>
+<p>解决方案是：输入<code>npm install  webpack-cli -g</code>。安装成功后执行<code>webpack -v</code>查看版本号，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">E:\&gt;npm install  webpack-cli -g</span><br><span class="line">*</span><br><span class="line">*  安</span><br><span class="line">*  装				省</span><br><span class="line">*  过				略</span><br><span class="line">*  程</span><br><span class="line">*</span><br><span class="line"></span><br><span class="line">E:\&gt;webpack -v</span><br><span class="line">4.29.6	//版本号</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-安装vue脚手架vue-cli"><a href="#3-安装vue脚手架vue-cli" class="headerlink" title="3.安装vue脚手架vue-cli"></a>3.安装vue脚手架<code>vue-cli</code></h5><p>&emsp;&emsp;继续上面的命令行工具。接下来就是安装配置今天的主角了，vue脚手架工具<code>vue-cli</code>。方法一样，键入命令行<code>npm install vue-cli -g</code>全局安装，然后输入<code>vue -V</code><font size="1" color="red">注：是大写的<code>-V</code></font>检测是否安装成功。如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E:\&gt;vue -V</span><br><span class="line">2.9.6		//版本号</span><br></pre></td></tr></table></figure></p>
+<h5 id="4-小结"><a href="#4-小结" class="headerlink" title="4.小结"></a>4.小结</h5><p>&emsp;&emsp;至此，我们已经完成了准备阶段的工作。主要完成的是<code>node</code>、<code>npm</code>、<code>webpack</code>和<code>vue-cli</code>四个工具的环境配置。目前为止，我们在命令行工具的总结应该是如下：<font color="#aaa" size="1">版本号不必一致</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">E:\&gt;node -v</span><br><span class="line">v8.12.0</span><br><span class="line"></span><br><span class="line">E:\&gt;npm -v</span><br><span class="line">6.4.1</span><br><span class="line"></span><br><span class="line">E:\&gt;webpack -v</span><br><span class="line">4.29.6</span><br><span class="line"></span><br><span class="line">E:\&gt;vue -V</span><br><span class="line">2.9.6</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="二、项目搭建"><a href="#二、项目搭建" class="headerlink" title="二、项目搭建"></a>二、项目搭建</h4><p><font size="1" color="#aaa">本阶段讲述<code>vue-cli</code>项目搭建及相关配置，包含<code>创建项目</code>、<code>修改基础配置</code>、<code>项目运行</code>三个模块，可自行选择阅读或跳过。</font></p>
+<h5 id="1-项目创建"><a href="#1-项目创建" class="headerlink" title="1.项目创建"></a>1.项目创建</h5><p>&emsp;&emsp;建立一个空文件夹，最好以纯英文命名。例，我项目路径为<code>E&gt;stydy</code>。打开命令行工具，<code>cd</code>到该文件目录下，执行<code>vue init webpack name</code>，<code>name</code>可替换为你要创建的项目名。回车之后，会要求输入一系列的信息，大部分可直接回车略过，注释如下，没有注释的回车略过即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">E:\stydy&gt;vue init webpack blog</span><br><span class="line"></span><br><span class="line">? Project name blog	//项目名</span><br><span class="line">? Project description A Vue.js project	//项目简介</span><br><span class="line">? Author xuan0146 &lt;zxm0146@163.com&gt;	//作者</span><br><span class="line">? Vue build runtime</span><br><span class="line">? Install vue-router? Yes	//使用项目路由</span><br><span class="line">? Use ESLint to lint your code? No	//不开启ESLint语法检测 注意选No</span><br><span class="line">? Set up unit tests Yes</span><br><span class="line">? Pick a test runner jest</span><br><span class="line">? Setup e2e tests with Nightwatch? Yes</span><br><span class="line">? Should we run `npm install` for you after the project has been created? (recommended) npm</span><br><span class="line"></span><br><span class="line">   vue-cli · Generated &quot;blog&quot;.</span><br></pre></td></tr></table></figure></p>
+<p>最后一步选择<code>npm</code>或者<code>yarn</code>则会自动执行<code>npm install</code>安装项目所有依赖包。不选择的话，自己安装也是同样效果。安装步骤为：</p>
+<ol>
+<li><code>cd</code>到项目路径；</li>
+<li>执行<code>npm install</code>；</li>
+<li>等待完成安装即可;</li>
+</ol>
+<h5 id="2-项目介绍"><a href="#2-项目介绍" class="headerlink" title="2.项目介绍"></a>2.项目介绍</h5><p>&emsp;&emsp;<code>cd</code>到该项目，或者打开文件夹，项目目录及备注如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">├── project	//项目目录</span><br><span class="line">│  ├── build	//webpack相关配置</span><br><span class="line">│  │  ├── build.js	//生产环境构建</span><br><span class="line">│  │  ├── check-versions.js	//版本检查</span><br><span class="line">│  │  ├── utils.js	//构建相关工具</span><br><span class="line">│  │  ├── vue-loader.conf.js	//处理vue文件的配置信息</span><br><span class="line">│  │  ├── webpack.base.conf.js	//webpack基础配置</span><br><span class="line">│  │  ├── webpack.dev.conf.js	//webpack开发环境配置</span><br><span class="line">│  │  ├── webpack.prod.conf.js	//webpack生产环境配置</span><br><span class="line">│  ├── config	//vue基本配置</span><br><span class="line">│  │  ├── dev.env.js	//开发环境配置</span><br><span class="line">│  │  ├── index.js	//主要配置</span><br><span class="line">│  │  ├── prod.env.js	//生产环境配置</span><br><span class="line">│  │  ├── test.env.js	//测试环境配置</span><br><span class="line">│  ├── node_modules	//依赖包 忽略</span><br><span class="line">│  ├── src	//项目核心文件</span><br><span class="line">│  │  ├── assets	//静态资源 如公用js\css\image\媒体资源等</span><br><span class="line">│  │  ├── components	//公用组件</span><br><span class="line">│  │  ├── router	//项目路由</span><br><span class="line">│  │  │  ├── index.js	//路由控制文件</span><br><span class="line">│  │  ├── App.vue	//根组件</span><br><span class="line">│  │  ├── main.js	//入口文件</span><br><span class="line">│  ├── static	//静态资源</span><br><span class="line">│  ├── test	//模拟测试</span><br><span class="line">│  ├── .babelrc	//babel参数</span><br><span class="line">│  ├── .editorconfig	//代码格式</span><br><span class="line">│  ├── .gitignore	//git上传相关配置</span><br><span class="line">│  ├── .postcssrc.js	//css相关工具</span><br><span class="line">│  ├── index.html	//主页</span><br><span class="line">│  ├── package-lock.json	//记录当前状态下实际安装的各个npm package的具体来源和版本号</span><br><span class="line">│  ├── package.json	//项目信息</span><br><span class="line">│  ├── README.md	//项目说明</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-启动项目"><a href="#3-启动项目" class="headerlink" title="3.启动项目"></a>3.启动项目</h5><p>&emsp;&emsp;命令行工具键入<code>npm run dev</code>，等待片刻，直到提示如下，则表示启动成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">E:\stydy\blog&gt;npm run dev</span><br><span class="line"></span><br><span class="line">* * * * * * * *</span><br><span class="line">* 启动过程忽略 *</span><br><span class="line">* * * * * * * *</span><br><span class="line"></span><br><span class="line">Your application is running here: http://localhost:8080</span><br></pre></td></tr></table></figure></p>
+<p>然后复制<code>http://localhost:8080</code>，在浏览器地址栏输入该url，进入如下页面：<br><img src="/images/posts/vue运行成功.jpg" alt="vue运行成功" title="vue运行成功"></p>
+<h5 id="4-移动端调试"><a href="#4-移动端调试" class="headerlink" title="4.移动端调试"></a>4.移动端调试</h5><p>&emsp;&emsp;有的人可能要问了，如果我做移动端项目，不能用localhost去访问了吧？当然不能，只需要稍微改一下配置即可。当然，端口号8080一样可以修改，不过一般不做变动。<br>&emsp;&emsp;用代码工具（自己习惯的IDE）打开本项目。首先查看本机电脑ip,键入命令<code>ipconfig</code>，查看如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">E:\stydy\blog&gt;ipconfig</span><br><span class="line">* *</span><br><span class="line">* *</span><br><span class="line">以太网适配器 以太网:</span><br><span class="line"></span><br><span class="line">   连接特定的 DNS 后缀 . . . . . . . :</span><br><span class="line">   本地链接 IPv6 地址. . . . . . . . : fe80::da7:800d:d148:e06%10</span><br><span class="line">   IPv4 地址 . . . . . . . . . . . . : 192.168.200.127</span><br><span class="line">   子网掩码  . . . . . . . . . . . . : 255.255.255.0</span><br><span class="line">   默认网关. . . . . . . . . . . . . : fe80::48:5112:9520:564f%10</span><br><span class="line">                                       192.168.200.1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;其中，<code>IPv4 地址</code>即为我们所需要的ip。在<code>项目/config/index.js</code>中，找到<code>host: &#39;localhost&#39;</code>，改成<code>IPv4 地址</code>，例:我的地址为<code>192.168.200.127</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  dev: &#123;</span><br><span class="line">    host: &apos;192.168.200.127&apos;, 	//localhost改为ip</span><br><span class="line">    port: 8080,		//端口号</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;然后，我们重新启动项目。注意上次项目启动后，由于修改了配置文件，因此需要停止项目然后重新启动。停止项目的命令为<code>Ctrl + C</code>。重启项目后，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">E:\stydy\blog&gt;npm run dev</span><br><span class="line">* * * * * * * *</span><br><span class="line">* 启 动 过 程 *</span><br><span class="line">* * * * * * * *</span><br><span class="line">Your application is running here: http://192.168.200.127:8080</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<font size="2" color="#aaa">注意要在同一网络下</font><br>&emsp;&emsp;最后，我们复制该地址，即可在所有端<code>PC</code>、<code>手机</code>、<code>pad等</code>查看该项目啦~</p>
+<hr>
+<h4 id="三、常用插件"><a href="#三、常用插件" class="headerlink" title="三、常用插件"></a>三、常用插件</h4><p><font size="1" color="#aaa">本章节记录一些vue常用插件，如<code>axios</code>、<code>echarts</code>、<code>sass/scss</code>、<code>lib-flexible</code>、<code>layer</code>等等。所有命令均可用<code>cnpm</code>替代。如不需要可直接跳过。</font></p>
+<h5 id="1-sacc-scss"><a href="#1-sacc-scss" class="headerlink" title="1.sacc/scss"></a>1.sacc/scss</h5><p><strong>用途</strong>：可用<code>sass/scss</code>进行css书写代码。命令行工具依次键入如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install node-sass --save-dev</span><br><span class="line">npm install sass-loader --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，<code>.vue</code>里的<code>style</code>里添加<code>lang=&quot;scss&quot;</code>来指定语言，即可用<code>sass/scss</code>编写css代码。如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style lang=&quot;scss&quot; scoped&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-axios"><a href="#2-axios" class="headerlink" title="2.axios"></a>2.axios</h5><p><strong>用途</strong>：平时前后端交互使用<code>Ajax</code>，在vue官方，给出<code>vue-resource</code>和<code>axios</code>的作为<code>ajax</code>的替代。在此处使用vue官方推荐首选的<code>axios</code>作为案例讲述。</p>
+<ul>
+<li><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install axios</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局引入<br>在<code>项目/src/main.js</code>中引入如下代码，然后随意走个请求，发现……报错？并且在页面F12控制台<code>Newwork&gt;Headers</code>里面发现数据并没有Form Data形式提交，如何处理呢？见下一步解决。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import axios from &apos;axios&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决数据格式问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">//完整请求代码  post为例</span><br><span class="line">this.$axios.post(&apos;url&apos;, &#123;	//路径</span><br><span class="line">  key1: &apos;value&apos;,		//参数</span><br><span class="line">  key2: &apos;value&apos;		//参数</span><br><span class="line">&#125;, </span><br><span class="line"></span><br><span class="line">/* *</span><br><span class="line">* 添加如下代码</span><br><span class="line">* * * * * * start * * * * * </span><br><span class="line">&#123;</span><br><span class="line">  transformRequest: [function (data) &#123;</span><br><span class="line">    let ret = &apos;&apos;;</span><br><span class="line">    for (let it in data) &#123;</span><br><span class="line">	  ret += encodeURIComponent(it) + &apos;=&apos; + encodeURIComponent(data[it]) + &apos;&amp;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    return ret</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  headers: &#123;</span><br><span class="line">    &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">/* * * * * * end * * * * *</span><br><span class="line"></span><br><span class="line">).then((response) =&gt; &#123;	//返回数据</span><br><span class="line">  console.log(response)</span><br><span class="line">&#125;).catch((error) =&gt; &#123;	//请求异常捕捉</span><br><span class="line">  console.log(error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="3-axios解决方案"><a href="#3-axios解决方案" class="headerlink" title="3.axios解决方案"></a>3.axios解决方案</h5><p>&emsp;&emsp;另外一个axios数据格式问题的解决方案。 <code>重磅推荐★★★★★</code>此方案不仅解决数据格式问题，还顺便解决了跨域问题。第一步当然还是安装<code>axios</code>，同上一步。然后，安装<code>qs</code>，命令行工具键入<code>npm install qs --save-dev</code>。然后在<code>项目/src/main.js</code>中配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import axios from &apos;axios&apos;</span><br><span class="line">import qs from &apos;qs&apos;	</span><br><span class="line"></span><br><span class="line">Vue.prototype.$axios = axios;</span><br><span class="line">Vue.prototype.$qs = qs;</span><br></pre></td></tr></table></figure></p>
+<p>然后在<code>项目/config/index.js</code>中，找到<code>proxyTable</code>，配置及说明如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">proxyTable: &#123;</span><br><span class="line">  &apos;/api&apos;: &#123;</span><br><span class="line">    //设置url公用部分</span><br><span class="line">    target: &apos;http://192.168.1.100:8080/&apos;,	</span><br><span class="line">    changeOrigin: true,   // 如果接口跨域，需要进行这个参数配置</span><br><span class="line">    pathRewrite: &#123;</span><br><span class="line">      &apos;^/api&apos;: &apos;&apos;      //这里理解成用‘/api’代替target里面的地址</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<p>配置完成之后，在<code>.vue</code>文件中，请求用例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//参数</span><br><span class="line">let params = this.$qs.stringify(&#123;</span><br><span class="line">  key: value</span><br><span class="line">&#125;);</span><br><span class="line">//请求</span><br><span class="line">this.$axios.post(&apos;/api/test&apos;, params).then((response) =&gt; &#123;</span><br><span class="line">  console.log(response);</span><br><span class="line">&#125;).catch((error) =&gt; &#123;</span><br><span class="line">  console.log(error);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>最后，键入命令<code>npm run dev</code>，发现请求数据格式已经成为<code>Form Data</code>的格式，并且及时后端不处理跨域问题，也依然正常可用。原因是<code>proxy</code>作为中间层，先将数据请求回本地，此过程是中间层node请求后台，不存在跨域。然后请求过来的数据放在本地，前端再去请求这个数据，就可以解决跨域问题了。</p>
+<center>未完待续…</center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       
     </div>
@@ -492,38 +576,6 @@
 	<div>
 		  
 			
-<div class="my_post_copyright">
-  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-  
-  <!-- JS库 sweetalert 可修改路径 -->
-  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-  <script src="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.main.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.css">
-
-  <p><span>本文标题:</span>js/vue输入联想功能</p>
-  <p><span>文章作者:</span>Lomo 朱幸民</p>
-  <p><span>发布时间:</span>2019年03月04日 - 14:22:13</p>
-  <p><span>最后更新:</span>2019年03月04日 - 16:36:59</p>
-  <p><span>原始链接:</span><a href="/2019/03/04/js-vue输入联想功能/" title="js/vue输入联想功能">js/vue输入联想功能</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2019/03/04/js-vue输入联想功能/" aria-label="复制成功！"></i></span>
-  </p>
-  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
-</div>
-<script> 
-    var clipboard = new Clipboard('.fa-clipboard');
-    clipboard.on('success', $(function(){
-      $(".fa-clipboard").click(function(){
-        swal({   
-          title: "",   
-          text: '复制成功',   
-          html: false,
-          timer: 500,   
-          showConfirmButton: false
-        });
-      });
-    }));  
-</script>
-
 		  
 	</div>
     
@@ -565,13 +617,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
-          
             <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
           
-            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
-          
-            <a href="/tags/输入框联想/" rel="tag"><i class="fa fa-tag"></i> 输入框联想</a>
+            <a href="/tags/vue-cli/" rel="tag"><i class="fa fa-tag"></i> vue-cli</a>
           
         </div>
       
@@ -584,8 +632,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/28/vue项目打包后资源路径与背景图路径问题/" rel="next" title="vue项目打包后资源路径与背景图路径问题">
-                <i class="fa fa-chevron-left"></i> vue项目打包后资源路径与背景图路径问题
+              <a href="/2019/03/25/《面纱》随笔/" rel="next" title="《面纱》随笔">
+                <i class="fa fa-chevron-left"></i> 《面纱》随笔
               </a>
             
           </div>
@@ -593,10 +641,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/10/《惊奇队长》随笔/" rel="prev" title="《惊奇队长》随笔">
-                《惊奇队长》随笔 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -769,7 +813,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现功能如下"><span class="nav-text">实现功能如下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍"><span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-HTML"><span class="nav-text">1.HTML</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-数据"><span class="nav-text">2.数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-事件处理"><span class="nav-text">3.事件处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注"><span class="nav-text">注</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一、准备阶段"><span class="nav-text">一、准备阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-安装node及npm"><span class="nav-text">1.安装node及npm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-安装webpack"><span class="nav-text">2.安装webpack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-安装vue脚手架vue-cli"><span class="nav-text">3.安装vue脚手架vue-cli</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-小结"><span class="nav-text">4.小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、项目搭建"><span class="nav-text">二、项目搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-项目创建"><span class="nav-text">1.项目创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-项目介绍"><span class="nav-text">2.项目介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-启动项目"><span class="nav-text">3.启动项目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-移动端调试"><span class="nav-text">4.移动端调试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、常用插件"><span class="nav-text">三、常用插件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-sacc-scss"><span class="nav-text">1.sacc/scss</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-axios"><span class="nav-text">2.axios</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-axios解决方案"><span class="nav-text">3.axios解决方案</span></a></li></ol></li></ol></div>
             
 
           </div>
