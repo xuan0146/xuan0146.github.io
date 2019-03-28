@@ -213,6 +213,93 @@ npm install sass-loader --save-dev
 ...
 </style>
 ```
+##### 2.axios
+**用途**：平时前后端交互使用`Ajax`，在vue官方，给出`vue-resource`和`axios`的作为`ajax`的替代。在此处使用vue官方推荐首选的`axios`作为案例讲述。
+- 安装
+```
+npm install axios
+```
+- 全局引入
+在`项目/src/main.js`中引入如下代码，然后随意走个请求，发现……报错？并且在页面F12控制台`Newwork>Headers`里面发现数据并没有Form Data形式提交，如何处理呢？见下一步解决。
+```
+import axios from 'axios'
+```
+
+- 解决数据格式问题
+```
+//完整请求代码  post为例
+this.$axios.post('url', {	//路径
+  key1: 'value',		//参数
+  key2: 'value'		//参数
+}, 
+
+/* *
+* 添加如下代码
+* * * * * * start * * * * * 
+{
+  transformRequest: [function (data) {
+    let ret = '';
+    for (let it in data) {
+	  ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&';
+    }
+    return ret
+    }
+  ],
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+}
+/* * * * * * end * * * * *
+
+).then((response) => {	//返回数据
+  console.log(response)
+}).catch((error) => {	//请求异常捕捉
+  console.log(error)
+})
+```
+##### 3.axios解决方案
+&emsp;&emsp;另外一个axios数据格式问题的解决方案。 `重磅推荐★★★★★`此方案不仅解决数据格式问题，还顺便解决了跨域问题。第一步当然还是安装`axios`，同上一步。然后，安装`qs`，命令行工具键入`npm install qs --save-dev`。然后在`项目/src/main.js`中配置如下：
+```
+import axios from 'axios'
+import qs from 'qs'	
+
+Vue.prototype.$axios = axios;
+Vue.prototype.$qs = qs;
+```
+然后在`项目/config/index.js`中，找到`proxyTable`，配置及说明如下：
+```
+proxyTable: {
+  '/api': {
+    //设置url公用部分
+    target: 'http://192.168.1.100:8080/',	
+    changeOrigin: true,   // 如果接口跨域，需要进行这个参数配置
+    pathRewrite: {
+      '^/api': ''      //这里理解成用‘/api’代替target里面的地址
+    }
+  }
+},
+```
+配置完成之后，在`.vue`文件中，请求用例如下：
+```
+//参数
+let params = this.$qs.stringify({
+  key: value
+});
+//请求
+this.$axios.post('/api/test', params).then((response) => {
+  console.log(response);
+}).catch((error) => {
+  console.log(error);
+})
+```
+最后，键入命令`npm run dev`，发现请求数据格式已经成为`Form Data`的格式，并且及时后端不处理跨域问题，也依然正常可用。原因是`proxy`作为中间层，先将数据请求回本地，此过程是中间层node请求后台，不存在跨域。然后请求过来的数据放在本地，前端再去请求这个数据，就可以解决跨域问题了。
+
+
+<center>未完待续...</center>
+
+
+
+
 
 
 
