@@ -200,7 +200,7 @@ Your application is running here: http://192.168.200.127:8080
 
 ------
 #### 三、常用插件
-<font size=1 color=#aaa>本章节记录一些vue常用插件，如`axios`、`echarts`、`sass/scss`、`lib-flexible`、`layer`等等。所有命令均可用`cnpm`替代。如不需要可直接跳过。</font>
+<font size=1 color=#aaa>本章节记录一些vue常用插件，如`axios`、`echarts`、`sass/scss`、`lib-flexible`等等。所有命令均可用`cnpm`替代。如不需要可直接跳过。</font>
 ##### 1.sacc/scss
 **用途**：可用`sass/scss`进行css书写代码。命令行工具依次键入如下命令：
 ```
@@ -292,10 +292,286 @@ this.$axios.post('/api/test', params).then((response) => {
   console.log(error);
 })
 ```
-最后，键入命令`npm run dev`，发现请求数据格式已经成为`Form Data`的格式，并且及时后端不处理跨域问题，也依然正常可用。原因是`proxy`作为中间层，先将数据请求回本地，此过程是中间层node请求后台，不存在跨域。然后请求过来的数据放在本地，前端再去请求这个数据，就可以解决跨域问题了。
+最后，键入命令`npm run dev`，发现请求数据格式已经成为`Form Data`的格式，并且即使后端不处理跨域问题，也依然正常可用。原因是`proxy`作为中间层，先将数据请求回本地，此过程是中间层node请求后台，不存在跨域。然后请求过来的数据放在本地，前端再去请求这个数据，就可以解决跨域问题了。
+##### 4.echarts可视化
+&emsp;&emsp;如今相信大家不少项目需要用到数据可视化吧？各种统计图表、炫酷可视化效果等等，都需要一个不错的插件去支撑，比如`D3`、`AnyChart`、`echarts`、`HighCharts`等等。本案例用百度的`echarts`作为案例讲解。
+- 安装依赖
+惯例，先装依赖。命令行工具执行`npm install echarts --save-dev`。
+- 全局配置
+安装完成后，全局引入。引入方法：进入`项目/src/main.js`，如下操作：
+```
+import echarts from 'echarts'
+
+Vue.prototype.$echarts = echarts
+```
+- 使用
+在`***.vue`组件中即可正常使用。我在此处用`Hello.vue`写示例：
+```
+//template
+<div id="demo"></div>
+
+//script
+let myChart = this.$echarts.init(document.getElementById('demo')); //初始化
+//myChart.clear();	//根据需求配置
+myChart.setOption({ // 图表配置
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [{
+    data: [820, 932, 901, 934, 1290, 1330, 1320],
+    type: 'line',
+    smooth: true
+  }]
+});
+
+//style
+#demo{
+  width: 500px;
+  height: 500px;
+}
+```
+- 效果图
+![echarts效果图](/images/posts/echartsDemo.png 'echarts效果图')
+- 按需引入
+试过之后会发现echarts的包很大，会导致打包之后文件过大，因此如果不是刚需的情况下，建议按需引入来完成页面，会节省许多资源及开销。首先，将刚才`项目/src/main.js`中的两行代码注释掉。接下来，依然以`Hello.vue`举例，如下：
+```
+//template && style 不作变动
+
+//script
+const echarts = require('echarts/lib/echarts');	//基本模板
+require('echarts/lib/chart/line');	//折线图组件
+require('echarts/lib/component/title');	//标题组件
+
+ // 初始化实例
+let myChart = echarts.init(document.getElementById('demo'));
+// 图表配置
+myChart.setOption({
+  title: { text: '引入title组件可使用标题' },
+  * * * * * * * *
+  * 别的配置不变 *
+  * * * * * * * *
+});
+```
+##### 5.lib-flexible | px2rem-loader
+&emsp;&emsp;lib-flexible作用在于写页面的时候实现自适应效果，包括文图排本等。需要配合`px2rem-loader`使用。步骤如下：
+- 安装依赖
+```
+npm i lib-flexible --save-dev
+
+npm install px2rem-loader --save-dev
+```
+- 引入
+`项目/src/main.js`中做如下配置：
+```
+import 'lib-flexible
+```
+- 主页添加视口配置
+`项目/index.html`中的`head`中添加：
+```
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+- px2rem配置
+`项目/build/utils.js`中如下配置，然后重启项目即可：
+```
+//自适应字体配置
+const px2remLoader = {
+  loader: 'px2rem-loader',
+  options: {
+    remUnit: 37.5   //设计稿的宽度除以 10，现阶段一般设计稿的宽度都为750px。如果基于iPhone5设计则为32.0(320 / 10 = 32)
+  }
+}
+
+function generateLoaders (loader, loaderOptions) {
+  const loaders = options.usePostCSS ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, px2remLoader]
+
+  * * *
+}
+```
+- 更多关于***px2rem***的介绍请移步**[官网](https://www.npmjs.com/package/px2rem)**
+
+------
+#### 四、项目打包
+<font size=1 color=#aaa>本章节介绍`打包`以及去除打包后资源中的`.map`文件。</font>
+开发完成后，怎么打包到线上呢？emm...this is a problem.
+##### 1.打包
+命令行工具`cd`到该项目下，执行`npm run build`来构建项目：
+```
+E:\stydy\blog>npm run build
+
+                                                  Asset       Size  Chunks                    Chunk Names
+               static/js/vendor.38756a8637fc194013f9.js     442 kB       0  [emitted]  [big]  vendor
+                  static/js/app.0b5326236ed4caddb252.js     1.1 kB       1  [emitted]         app
+             static/js/manifest.2ae2e69a05c33dfc65f8.js  857 bytes       2  [emitted]         manifest
+    static/css/app.26e0081e2c66d97635076ad7fefbb5b6.css  164 bytes       1  [emitted]         app
+static/css/app.26e0081e2c66d97635076ad7fefbb5b6.css.map  348 bytes          [emitted]
+           static/js/vendor.38756a8637fc194013f9.js.map    2.38 MB       0  [emitted]         vendor
+              static/js/app.0b5326236ed4caddb252.js.map    8.47 kB       1  [emitted]         app
+         static/js/manifest.2ae2e69a05c33dfc65f8.js.map    4.97 kB       2  [emitted]         manifest
+                                             index.html  571 bytes          [emitted]
+
+  Build complete.
+```
+##### 2.位置
+打包完成后，去哪儿了呢？然后会发现在项目路径下，出现了一个`dist`的文件夹，这里面就是所谓的*** 包 ***了。如下：
+```
+├── project	
+│  ├── build	
+│  ├── config	
+│  ├── dist		// 包	
+│  │  ├── static	// 压缩后的资源
+│  │  ├── index.html	// 主页
+│  ├── node_modules	
+│  ├── src	
+│  ├── static	
+│  ├── test	
+│  ├── .babelrc	
+│  ├── .editorconfig	
+│  ├── .gitignore	
+│  ├── .postcssrc.js	
+│  ├── index.html	
+│  ├── package-lock.json	
+│  ├── package.json	
+│  ├── README.md	
+```
+##### 3.问题&解决
+细心的你可能发现了，`dist/static/css(或js)`里面，每个css文件和js文件下有一个同名的`.map`文件，非常占空间，那它是做什么的呢？又怎么消除呢？
+- 作用  
+查过资料的小伙伴知道了，`.map`文件的作用就是：**项目打包后，代码都是经过压缩加密的，如果运行时报错，输出的错误信息无法准确得知是哪里的代码报错。有了map就可以像未加密的代码一样，准确的输出是哪一行哪一列有错。**
+- 如何解决
+那么该如何处理这些文件呢？进入`项目/config/index.js`，定位到`productionSourceMap`，将其值改为`false`即可。如下：
+```
+productionSourceMap: false,
+```
+- 重新打包验证
+在命令行工具重新执行`npm run build`，发现`.map`文件已经消失，问题解决。如下：
+```
+E:\stydy\blog>npm run build
+
+                                              Asset       Size  Chunks                    Chunk Names
+           static/js/vendor.38756a8637fc194013f9.js     442 kB       0  [emitted]  [big]  vendor
+              static/js/app.3c96ecd23cc6dc073a3e.js    1.05 kB       1  [emitted]         app
+         static/js/manifest.2ae2e69a05c33dfc65f8.js  799 bytes       2  [emitted]         manifest
+static/css/app.26e0081e2c66d97635076ad7fefbb5b6.css   95 bytes       1  [emitted]         app
+                                         index.html  571 bytes          [emitted]
+
+  Build complete.
+```
+------
+#### 五、包优化
+&emsp;&emsp;在项目逐渐壮大之后，虽然说上面已经讲述过了如何去除`.map`文件，但是其中许多`.js`文件的体积也不容小觑。尤其是发布到线上以后，某些css/js单个文件体积极可能超上兆的大小，如果项目服务器带宽不够，但是页面迸发量不低的话，分分钟就可能挂掉。有没有什么方法能进一步将包优化呢？
+##### 1.gzip打包压缩
+- 安装gzip
+惯例，打开命令行工具，安装`gzip`
+```
+npm install compression-webpack-plugin@1.1.11 --save-dev
+```
+- 配置
+`项目/config/index.js`中，定位到`productionGzip`，改为`true`：
+```
+productionGzip: true,
+```
+- 重新打包
+`npm run build`走起，会发现打包的文件中多了同名的`.gz`文件，体积大概压缩了2/3，很棒的体验。如下：
+```
+E:\stydy\blog>npm run build
+
+                                              Asset       Size  Chunks                    Chunk Names
+           static/js/vendor.38756a8637fc194013f9.js     442 kB       0  [emitted]  [big]  vendor
+              static/js/app.3c96ecd23cc6dc073a3e.js    1.05 kB       1  [emitted]         app
+         static/js/manifest.2ae2e69a05c33dfc65f8.js  799 bytes       2  [emitted]         manifest
+static/css/app.26e0081e2c66d97635076ad7fefbb5b6.css   95 bytes       1  [emitted]         app
+                                         index.html  571 bytes          [emitted]
+        static/js/vendor.38756a8637fc194013f9.js.gz     155 kB          [emitted]
+
+  Build complete.
+```
+- nginx配置
+虽然很给力的节省了许多资源，但是需要运维配合，在`gninx.conf`配置文件中做如下配置：
+```
+http {  
+  gzip on;
+  gzip_disable "msie6"; 
+  gzip_vary on; 
+  gzip_proxied any;
+  gzip_comp_level 8;  //压缩级别
+  gzip_buffers 16 8k;
+  #gzip_http_version 1.1;
+  gzip_min_length 100; //不压缩临界值
+  gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+}
+```
+##### 2.采用cdn加速
+&emsp;&emsp;顾名思义，即将一些比较大的插件放在第三方服务器上去加载，这样不仅快很多，也能更加节约自己的服务器资源及宽带资源。我们一般选用`unpkg`或者`BootCDN`来作为第三方。在此处我们使用`BootCDN`来作为第三方加速使用。想了解更多相关知识请点击**[unpkg](https://unpkg.com)** **[BootCDN](https://www.bootcdn.cn/)**。
+- 查找包
+打开**[BootCDN](https://www.bootcdn.cn/)**，在搜索栏搜索想要的第三方资源。如，我想要替换的是`echarts`、`Vue`、`axios`，则依次搜索`echarts`...，然后查找我想要的版本，然后`复制<script>标签`。
+- 插入
+在`项目/index.html`中将标签插入，如下：
+```
+<body>
+<div id="app"></div>
+//插入在这里
+<script src="https://cdn.bootcss.com/vue/2.5.20/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts-en.common.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.js"></script>
+</body>
+```
+- webpack配置
+打开`项目/build/webpack.base.conf.js`中，添加`externals`:
+```
+module.exports = {
+  context: path.resolve(__dirname, '../'),
+  //..	
+  externals:{
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'echarts':'echarts',
+    'axios':'axios',
+  }
+
+}
+```
+- main配置
+打开`项目/src/main.js`，将`Vue`等注释掉即可。不注释也可。
+```
+// import Vue from 'vue'
+```
+- 打包
+最后，见证奇迹的时刻就要到了~
+```
+E:\stydy\blog>npm run build
+
+                                              Asset       Size  Chunks             Chunk Names
+           static/js/vendor.1f9d0533037be66c61cf.js    12.3 kB       0  [emitted]  vendor
+              static/js/app.912fd568ff845fde7c09.js    1.36 kB       1  [emitted]  app
+         static/js/manifest.2ae2e69a05c33dfc65f8.js  799 bytes       2  [emitted]  manifest
+static/css/app.edc64bd802cdc531977a30fcc8a9d6e1.css   62 bytes       1  [emitted]  app
+                                         index.html  876 bytes          [emitted]
+        static/js/vendor.1f9d0533037be66c61cf.js.gz    4.62 kB          [emitted]
+
+  Build complete.
+```
+- 搞定
+上次打包，`vendor`大小为**442kB**，本次打包，疯狂缩小至**12.3kB**。神不神奇~厉不厉害~
+
+------
+#### 结语
+&emsp;&emsp;到这里，vue项目从环境配置、项目搭建，到结构介绍、常用插件依赖安装使用做了比较详细的介绍，最后将项目优化也做了一定的补充。
+&emsp;&emsp;<font color=deepskyblue>学而时习之，温故而知新。</font>至此，以上。
 
 
-<center>未完待续...</center>
+
+
+
+
+
+
+
+
 
 
 
