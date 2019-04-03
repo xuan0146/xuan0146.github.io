@@ -160,7 +160,7 @@ E:\stydy\blog>npm run dev
 Your application is running here: http://localhost:8080
 ```
 然后复制`http://localhost:8080`，在浏览器地址栏输入该url，进入如下页面：
-![vue运行成功](/images/posts/vue运行成功.jpg 'vue运行成功')
+![vue运行成功](/images/posts/vue运行成功.png 'vue运行成功')
 
 ##### 4.移动端调试
 &emsp;&emsp;有的人可能要问了，如果我做移动端项目，不能用localhost去访问了吧？当然不能，只需要稍微改一下配置即可。当然，端口号8080一样可以修改，不过一般不做变动。
