@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="前端,vue,js,">
 
 
 
@@ -94,16 +94,18 @@
 
 
 
-<meta name="description" content="Lomo blog | 朱幸民个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lomo | 朱幸民">
-<meta property="og:url" content="https://www.zhuxingmin.com/archives/page/2/index.html">
+<meta name="description" content="前言&amp;emsp;&amp;emsp;熟悉vue的小伙伴们都知道vue属于MVVM框架，数据可以驱动视图。一般来说，vue中的data发生变化，视图中绑定的data值也会随之发生变化。然而还是有特殊情况的，例如关于数组|对象的某些操作。&amp;emsp;&amp;emsp;根据官方文档定义：  如果在实例创建之后添加新的属性到实例上，它不会触发视图更新。">
+<meta name="keywords" content="前端,vue,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue之data中数组改变如何驱动视图">
+<meta property="og:url" content="https://www.zhuxingmin.com/2019/04/09/vue之data中数组改变如何驱动视图/index.html">
 <meta property="og:site_name" content="Lomo | 朱幸民">
-<meta property="og:description" content="Lomo blog | 朱幸民个人博客">
+<meta property="og:description" content="前言&amp;emsp;&amp;emsp;熟悉vue的小伙伴们都知道vue属于MVVM框架，数据可以驱动视图。一般来说，vue中的data发生变化，视图中绑定的data值也会随之发生变化。然而还是有特殊情况的，例如关于数组|对象的某些操作。&amp;emsp;&amp;emsp;根据官方文档定义：  如果在实例创建之后添加新的属性到实例上，它不会触发视图更新。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-09T09:20:53.738Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lomo | 朱幸民">
-<meta name="twitter:description" content="Lomo blog | 朱幸民个人博客">
+<meta name="twitter:title" content="vue之data中数组改变如何驱动视图">
+<meta name="twitter:description" content="前言&amp;emsp;&amp;emsp;熟悉vue的小伙伴们都知道vue属于MVVM框架，数据可以驱动视图。一般来说，vue中的data发生变化，视图中绑定的data值也会随之发生变化。然而还是有特殊情况的，例如关于数组|对象的某些操作。&amp;emsp;&amp;emsp;根据官方文档定义：  如果在实例创建之后添加新的属性到实例上，它不会触发视图更新。">
 
 
 
@@ -133,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zhuxingmin.com/archives/page/2/">
+  <link rel="canonical" href="https://www.zhuxingmin.com/2019/04/09/vue之data中数组改变如何驱动视图/">
 
 
 
 
 
-  <title>归档 | Lomo | 朱幸民</title>
+  <title>vue之data中数组改变如何驱动视图 | Lomo | 朱幸民</title>
   
 
 
@@ -158,7 +160,7 @@
     
   
 
-  <div class="container sidebar-position-right page-archive">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -284,181 +286,315 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2019/04/09/vue之data中数组改变如何驱动视图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lomo 朱幸民">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headImg.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lomo | 朱幸民">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h2 class="post-title" itemprop="name headline">vue之data中数组改变如何驱动视图</h2>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T16:06:36+08:00">
+                2019-04-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-09T17:20:53+08:00">
+                2019-04-09
+              </time>
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 14 篇日志。 继续努力。
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">前端笔记</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2019">2019</h2>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
+             <span id="/2019/04/09/vue之data中数组改变如何驱动视图/" class="leancloud_visitors" data-flag-title="vue之data中数组改变如何驱动视图">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/23/vue-cli自适应-flexible屏幕字体自适应布局及配置/" itemprop="url">
+          
+
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">vue-cli自适应|flexible屏幕字体自适应布局及配置</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  429字
+                </span>
               
-            </a>
-        
-      </h3>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-23T23:53:41+08:00" content="2019-02-23">
-          02-23
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1分钟
+                </span>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/23/《小狗钱钱1》随想/" itemprop="url">
-              
-                <span itemprop="name">《小狗钱钱1》随想</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-23T00:28:02+08:00" content="2019-02-23">
-          02-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/22/Vue打包后map文件处理/" itemprop="url">
-              
-                <span itemprop="name">Vue打包后map文件处理</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-22T11:44:51+08:00" content="2019-02-22">
-          02-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&emsp;&emsp;熟悉vue的小伙伴们都知道vue属于<code>MVVM</code>框架，数据可以驱动视图。一般来说，vue中的data发生变化，视图中绑定的data值也会随之发生变化。然而还是有特殊情况的，例如关于数组|对象的某些操作。<br>&emsp;&emsp;根据官方文档定义：</p>
+<blockquote>
+<p><strong>如果在实例创建之后添加新的属性到实例上，它不会触发视图更新。</strong><br><a id="more"></a></p>
+</blockquote>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>&emsp;&emsp;例：data中有一对象数组<code>arr</code>，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">// html</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">	&lt;li v-for=&quot;(item, index) in arr&quot;&gt;</span><br><span class="line">		&#123;&#123; index + 1 &#125;&#125; - &#123;&#123; item &#125;&#125; </span><br><span class="line">		&lt;button @click=&quot;change(index)&quot;&gt;change&lt;/button&gt;</span><br><span class="line">	&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// js</span><br><span class="line">data: &#123;</span><br><span class="line">	arr: [</span><br><span class="line">		&#123;</span><br><span class="line">			id: 0,</span><br><span class="line">			son: [</span><br><span class="line">				&#123;</span><br><span class="line">					name: &apos;son1&apos;</span><br><span class="line">				&#125;,</span><br><span class="line">				&#123;</span><br><span class="line">					name: &apos;son2&apos;</span><br><span class="line">				&#125;</span><br><span class="line">			]</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			id: 1,</span><br><span class="line">			son: [</span><br><span class="line">				&#123;</span><br><span class="line">					name: &apos;son1&apos;</span><br><span class="line">				&#125;,</span><br><span class="line">				&#123;</span><br><span class="line">					name: &apos;son2&apos;</span><br><span class="line">				&#125;</span><br><span class="line">			]</span><br><span class="line">		&#125;</span><br><span class="line">	],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在将数据绑定到视图中以后，点击change将当前点击的数组子项添加了一个id：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// ...</span><br><span class="line">methods: &#123;</span><br><span class="line">	change (index) &#123;</span><br><span class="line">		this.arr[index].son.forEach((item, index) =&gt; &#123;</span><br><span class="line">			item.id = index + 1;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;点击之后，data中的arr数组发生了改变，按理说即将出现的效果应是数据更新后的视图，但是惊讶的发现视图并没有改变。那么如何解决此问题呢？</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>&emsp;&emsp;使用<font color="red" size="3">Vue.set</font>可得到解决。</p>
+<blockquote>
+<p>this.$set(this.data, index, obj)<br>// this.data: 要改变的数据<br>// index: 下标<br>// obj: 修改后的对象 </p>
+</blockquote>
+<p>&emsp;&emsp;如刚才所举之例，解决如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">change (index) &#123;</span><br><span class="line">	this.arr[index].son.forEach((item, index) =&gt; &#123;</span><br><span class="line">		item.id = index + 1;</span><br><span class="line">		this.$set(this.arr[index].son, index, item);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;此时，点击<code>change</code>按钮，则视图实时改变。<br>&emsp;&emsp;问题得以解决。</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/22/浮世三千/" itemprop="url">
-              
-                <span itemprop="name">浮世三千</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-22T10:11:40+08:00" content="2019-02-22">
-          02-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+	
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---本文结束<i class="fa fa-paw"></i>感谢您的阅读---</div>
+    
+</div>
+	  
+	</div>
+	<div>
+		  
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.main.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.css">
+
+  <p><span>本文标题:</span>vue之data中数组改变如何驱动视图</p>
+  <p><span>文章作者:</span>Lomo 朱幸民</p>
+  <p><span>发布时间:</span>2019年04月09日 - 16:06:36</p>
+  <p><span>最后更新:</span>2019年04月09日 - 17:20:53</p>
+  <p><span>原始链接:</span><a href="/2019/04/09/vue之data中数组改变如何驱动视图/" title="vue之data中数组改变如何驱动视图">vue之data中数组改变如何驱动视图</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2019/04/09/vue之data中数组改变如何驱动视图/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+		  
+	</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请作者喝杯咖啡吧~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Lomo 朱幸民 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Lomo 朱幸民 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/27/vue项目搭建及基本配置/" rel="next" title="vue项目搭建及基本配置">
+                <i class="fa fa-chevron-left"></i> vue项目搭建及基本配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+	
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -466,6 +602,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -488,8 +631,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -586,6 +738,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-text">问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案"><span class="nav-text">解决方案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -720,6 +888,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
