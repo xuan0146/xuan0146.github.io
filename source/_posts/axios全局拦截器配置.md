@@ -106,7 +106,7 @@ let params = {
 };
 
 // post请求为例  url不用写公共部分，直接写后面即可
-this.$axios.post('/health/detail/basic',params
+this.$axios.post('/test',params
 ).then((res) => {
 	debugger;
 }).catch((error) => {
