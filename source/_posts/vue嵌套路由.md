@@ -169,7 +169,3 @@ export default new VueRouter({
 - router-link 中，to中的路径要加`/`，代表根路径；
 - 每一个子路由都可以嵌套多个组件；
 - style中加入scoped属性，防止样式互相干扰。
-
-
-
-
