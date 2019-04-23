@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.zhuxingmin.com/"/>
-  <updated>2019-04-22T02:10:12.452Z</updated>
+  <updated>2019-04-23T01:34:37.894Z</updated>
   <id>https://www.zhuxingmin.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>v-html指令渲染出的内容如何添加样式</title>
+    <link href="https://www.zhuxingmin.com/2019/04/22/v-html%E6%8C%87%E4%BB%A4%E6%B8%B2%E6%9F%93%E5%87%BA%E7%9A%84%E5%86%85%E5%AE%B9%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E6%A0%B7%E5%BC%8F/"/>
+    <id>https://www.zhuxingmin.com/2019/04/22/v-html指令渲染出的内容如何添加样式/</id>
+    <published>2019-04-22T12:24:20.000Z</published>
+    <updated>2019-04-23T01:34:37.894Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="关于v-html"><a href="#关于v-html" class="headerlink" title="关于v-html"></a>关于v-html</h4><p>&emsp;&emsp;在vue使用中，指令<code>v-html</code>渲染页面经常用到，类似于jQuery的$(‘x’).html()去渲染。通过指令<code>v-html</code>渲染出来的内容还会带有原来的标签及其样式，如果需要修改或者重设其样式，应该如何去做吗？</p><a id="more"></a><h4 id="采坑"><a href="#采坑" class="headerlink" title="采坑"></a>采坑</h4><p>&emsp;&emsp;首先，我在style中用子级选择器去选中并修改样式，经过猛如虎的操作后，并没生效。F12打开Elements调试，发现在style里面样式根本没加载上去，没有class中也没有类名出现。除此之外，渲染非该指令元素时，所有的类名会跟有<code>[data-v-xxxxxx]</code>的东西。</p><h4 id="爬坑"><a href="#爬坑" class="headerlink" title="爬坑"></a>爬坑</h4><h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>现给出3中方案来解决此问题：</p><ul><li><a href="#1">去掉style中的<code>scoped</code>;</a></li><li><a href="#2"><code>watch</code>监测数据变化;</a></li><li><a href="#3">深度选择器<code>&gt;&gt;&gt;</code></a></li></ul><h5 id="方案1实践"><a href="#方案1实践" class="headerlink" title="方案1实践"></a><a name="1">方案1实践</a></h5><blockquote><font color="deepskyblue">去掉style中的scoped</font></blockquote><p>&emsp;&emsp;在vue组件中，我们写style时，为了防止页面样式冲突，在每个组件中会加上<code>scoped</code>属性。经测试，去掉该属性即可渲染样式成功。但是在组件过多或者项目中大时，经常会出现页面样式冲突，因此该方法<strong><em>不建议使用</em></strong>。</p><h5 id="方案2实践"><a href="#方案2实践" class="headerlink" title="方案2实践"></a><a name="2">方案2实践</a></h5><blockquote><font color="deepskyblue">watch监测数据变化</font></blockquote><p>&emsp;&emsp;在<code>script &gt; export default</code>中,watch属性可监听v-html所绑定值的变化。如果是后台请求的数据，那么可以在watch中监听改数据变化，当数据发生改变驱动视图后，动态绑定一个class来改变子级元素样式。此方法<strong><em>有一定局限性</em></strong>。</p><h5 id="方案3实践"><a href="#方案3实践" class="headerlink" title="方案3实践"></a><a name="3">方案3实践</a></h5><blockquote><font color="deepskyblue">深度选择器 &gt;&gt;&gt;</font></blockquote><p>&emsp;&emsp;此时，深度选择器的应用则脱颖而出。深度选择器<code>&gt;&gt;&gt;</code>，可深度改变子级样式。例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div class=&quot;test&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">// ***</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.test &gt;&gt;&gt; *&#123;</span><br><span class="line">width: 100%;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p><p>&emsp;&emsp;如果使用<code>scss</code>或者<code>less</code>等css扩展语言，则用<code>/deep/</code>替代：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;style scoped type=&quot;text/scss&quot; lang=&quot;scss&quot;&gt;</span><br><span class="line">.test&#123;</span><br><span class="line">/deep/ *&#123;</span><br><span class="line">width: 100%;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p><h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><font size="2" color="gray">&emsp;&emsp;scoped属性导致css仅对当前组件生效，而html绑定渲染出的内容可以理解为是子组件的内容，一般情况下子组件不会被加上对应的属性，所以不会应用带有scoped的css。</font>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;关于v-html&quot;&gt;&lt;a href=&quot;#关于v-html&quot; class=&quot;headerlink&quot; title=&quot;关于v-html&quot;&gt;&lt;/a&gt;关于v-html&lt;/h4&gt;&lt;p&gt;&amp;emsp;&amp;emsp;在vue使用中，指令&lt;code&gt;v-html&lt;/code&gt;渲染页面经常用到，类似于jQuery的$(‘x’).html()去渲染。通过指令&lt;code&gt;v-html&lt;/code&gt;渲染出来的内容还会带有原来的标签及其样式，如果需要修改或者重设其样式，应该如何去做吗？&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端笔记" scheme="https://www.zhuxingmin.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
+    
+      <category term="样式渲染" scheme="https://www.zhuxingmin.com/tags/%E6%A0%B7%E5%BC%8F%E6%B8%B2%E6%9F%93/"/>
+    
+      <category term="v-html" scheme="https://www.zhuxingmin.com/tags/v-html/"/>
+    
+  </entry>
   
   <entry>
     <title>vue嵌套路由</title>
@@ -213,9 +239,9 @@
     
       <category term="随笔" scheme="https://www.zhuxingmin.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
-      <category term="电影" scheme="https://www.zhuxingmin.com/tags/%E7%94%B5%E5%BD%B1/"/>
-    
       <category term="读书笔记" scheme="https://www.zhuxingmin.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="电影" scheme="https://www.zhuxingmin.com/tags/%E7%94%B5%E5%BD%B1/"/>
     
   </entry>
   
