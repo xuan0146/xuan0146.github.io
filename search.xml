@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[vue吸顶效果]]></title>
+    <url>%2F2019%2F04%2F26%2Fvue%E5%90%B8%E9%A1%B6%E6%95%88%E6%9E%9C%2F</url>
+    <content type="text"><![CDATA[关于吸顶 吸顶效果在使得用户在滑动读取数据的时候把产品需要持续展示的控件及信息一直固定在屏幕上方，以便用户操作和交互。 产生背景&emsp;&emsp;随着技术不断更新与用户审美不断提升，一些App中/浏览器中的常用交互也在对用户更加友好，在某些数据展示较多页面或者导航栏页面，为了将栏目划分，使得视图模块更加明显，吸顶效果便在此背景下孕育而生。&emsp;&emsp;那么，我们如何在web端来做一个吸顶效果呢？ 切入正题——吸顶简单效果展示 需求分析 有了效果图，首先我们要分析一下结构： 吸顶上方数据 需要吸顶的元素 吸顶下方数据 接着我们逻辑走一下：(我们设吸顶元素为X) 在页面滑动距离 &lt;= 吸顶元素距离顶端距离时，不吸顶 否则，吸顶 有了这个大前提，继续考虑，如何做到吸顶呢？ 设置该元素的position为fixed属性 动态控制是否展示该样式 扩展：加点动画效果(这里以渐变为示例) 代码及注释1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768// html&lt;template&gt; &lt;div class=&quot;scrollFixed&quot;&gt; &lt;!-- 上方数据 --&gt; &lt;div class=&quot;sTop&quot;&gt; &lt;ul&gt; &lt;li v-for=&quot;(ietm, index) in 10&quot;&gt;这是吸顶上方的第&#123;&#123;index + 1&#125;&#125;条数据&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;!-- 吸顶元素 --&gt; &lt;nav class=&quot;nav&quot; id=&quot;searchBar&quot; :class=&quot;scrollFixed === true ? &apos;isFixed&apos; :&apos;&apos;&quot;&gt;&#123;&#123; text &#125;&#125;&lt;/nav&gt; &lt;!-- 下方数据 --&gt; &lt;div class=&quot;sBottom&quot;&gt; &lt;ul&gt; &lt;li v-for=&quot;(ietm, index) in 30&quot;&gt;这是吸顶下方的第&#123;&#123;index + 1&#125;&#125;条数据&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/div&gt;&lt;/template&gt;// js&lt;script&gt; export default &#123; data() &#123; return &#123; text: &apos;需要吸顶&apos;, scrollFixed: false, offsetTop: 0 &#125; &#125;, methods: &#123; windowScroll () &#123; // 滚动条顶部 距 滚动原点的高度 let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop; /** * 三目运算 * 两个高度比较 * 如果滑动距离 &gt; 吸顶元素到页面顶端距离 动态添加 */ scrollTop &gt;= this.offsetTop ? (this.scrollFixed = true, this.text = &apos;已吸顶&apos;) : (this.scrollFixed = false, this.text = &apos;需要吸顶&apos;); &#125; &#125;, mounted() &#123; // 需吸顶元素 距 离浏览器顶端的高度 this.offsetTop = document.querySelector(&apos;#searchBar&apos;).offsetTop; // 滚动监听 window.addEventListener(&apos;scroll&apos;, this.windowScroll); &#125;, destroyed () &#123; // 关闭 销毁监听 window.removeEventListener(&apos;scroll&apos;, this.windowScroll); &#125; &#125;&lt;/script&gt;&lt;style scoped type=&quot;text/scss&quot; lang=&quot;scss&quot;&gt;.isFixed&#123; position:fixed; top:0; left: 0; z-index:999; background: #12d168; transition: all 1s; color: #7511ff;&#125;// 基本样式略// ......&lt;/style&gt; 备注&emsp;&emsp;此demo在流行浏览器中运行问题不大，但是没有详测兼容性。如果要在生产上运用，务必做好各端兼容。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>吸顶</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[v-html指令渲染出的内容如何添加样式]]></title>
     <url>%2F2019%2F04%2F22%2Fv-html%E6%8C%87%E4%BB%A4%E6%B8%B2%E6%9F%93%E5%87%BA%E7%9A%84%E5%86%85%E5%AE%B9%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E6%A0%B7%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[关于v-html&emsp;&emsp;在vue使用中，指令v-html渲染页面经常用到，类似于jQuery的$(‘x’).html()去渲染。通过指令v-html渲染出来的内容还会带有原来的标签及其样式，如果需要修改或者重设其样式，应该如何去做吗？ 采坑&emsp;&emsp;首先，我在style中用子级选择器去选中并修改样式，经过猛如虎的操作后，并没生效。F12打开Elements调试，发现在style里面样式根本没加载上去，没有class中也没有类名出现。除此之外，渲染非该指令元素时，所有的类名会跟有[data-v-xxxxxx]的东西。 爬坑解决方案现给出3中方案来解决此问题： 去掉style中的scoped; watch监测数据变化; 深度选择器&gt;&gt;&gt; 方案1实践 去掉style中的scoped &emsp;&emsp;在vue组件中，我们写style时，为了防止页面样式冲突，在每个组件中会加上scoped属性。经测试，去掉该属性即可渲染样式成功。但是在组件过多或者项目中大时，经常会出现页面样式冲突，因此该方法不建议使用。 方案2实践 watch监测数据变化 &emsp;&emsp;在script &gt; export default中,watch属性可监听v-html所绑定值的变化。如果是后台请求的数据，那么可以在watch中监听改数据变化，当数据发生改变驱动视图后，动态绑定一个class来改变子级元素样式。此方法有一定局限性。 方案3实践 深度选择器 &gt;&gt;&gt; &emsp;&emsp;此时，深度选择器的应用则脱颖而出。深度选择器&gt;&gt;&gt;，可深度改变子级样式。例：12345678910111213&lt;template&gt; &lt;div class=&quot;test&quot;&gt;&lt;/div&gt;&lt;/template&gt;&lt;script&gt;// ***&lt;/script&gt;&lt;style scoped&gt; .test &gt;&gt;&gt; *&#123; width: 100%; &#125;&lt;/style&gt; &emsp;&emsp;如果使用scss或者less等css扩展语言，则用/deep/替代：1234567&lt;style scoped type=&quot;text/scss&quot; lang=&quot;scss&quot;&gt; .test&#123; /deep/ *&#123; width: 100%; &#125; &#125;&lt;/style&gt; tips&emsp;&emsp;scoped属性导致css仅对当前组件生效，而html绑定渲染出的内容可以理解为是子组件的内容，一般情况下子组件不会被加上对应的属性，所以不会应用带有scoped的css。]]></content>
@@ -40,8 +52,8 @@
       </categories>
       <tags>
         <tag>前端</tag>
-        <tag>vue</tag>
         <tag>js</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -99,8 +111,8 @@
       </categories>
       <tags>
         <tag>随笔</tag>
-        <tag>读书笔记</tag>
         <tag>电影</tag>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -112,8 +124,8 @@
       </categories>
       <tags>
         <tag>前端</tag>
-        <tag>vue</tag>
         <tag>js</tag>
+        <tag>vue</tag>
         <tag>输入框联想</tag>
       </tags>
   </entry>
