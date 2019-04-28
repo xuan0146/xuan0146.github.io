@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.zhuxingmin.com/"/>
-  <updated>2019-04-26T13:03:34.223Z</updated>
+  <updated>2019-04-28T07:53:07.362Z</updated>
   <id>https://www.zhuxingmin.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>js执行——Promise</title>
+    <link href="https://www.zhuxingmin.com/2019/04/28/js%E6%89%A7%E8%A1%8C%E2%80%94%E2%80%94Promise/"/>
+    <id>https://www.zhuxingmin.com/2019/04/28/js执行——Promise/</id>
+    <published>2019-04-28T04:09:15.000Z</published>
+    <updated>2019-04-28T07:53:07.362Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><blockquote><p>Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理且更强大。它最早由社区提出并实现，ES6将其写进了语言标准，统一了用法，并原生提供了Promise对象。</p></blockquote><a id="more"></a><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol><li>对象的状态不受外界影响 （3种状态）<ul><li>Pending状态（进行中）</li><li>Fulfilled状态（已成功）</li><li>Rejected状态（已失败）</li></ul></li><li>一旦状态改变就不会再变 （两种状态改变：成功或失败）<ul><li>Pending -&gt; Fulfilled</li><li>Pending -&gt; Rejected</li></ul></li></ol><h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><h4 id="创建Promise实例"><a href="#创建Promise实例" class="headerlink" title="创建Promise实例"></a>创建Promise实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var promise = new Promise(function(resolve, reject)&#123;</span><br><span class="line">// ... some code</span><br><span class="line"></span><br><span class="line">if (/* 异步操作成功 */) &#123;</span><br><span class="line">resolve(value);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">reject(error);</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>&emsp;&emsp;Promise构造函数接受一个函数作为参数，该函数的两个参数分别是<code>resolve</code>和<code>reject</code>。它们是两个函数，由JavaScript引擎提供，不用自己部署。<br>&emsp;&emsp;resolve作用是将Promise对象状态由“未完成”变为“成功”，也就是<code>Pending -&gt; Fulfilled</code>，在异步操作成功时调用，并将异步操作的结果作为参数传递出去；而reject函数则是将Promise对象状态由“未完成”变为“失败”，也就是<code>Pending -&gt; Rejected</code>，在异步操作失败时调用，并将异步操作的结果作为参数传递出去。</p><h4 id="then"><a href="#then" class="headerlink" title="then"></a>then</h4><p>&emsp;&emsp;Promise实例生成后，可用<code>then</code>方法分别指定两种状态回调参数。then 方法可以接受两个回调函数作为参数：</p><ol><li>Promise对象状态改为Resolved时调用 （必选）</li><li>Promise对象状态改为Rejected时调用 （可选）</li></ol><h4 id="基本用法示例"><a href="#基本用法示例" class="headerlink" title="基本用法示例"></a>基本用法示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">return new Promise(function(resolve, reject) &#123;</span><br><span class="line">setTimeout(resolve, ms);</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line">sleep(500).then( ()=&gt; console.log(&quot;finished&quot;));</span><br></pre></td></tr></table></figure><p>&emsp;&emsp;这段代码定义了一个函数sleep，调用后，等待了指定参数(500)毫秒后执行then中的函数。值得注意的是，Promise新建后就会立即执行。</p><h4 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h4><p>&emsp;&emsp;接下来我们探究一下它的执行顺序，看以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let promise = new Promise(function(resolve, reject)&#123;</span><br><span class="line">console.log(&quot;AAA&quot;);</span><br><span class="line">resolve()</span><br><span class="line">&#125;);</span><br><span class="line">promise.then(() =&gt; console.log(&quot;BBB&quot;));</span><br><span class="line">console.log(&quot;CCC&quot;)</span><br><span class="line"></span><br><span class="line">// AAA</span><br><span class="line">// CCC</span><br><span class="line">// BBB</span><br></pre></td></tr></table></figure></p><p>&emsp;&emsp;执行后，我们发现输出顺序总是 <code>AAA -&gt; CCC -&gt; BBB</code>。表明，在Promise新建后会立即执行，所以<code>首先输出 AAA</code>。然后，then方法指定的回调函数将在当前脚本所有同步任务执行完后才会执行，所以<code>BBB 最后输出</code>。</p><h4 id="与定时器混用"><a href="#与定时器混用" class="headerlink" title="与定时器混用"></a>与定时器混用</h4><p>&emsp;&emsp;首先看一个实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let promise = new Promise(function(resolve, reject)&#123;</span><br><span class="line">console.log(&quot;1&quot;);</span><br><span class="line">resolve();</span><br><span class="line">&#125;);</span><br><span class="line">setTimeout(()=&gt;console.log(&quot;2&quot;), 0);</span><br><span class="line">promise.then(() =&gt; console.log(&quot;3&quot;));</span><br><span class="line">console.log(&quot;4&quot;);</span><br><span class="line"></span><br><span class="line">// 1</span><br><span class="line">// 4</span><br><span class="line">// 3</span><br><span class="line">// 2</span><br></pre></td></tr></table></figure></p><p>&emsp;&emsp;可以看到，结果输出顺序总是：<code>1 -&gt; 4 -&gt; 3 -&gt; 2</code>。1与4的顺序不必再说，而2与3先输出Promise的then，而后输出定时器任务。原因则是Promise属于JavaScript引擎内部任务，而setTimeout则是浏览器API，而引擎内部任务优先级高于浏览器API任务，所以有此结果。</p><h3 id="拓展-async-await"><a href="#拓展-async-await" class="headerlink" title="拓展 async/await"></a>拓展 async/await</h3><h4 id="async"><a href="#async" class="headerlink" title="async"></a>async</h4><p>&emsp;&emsp;顾名思义，异步。async函数对 Generator 函数的改进，async 函数必定返回 Promise，我们把所有返回 Promise 的函数都可以认为是异步函数。特点体现在以下四点：</p><ul><li>内置执行器</li><li>更好的语义</li><li>更广的适用性</li><li>返回值是 Promise</li></ul><h4 id="await"><a href="#await" class="headerlink" title="await"></a>await</h4><p>&emsp;&emsp;顾名思义，等待。正常情况下，await命令后面是一个 Promise 对象，返回该对象的结果。如果不是 Promise 对象，就直接返回对应的值。另一种情况是，await命令后面是一个thenable对象（即定义then方法的对象），那么await会将其等同于 Promise 对象。</p><h4 id="混合使用"><a href="#混合使用" class="headerlink" title="混合使用"></a>混合使用</h4><p>&emsp;&emsp;先看示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">    return new Promise(function(resolve, reject) &#123;</span><br><span class="line">        setTimeout(resolve,ms);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">async function handle()&#123;</span><br><span class="line">    console.log(&quot;AAA&quot;)</span><br><span class="line">    await sleep(5000)</span><br><span class="line">    console.log(&quot;BBB&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handle();</span><br><span class="line"></span><br><span class="line">// AAA</span><br><span class="line">// BBB (5000ms后)</span><br></pre></td></tr></table></figure></p><p>&emsp;&emsp;我们定义函数sleep，返回一个Promise。然后在handle函数前加上async关键词，这样就定义了一个async函数。在该函数中，利用await来等待一个Promise。</p><h3 id="Promise优缺点"><a href="#Promise优缺点" class="headerlink" title="Promise优缺点"></a>Promise优缺点</h3><table><thead><tr><th style="text-align:center">优点</th><th style="text-align:center">缺点</th></tr></thead><tbody><tr><td style="text-align:center">解决回调</td><td style="text-align:center">无法监测进行状态</td></tr><tr><td style="text-align:center">链式调用</td><td style="text-align:center">新建立即执行且无法取消</td></tr><tr><td style="text-align:center">减少嵌套</td><td style="text-align:center">内部错误无法抛出</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Promise&quot;&gt;&lt;a href=&quot;#Promise&quot; class=&quot;headerlink&quot; title=&quot;Promise&quot;&gt;&lt;/a&gt;Promise&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理且更强大。它最早由社区提出并实现，ES6将其写进了语言标准，统一了用法，并原生提供了Promise对象。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="前端笔记" scheme="https://www.zhuxingmin.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
+    
+      <category term="es6" scheme="https://www.zhuxingmin.com/tags/es6/"/>
+    
+      <category term="Promise" scheme="https://www.zhuxingmin.com/tags/Promise/"/>
+    
+      <category term="定时器" scheme="https://www.zhuxingmin.com/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>vue吸顶效果</title>
@@ -134,9 +164,9 @@
     
       <category term="前端" scheme="https://www.zhuxingmin.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
-    
       <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
+    
+      <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
     
   </entry>
   
@@ -265,9 +295,9 @@
     
       <category term="随笔" scheme="https://www.zhuxingmin.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
-      <category term="电影" scheme="https://www.zhuxingmin.com/tags/%E7%94%B5%E5%BD%B1/"/>
-    
       <category term="读书笔记" scheme="https://www.zhuxingmin.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="电影" scheme="https://www.zhuxingmin.com/tags/%E7%94%B5%E5%BD%B1/"/>
     
   </entry>
   
@@ -291,9 +321,9 @@
     
       <category term="前端" scheme="https://www.zhuxingmin.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
-    
       <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
+    
+      <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
     
       <category term="输入框联想" scheme="https://www.zhuxingmin.com/tags/%E8%BE%93%E5%85%A5%E6%A1%86%E8%81%94%E6%83%B3/"/>
     

@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[js执行——Promise]]></title>
+    <url>%2F2019%2F04%2F28%2Fjs%E6%89%A7%E8%A1%8C%E2%80%94%E2%80%94Promise%2F</url>
+    <content type="text"><![CDATA[Promise Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理且更强大。它最早由社区提出并实现，ES6将其写进了语言标准，统一了用法，并原生提供了Promise对象。 特点 对象的状态不受外界影响 （3种状态） Pending状态（进行中） Fulfilled状态（已成功） Rejected状态（已失败） 一旦状态改变就不会再变 （两种状态改变：成功或失败） Pending -&gt; Fulfilled Pending -&gt; Rejected 用法创建Promise实例123456789var promise = new Promise(function(resolve, reject)&#123; // ... some code if (/* 异步操作成功 */) &#123; resolve(value); &#125; else &#123; reject(error); &#125;&#125;) &emsp;&emsp;Promise构造函数接受一个函数作为参数，该函数的两个参数分别是resolve和reject。它们是两个函数，由JavaScript引擎提供，不用自己部署。&emsp;&emsp;resolve作用是将Promise对象状态由“未完成”变为“成功”，也就是Pending -&gt; Fulfilled，在异步操作成功时调用，并将异步操作的结果作为参数传递出去；而reject函数则是将Promise对象状态由“未完成”变为“失败”，也就是Pending -&gt; Rejected，在异步操作失败时调用，并将异步操作的结果作为参数传递出去。 then&emsp;&emsp;Promise实例生成后，可用then方法分别指定两种状态回调参数。then 方法可以接受两个回调函数作为参数： Promise对象状态改为Resolved时调用 （必选） Promise对象状态改为Rejected时调用 （可选） 基本用法示例123456function sleep(ms) &#123; return new Promise(function(resolve, reject) &#123; setTimeout(resolve, ms); &#125;)&#125;sleep(500).then( ()=&gt; console.log(&quot;finished&quot;)); &emsp;&emsp;这段代码定义了一个函数sleep，调用后，等待了指定参数(500)毫秒后执行then中的函数。值得注意的是，Promise新建后就会立即执行。 执行顺序&emsp;&emsp;接下来我们探究一下它的执行顺序，看以下代码：12345678910let promise = new Promise(function(resolve, reject)&#123; console.log(&quot;AAA&quot;); resolve()&#125;);promise.then(() =&gt; console.log(&quot;BBB&quot;));console.log(&quot;CCC&quot;)// AAA// CCC// BBB &emsp;&emsp;执行后，我们发现输出顺序总是 AAA -&gt; CCC -&gt; BBB。表明，在Promise新建后会立即执行，所以首先输出 AAA。然后，then方法指定的回调函数将在当前脚本所有同步任务执行完后才会执行，所以BBB 最后输出。 与定时器混用&emsp;&emsp;首先看一个实例：123456789101112let promise = new Promise(function(resolve, reject)&#123; console.log(&quot;1&quot;); resolve();&#125;);setTimeout(()=&gt;console.log(&quot;2&quot;), 0);promise.then(() =&gt; console.log(&quot;3&quot;));console.log(&quot;4&quot;);// 1// 4// 3// 2 &emsp;&emsp;可以看到，结果输出顺序总是：1 -&gt; 4 -&gt; 3 -&gt; 2。1与4的顺序不必再说，而2与3先输出Promise的then，而后输出定时器任务。原因则是Promise属于JavaScript引擎内部任务，而setTimeout则是浏览器API，而引擎内部任务优先级高于浏览器API任务，所以有此结果。 拓展 async/awaitasync&emsp;&emsp;顾名思义，异步。async函数对 Generator 函数的改进，async 函数必定返回 Promise，我们把所有返回 Promise 的函数都可以认为是异步函数。特点体现在以下四点： 内置执行器 更好的语义 更广的适用性 返回值是 Promise await&emsp;&emsp;顾名思义，等待。正常情况下，await命令后面是一个 Promise 对象，返回该对象的结果。如果不是 Promise 对象，就直接返回对应的值。另一种情况是，await命令后面是一个thenable对象（即定义then方法的对象），那么await会将其等同于 Promise 对象。 混合使用&emsp;&emsp;先看示例：123456789101112131415function sleep(ms) &#123; return new Promise(function(resolve, reject) &#123; setTimeout(resolve,ms); &#125;)&#125;async function handle()&#123; console.log(&quot;AAA&quot;) await sleep(5000) console.log(&quot;BBB&quot;)&#125;handle();// AAA// BBB (5000ms后) &emsp;&emsp;我们定义函数sleep，返回一个Promise。然后在handle函数前加上async关键词，这样就定义了一个async函数。在该函数中，利用await来等待一个Promise。 Promise优缺点 优点 缺点 解决回调 无法监测进行状态 链式调用 新建立即执行且无法取消 减少嵌套 内部错误无法抛出]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>es6</tag>
+        <tag>Promise</tag>
+        <tag>定时器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vue吸顶效果]]></title>
     <url>%2F2019%2F04%2F26%2Fvue%E5%90%B8%E9%A1%B6%E6%95%88%E6%9E%9C%2F</url>
     <content type="text"><![CDATA[关于吸顶 吸顶效果在使得用户在滑动读取数据的时候把产品需要持续展示的控件及信息一直固定在屏幕上方，以便用户操作和交互。 产生背景&emsp;&emsp;随着技术不断更新与用户审美不断提升，一些App中/浏览器中的常用交互也在对用户更加友好，在某些数据展示较多页面或者导航栏页面，为了将栏目划分，使得视图模块更加明显，吸顶效果便在此背景下孕育而生。&emsp;&emsp;那么，我们如何在web端来做一个吸顶效果呢？ 切入正题——吸顶简单效果展示 需求分析 有了效果图，首先我们要分析一下结构： 吸顶上方数据 需要吸顶的元素 吸顶下方数据 接着我们逻辑走一下：(我们设吸顶元素为X) 在页面滑动距离 &lt;= 吸顶元素距离顶端距离时，不吸顶 否则，吸顶 有了这个大前提，继续考虑，如何做到吸顶呢？ 设置该元素的position为fixed属性 动态控制是否展示该样式 扩展：加点动画效果(这里以渐变为示例) 代码及注释1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768// html&lt;template&gt; &lt;div class=&quot;scrollFixed&quot;&gt; &lt;!-- 上方数据 --&gt; &lt;div class=&quot;sTop&quot;&gt; &lt;ul&gt; &lt;li v-for=&quot;(ietm, index) in 10&quot;&gt;这是吸顶上方的第&#123;&#123;index + 1&#125;&#125;条数据&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;!-- 吸顶元素 --&gt; &lt;nav class=&quot;nav&quot; id=&quot;searchBar&quot; :class=&quot;scrollFixed === true ? &apos;isFixed&apos; :&apos;&apos;&quot;&gt;&#123;&#123; text &#125;&#125;&lt;/nav&gt; &lt;!-- 下方数据 --&gt; &lt;div class=&quot;sBottom&quot;&gt; &lt;ul&gt; &lt;li v-for=&quot;(ietm, index) in 30&quot;&gt;这是吸顶下方的第&#123;&#123;index + 1&#125;&#125;条数据&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/div&gt;&lt;/template&gt;// js&lt;script&gt; export default &#123; data() &#123; return &#123; text: &apos;需要吸顶&apos;, scrollFixed: false, offsetTop: 0 &#125; &#125;, methods: &#123; windowScroll () &#123; // 滚动条顶部 距 滚动原点的高度 let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop; /** * 三目运算 * 两个高度比较 * 如果滑动距离 &gt; 吸顶元素到页面顶端距离 动态添加 */ scrollTop &gt;= this.offsetTop ? (this.scrollFixed = true, this.text = &apos;已吸顶&apos;) : (this.scrollFixed = false, this.text = &apos;需要吸顶&apos;); &#125; &#125;, mounted() &#123; // 需吸顶元素 距 离浏览器顶端的高度 this.offsetTop = document.querySelector(&apos;#searchBar&apos;).offsetTop; // 滚动监听 window.addEventListener(&apos;scroll&apos;, this.windowScroll); &#125;, destroyed () &#123; // 关闭 销毁监听 window.removeEventListener(&apos;scroll&apos;, this.windowScroll); &#125; &#125;&lt;/script&gt;&lt;style scoped type=&quot;text/scss&quot; lang=&quot;scss&quot;&gt;.isFixed&#123; position:fixed; top:0; left: 0; z-index:999; background: #12d168; transition: all 1s; color: #7511ff;&#125;// 基本样式略// ......&lt;/style&gt; 备注&emsp;&emsp;此demo在流行浏览器中运行问题不大，但是没有详测兼容性。如果要在生产上运用，务必做好各端兼容。]]></content>
@@ -52,8 +66,8 @@
       </categories>
       <tags>
         <tag>前端</tag>
-        <tag>js</tag>
         <tag>vue</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -111,8 +125,8 @@
       </categories>
       <tags>
         <tag>随笔</tag>
-        <tag>电影</tag>
         <tag>读书笔记</tag>
+        <tag>电影</tag>
       </tags>
   </entry>
   <entry>
@@ -124,8 +138,8 @@
       </categories>
       <tags>
         <tag>前端</tag>
-        <tag>js</tag>
         <tag>vue</tag>
+        <tag>js</tag>
         <tag>输入框联想</tag>
       </tags>
   </entry>
