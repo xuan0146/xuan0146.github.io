@@ -5,7 +5,7 @@ copyright: true
 date: 2019-05-05 17:10:33
 tags: [vue-cli3, vue]
 categories: 前端笔记
-description:
+description: vue-cli 3.x 项目创建使用及ant-design-vue框架使用
 ---
 ### vue-cli 3.x
 
