@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[vue-cli3.x及相关配置]]></title>
+    <url>%2F2019%2F05%2F05%2Fvue-cli3-x%E5%8F%8A%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[vue-cli 3.x1.安装123npm install -g @vue/cli# ORyarn global add @vue/cli 2.环境(windows)1234567891011E:\stydy&gt;node -vv8.12.0E:\stydy&gt;webpack -v4.29.6E:\stydy&gt;npm -v6.4.1E:\stydy&gt;vue -V3.7.0 3.创建项目我在此处想使用ant-design-vue，所以创建了一个antd的项目：1vue create antd 4.项目配置我选择的项目配置如下：12345678Vue CLI v3.7.0? Please pick a preset: Manually select features? Check the features needed for your project: Babel, Router, Vuex, CSS Pre-processors? Use history mode for router? (Requires proper server setup for index fallback in production) Yes? Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported by default): Less? Where do you prefer placing config for Babel, PostCSS, ESLint, etc.? In dedicated config files? Save this as a preset for future projects? No? Pick the package manager to use when installing dependencies: NPM 5.运行依赖安装完成后，cd到该项目路径下，运行：1234567891011$ cd antd $ npm run serveDONE Compiled successfully in 4229ms App running at: - Local: http://localhost:8080/ - Network: http://192.168.100.111:8080/ Note that the development build is not optimized. To create a production build, run npm run build. 此时浏览器会访问 http://localhost:8080/ ，看到 Welcome to Your Vue.js App 的界面就算成功了。 6.目录结构12345678910111213141516├── README.md├── babel.config├── package.json├── package-lock.json├── postcss.config.js├── public│ ├── favicon.ico│ └── index.html├── src│ ├── assets│ │ └── logo.png│ ├── components│ │ └── HelloWorld.vue│ ├── App.vue│ └── main.js└── .gitignore 使用ant-design-vue由于在实际开发工程中，加载全部样式/组件会影响前端性能，因此我们直接采取按需加载组件及样式。 1.安装123npm install ant-design-vue --save-devnpm install less less-loader --save-dev 2.引入src/main.js123// 以 Button 组件为例import &#123; Button &#125; from &apos;ant-design-vue&apos;Vue.component(Button.name, Button); 3.组件使用12345&lt;template&gt; &lt;div id=&quot;app&quot;&gt; &lt;a-button type=&quot;danger&quot;&gt;Danger&lt;/a-button&gt; &lt;/div&gt;&lt;/template&gt; 4.babel-plugin-import4.1安装1npm install babel-plugin-import --save-dev 4.2修改babel.config.js123456789101112module.exports = &#123; presets: [ &apos;@vue/app&apos;, ], // 配置babel-plugin-import, 用于按需加载组件代码和样式 plugins: [ [ &quot;import&quot;, &#123; libraryName: &quot;ant-design-vue&quot;, libraryDirectory: &quot;es&quot;, style: true &#125; ] ],&#125; 4.3报错解决方案此时重启项目，会遇到报错情况。以下两种方案任选其一即可。两种方案： 配置vue.config.js在根目录下新建vue.config.js： 12345678910module.exports = &#123; // 配置less css: &#123; loaderOptions: &#123; less: &#123; javascriptEnabled: true, &#125; &#125; &#125;,&#125; 修改babel.config.js 1234567// ...plugins: [ [ &quot;import&quot;, &#123; libraryName: &quot;ant-design-vue&quot;, libraryDirectory: &quot;es&quot;, style: &apos;css&apos; &#125; ]] 4.4完成保存，重启项目：1npm run serve 可以看到，antd 组件的 js 和 css代码都会按需加载。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>vue-cli3</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[js模拟信号灯]]></title>
     <url>%2F2019%2F04%2F29%2Fjs%E6%A8%A1%E6%8B%9F%E4%BF%A1%E5%8F%B7%E7%81%AF%2F</url>
     <content type="text"><![CDATA[效果图 需求给出一个div元素块，模拟一个如下条件的交通信号灯： 绿灯亮x毫秒，转黄灯 黄灯亮y毫秒，转红灯 红灯亮z毫秒，转绿灯 无限循环执行 需求分析&emsp;&emsp;首先，div元素块设置css变圆；其次，每隔一定时间，转换元素块背景色；接着，控制显示时长；然后，将上两步组合；最后，无限循环执行。 应用技术栈 css border-radius background js setTimeout Promise async/await while 技术栈分析 类别 技术 用途 样式 border-radius 元素形状 样式 background 元素背景色 脚本 setTimeout 定时器 脚本 Promise 处理回调 脚本 async/await 配合使用 脚本 while 循环 代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647// html&lt;div id=&quot;signal-lamp&quot;&gt;&lt;/div&gt;&lt;button class=&quot;btn&quot; onclick=&quot;run()&quot;&gt;执行&lt;/button&gt;&lt;span id=&quot;showText&quot;&gt;&lt;/span&gt;// css#signal-lamp &#123; width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ffcecc;&#125;// js// 定义函数sleepfunction sleep(ms)&#123; // 返回一个Promise实例 return new Promise(function(resolve)&#123; setTimeout(resolve, ms); &#125;)&#125;// 改变颜色 等待参数时间 （时间及颜色均为参数）async function ChangeColor(ms, color)&#123; // 改变颜色 document.getElementById(&quot;signal-lamp&quot;).style.background = color; // 打印出显示时间 document.getElementById(&quot;showText&quot;).innerText = `$&#123;color&#125;:显示$&#123;ms&#125;ms`; // 睡眠ms毫秒 await sleep(ms);&#125;// 循环依次执行async function run()&#123; // while 循环 while (true) &#123; // 绿灯 1.8s await ChangeColor(1800,&quot;green&quot;); // 黄灯 0.8s await ChangeColor(800, &quot;yellow&quot;); // 红灯 1.2s await ChangeColor(1200, &quot;red&quot;); &#125;&#125;]]></content>
@@ -22,8 +34,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>es6</tag>
         <tag>Promise</tag>
+        <tag>es6</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
@@ -78,8 +90,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>js</tag>
+        <tag>前端</tag>
         <tag>vue</tag>
       </tags>
   </entry>
@@ -138,8 +150,8 @@
       </categories>
       <tags>
         <tag>随笔</tag>
-        <tag>电影</tag>
         <tag>读书笔记</tag>
+        <tag>电影</tag>
       </tags>
   </entry>
   <entry>
@@ -150,8 +162,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>js</tag>
+        <tag>前端</tag>
         <tag>vue</tag>
         <tag>输入框联想</tag>
       </tags>
