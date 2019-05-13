@@ -21,13 +21,14 @@ description:
 #### 1. 状态判断
 首先，我们需要给出一个默认状态，即非全屏。然后，在此基础上我们进行DOM操作，每次用户进行操作时，我们先判断当前状态，进行相应的操作，操作过后改变当前状态即可。
 #### 2. 事件操作
+`注：`下表中`de`代表`document.documentElement`
 
 |操作|浏览器|代码|
 |:--:|:--:|:--:|
-|全屏|W3C|document.documentElement.requestFullscreen()|
-|全屏|CHROME|document.documentElement.webkitRequestFullScreen()|
-|全屏|FIREFOX|document.documentElement.mozRequestFullScreen()|
-|全屏|IE|document.documentElement.msRequestFullscreen()|
+|全屏|W3C|de.requestFullscreen()|
+|全屏|CHROME|de.webkitRequestFullScreen()|
+|全屏|FIREFOX|de.mozRequestFullScreen()|
+|全屏|IE|de.msRequestFullscreen()|
 | | | |
 |还原|W3C|document.exitFullscreen|
 |还原|CHROME|document.webkitCancelFullScreen|
