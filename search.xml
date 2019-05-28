@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[vue弹窗屏蔽滑动的两种解决方案]]></title>
+    <url>%2F2019%2F05%2F28%2Fvue%E5%BC%B9%E7%AA%97%E5%B1%8F%E8%94%BD%E6%BB%91%E5%8A%A8%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[序&emsp;&emsp;在开发过程中，我们经常会遇到要加弹窗的需求，而如果当前页的展示数据一屏展示不完，则在打开弹窗后，有滑动操作时，页面也会随之滑动。那么如何处理这一问题呢？ 常见问题&emsp;&emsp;我们开发过程中，最常见的问题上文已叙述：打开弹窗后，有滑动操作时，页面也会随之滑动。问题示意图如下： 最终效果我们来看一波正确示范 解决方案&emsp;&emsp;两种解决方案，针对两种不同情况： 弹框数据少，无需滑动 弹框内数据需要滑动展示 1. 无需滑动弹窗a. 思路 思路：vue自带修饰符可解决该问题—— @touchmove.prevent 此方案重点在将@touchmove.prevent绑定到弹窗模块，然后动态控制弹窗显示隐藏即可。 b. 效果 c. 代码1234567891011121314151617181920212223242526272829303132333435&lt;template&gt; &lt;div class=&quot;modalTest&quot;&gt; &lt;!-- 按钮组 --&gt; &lt;div class=&quot;btn&quot;&gt; &lt;el-button type=&quot;success&quot; size=&quot;small&quot; @click=&quot;modalSign1 = true&quot;&gt;弹窗1&lt;/el-button&gt; &lt;/div&gt; &lt;!-- 背景数据 --&gt; &lt;div class=&quot;listBG&quot;&gt; &lt;ul&gt; &lt;li v-for=&quot;item in 50&quot;&gt;这是第&#123;&#123;item&#125;&#125;条背景数据&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;!-- 弹框1 --&gt; &lt;div class=&quot;modalBox&quot; v-if=&quot;modalSign1&quot; @touchmove.prevent @click.self=&quot;modalSign1 = false&quot;&gt; &lt;div class=&quot;modal&quot;&gt; &lt;ul&gt; &lt;li v-for=&quot;item in 8&quot;&gt;这是第&#123;&#123;item&#125;&#125;条数据&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; data() &#123; return &#123; modalSign1: false, // 弹窗是否打开 &#125; &#125; &#125;&lt;/script&gt; 2. 弹框内数据需要滑动展示a. 思路&emsp;&emsp;首先，我们使用正常的vue操作，比如刚才的修饰符/语法糖进行操作时，虽然可以屏蔽掉背景数据滑动，但是该事件同时会将弹框内的滑动也阻止掉，我们则无法完成该需求。如果这个不行，我们还有别的方法来完成需求吗？&emsp;&emsp;我考虑到一种方案，但是属于DOM操作，与vue的初衷可能不太符合。不过此方案也不矢为一种能够有效解决问题的办法。 思路：利用cssposition: fixed以及top: x px来固定位置。步骤分解如下： 写一个样式放到公共css中备用； 点击按钮，控制弹窗显示隐藏； 两个方法，一个控制将步骤1写的css动态添加到body上，另外一个则控制移除该效果； 添加方法：①获取当前页面距离顶部高度，保存到data中；②给body添加步骤1的css；③设置body的高度为刚才获取到的高度。 移除方法： ①将刚才冬天给body添加的css移除；②当前滑动高度设置为data中存储的高度。 b. 效果 c. 两个案例完整代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130&lt;template&gt; &lt;div class=&quot;modalTest&quot;&gt; &lt;!-- 按钮组 --&gt; &lt;div class=&quot;btn&quot;&gt; &lt;el-button type=&quot;success&quot; size=&quot;small&quot; @click=&quot;modalSign1 = true&quot;&gt;弹窗1&lt;/el-button&gt; &lt;br&gt; &lt;el-button type=&quot;danger&quot; size=&quot;small&quot; @click=&quot;openModal&quot;&gt;弹窗2&lt;/el-button&gt; &lt;/div&gt; &lt;!-- 背景数据 --&gt; &lt;div class=&quot;listBG&quot;&gt; &lt;ul&gt; &lt;li v-for=&quot;item in 50&quot;&gt;这是第&#123;&#123;item&#125;&#125;条背景数据&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;!-- 弹框1 --&gt; &lt;div class=&quot;modalBox&quot; v-if=&quot;modalSign1&quot; @touchmove.prevent @click.self=&quot;modalSign1 = false&quot;&gt; &lt;div class=&quot;modal&quot;&gt; &lt;ul&gt; &lt;li v-for=&quot;item in 8&quot;&gt;这是第&#123;&#123;item&#125;&#125;条数据&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/div&gt; &lt;!-- 弹框2 --&gt; &lt;div class=&quot;modalBox&quot; v-if=&quot;modalSign2&quot; @click.self=&quot;closeModal&quot;&gt; &lt;div class=&quot;modal&quot;&gt; &lt;ul&gt; &lt;li v-for=&quot;item in 20&quot;&gt;这是第&#123;&#123;item&#125;&#125;条数据&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; data() &#123; return &#123; modalSign1: false, // 弹窗是否打开 modalSign2: false, // 弹窗是否打开 scrollTop: undefined, // 距离顶端的值 className: &apos;modalOpen&apos;, // 类名 &#125; &#125;, methods: &#123; // 打开弹层 要做的事 afterOpen () &#123; this.scrollTop = document.scrollingElement.scrollTop; document.body.classList.add(this.className); document.body.style.top = `-$&#123;this.scrollTop&#125;px`; &#125;, // 弹层关闭之前 要做的事 beforeClose () &#123; document.body.classList.remove(this.className); document.scrollingElement.scrollTop = this.scrollTop; &#125;, // 打开弹窗 openModal () &#123; this.modalSign2 = true; this.afterOpen(); &#125;, // 关闭弹窗 closeModal () &#123; this.modalSign2 = false; this.beforeClose(); &#125; &#125;, mounted() &#123; &#125; &#125;&lt;/script&gt;&lt;style type=&quot;text/scss&quot; lang=&quot;scss&quot; scoped&gt; .modalTest&#123; width: 100%; min-height: 100vh; overflow: scroll; .btn&#123; padding: 10px; position: fixed; top: 0; left: 0; z-index: 10; &amp;&gt;button&#123; margin: 10px 0; &#125; &#125; .listBG&#123; text-align: center; line-height: 50px; &#125; .modalBox&#123; width: 100vw; height: 100vh; overflow: hidden; position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.4); z-index: 999; .modal&#123; width: 220px; height: 280px; overflow: scroll; background: #fff; border-radius: 10px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); -moz-box-shadow:10px 10px 9px #332A0D; -webkit-box-shadow:10px 10px 9px #332A0D; box-shadow:10px 10px 9px #332A0D; padding: 30px 0 0; ul&#123; text-align: center; li&#123; list-style: none; line-height: 30px; &#125; &#125; &#125; &#125; &#125;&lt;/style&gt; d. 备注.modalOpen的css样式，放在公共样式中，因为我们要改变的是body的样式，因此在组件中写的样式可能会失效。例如，我将样式放在了src/assets/css/common.css123456/*弹层*/body.modalOpen &#123; -webkit-overflow-scrolling:touch; position: fixed; width: 100%;&#125;]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>弹窗</tag>
+        <tag>滑动</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vue中引入并使用markdown编辑器]]></title>
     <url>%2F2019%2F05%2F23%2Fvue%E4%B8%AD%E5%BC%95%E5%85%A5%E5%B9%B6%E4%BD%BF%E7%94%A8markdown%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6%2F</url>
     <content type="text"><![CDATA[效果 开篇&emsp;&emsp;不知道各位是否对markdown熟悉。它算是一门标记语言，但是语法简单，却本领强大。例如本篇博客，便是用markdown语法编写，然后根据不同的环境及依赖生成各种我想要的样式，比如直接生成本篇博客样式或者使用一些依赖或者工具赋之更加美观的样式。同样，一般在CMS后台管理系统中，也经常会用到编辑器来编写一些文章材料。其中最常用的还是markdown编辑器和富文本编辑器。 Markdown 介绍1. 什么是Markdown&emsp;&emsp;首先，各位框架玩家一定不会陌生，因为无论是在各类框架下还是开源项目中，都会有一个.md的文件，该文件一般是项目说明文件，不仅语法简洁，而且所生成的“页面”也要比普通标记语言更加整洁明了。那么它到底是什么呢？&emsp;&emsp;Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。&emsp;&emsp;Markdown具有一系列衍生版本，用于扩展Markdown的功能（如表格、脚注、内嵌HTML等等），这些功能原初的Markdown尚不具备，它们能让Markdown转换成更多的格式，例如LaTeX，Docbook。Markdown增强版中比较有名的有Markdown Extra、MultiMarkdown、 Maruku等。这些衍生版本要么基于工具，如Pandoc；要么基于网站，如GitHub和Wikipedia，在语法上基本兼容，但在一些语法和渲染效果上有改动。 2. Markdown用途&emsp;&emsp;Markdown的语法简洁明了、学习容易，而且功能比纯文本更强，因此有很多人用它写博客。世界上最流行的博客平台WordPress和大型CMS如Joomla、Drupal都能很好的支持Markdown。完全采用Markdown编辑器的博客平台有Ghost和Typecho。&emsp;&emsp;用于编写说明文档，并且以“README.md”的文件名保存在软件的目录下面。除此之外，由于我们有了RStudio这样的神级编辑器，我们还可以快速将Markdown转化为演讲PPT、Word产品文档、LaTex论文甚至是用非常少量的代码完成最小可用原型。在数据科学领域，Markdown已经广泛使用，极大地推进了动态可重复性研究的历史进程。 vue 中如何使用注： 本示例选用的是mavon-editor很明显，所有组件逃不过三步走原则： 安装 引入、配置 使用 1. 安装安装mavon-editor:npm install mavon-editor --save 2. 引入、配置在要使用markdown编辑器的组件内操作：12345&lt;script&gt;// 导入组件 及 组件样式import &#123; mavonEditor &#125; from &apos;mavon-editor&apos;import &apos;mavon-editor/dist/css/index.css&apos;&lt;/script&gt; 3. 使用 注意： 绑定model 实时改变：将markdown实时转化为html 在要使用markdown编辑器的组件内操作:1234567891011121314151617181920212223242526272829303132333435363738394041424344&lt;template&gt; &lt;div&gt; &lt;mavon-editor v-model=&quot;content&quot; ref=&quot;md&quot; @change=&quot;change&quot; style=&quot;min-height: 600px&quot; /&gt; &lt;button @click=&quot;submit&quot;&gt;提交&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt;export default &#123; // 注册 components: &#123; mavonEditor, &#125;, data() &#123; return &#123; content:&apos;&apos;, // 输入的markdown html:&apos;&apos;, // 及时转的html &#125; &#125;, methods: &#123; // 所有操作都会被解析重新渲染 change(value, render)&#123; // render 为 markdown 解析后的结果[html] this.html = render; &#125;, // 提交 submit()&#123; console.log(this.content); console.log(this.html); &#125; &#125;, mounted() &#123; &#125;&#125;&lt;/script&gt; 问题那么，在常用的操作里面，例如各级标题、表格、加粗加斜、标记、图文……图？此时，我们发现一个问题：如何添加本地图片呢？ Q在某些IDE里面使用markdown时，可以自由的插入本地图片，那我们在页面中使用此编译器组件如何添加图片呢？ A监听。没错，就是监听输入框变化。如果监听到有图片插入，那么我们可以先将图片上传至服务器，然后获取到线上url，拿到该url再插入到该位置。那么具体过程就很明显了： 选择本地图片，插入 监听到有图片插入 将该图上传至服务器 获取到服务器返回的图片url 将该线上url冬天插入到输入框中 代码如下12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455&lt;template&gt; &lt;div class=&quot;markdown&quot;&gt; &lt;div class=&quot;container&quot;&gt; &lt;mavon-editor v-model=&quot;content&quot; ref=&quot;md&quot; @imgAdd=&quot;$imgAdd&quot; @change=&quot;change&quot; style=&quot;min-height: 600px&quot;/&gt; &lt;button @click=&quot;submit&quot;&gt;提交&lt;/button&gt; &lt;/div&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import &#123; mavonEditor &#125; from &apos;mavon-editor&apos; import &apos;mavon-editor/dist/css/index.css&apos; export default &#123; name: &quot;&quot;, props: [], components: &#123; mavonEditor, &#125;, data() &#123; return &#123; content:&apos;&apos;, html:&apos;&apos;, configs: &#123;&#125; &#125; &#125;, methods: &#123; // 将图片上传到服务器，返回地址替换到md中 $imgAdd(pos, $file)&#123; let formdata = new FormData(); this.$upload.post(&apos;/上传接口地址&apos;, formdata).then(res =&gt; &#123; console.log(res.data); this.$refs.md.$img2Url(pos, res.data); &#125;).catch(err =&gt; &#123; console.log(err) &#125;) &#125;, // 所有操作都会被解析重新渲染 change(value, render)&#123; // render 为 markdown 解析后的结果[html] this.html = render; &#125;, // 提交 submit()&#123; console.log(this.content); console.log(this.html); this.$message.success(&apos;提交成功，已打印至控制台！&apos;); &#125; &#125;, mounted() &#123; &#125; &#125;&lt;/script&gt; 后&emsp;&emsp;到这里，vue中使用markdown编辑器教程结束。那么更为大众广泛使用的富文本编辑器如何使用呢？且看下回~]]></content>
@@ -97,8 +110,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>es6</tag>
         <tag>Promise</tag>
+        <tag>es6</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
@@ -135,8 +148,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>vue</tag>
+        <tag>前端</tag>
         <tag>路由</tag>
       </tags>
   </entry>
@@ -153,9 +166,9 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>vue</tag>
         <tag>js</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -225,9 +238,9 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>vue</tag>
         <tag>js</tag>
+        <tag>前端</tag>
         <tag>输入框联想</tag>
       </tags>
   </entry>
@@ -239,8 +252,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>vue</tag>
+        <tag>前端</tag>
         <tag>打包</tag>
       </tags>
   </entry>
@@ -264,8 +277,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>vue</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -276,8 +289,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>vue</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -300,8 +313,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>前端</tag>
         <tag>vue</tag>
+        <tag>前端</tag>
         <tag>打包</tag>
       </tags>
   </entry>
