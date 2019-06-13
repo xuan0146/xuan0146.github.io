@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[切换模块下划线跟随效果]]></title>
+    <url>%2F2019%2F06%2F13%2F%E5%88%87%E6%8D%A2%E6%A8%A1%E5%9D%97%E4%B8%8B%E5%88%92%E7%BA%BF%E8%B7%9F%E9%9A%8F%E6%95%88%E6%9E%9C%2F</url>
+    <content type="text"><![CDATA[效果 *&emsp;&emsp;经常看到一些网页的导航栏点击切换时，不仅改变当前样式，同时下划线会跟随鼠标点击的标签栏缓慢滑到相应位置，那么这个简单而又好看的效果是如何实现的呢？ 实现 环境/依赖 分析 代码 1. 环境/依赖 原生JavaScript / jQuery 2. 分析&emsp;&emsp;首先给出基本布局（如下）。html及css都是基础布局，active样式则是当点击某个li标签时动态添加即可。那么下划线我们如何处理呢？12345678910111213141516// html&lt;ul class=&quot;menu&quot;&gt; &lt;li&gt;Hey&lt;/li&gt; &lt;li&gt;ClickMe&lt;/li&gt; &lt;li&gt;I&apos;mIndex&lt;/li&gt; &lt;li&gt;AboutMe&lt;/li&gt; &lt;li&gt;MyCultureWall&lt;/li&gt;&lt;/ul&gt;// css&lt;style&gt; ul&#123;display: inline-block;text-align: center;padding: 0;position: relative;list-style: none;transition: all .4s ease-in;&#125; ul li&#123;display: inline-block;cursor: pointer;padding: 5px 10px;transition: all .5s ease-in;&#125; .active&#123;color: deepskyblue;transition: all .5s ease-in;&#125;&lt;/style&gt; &emsp;&emsp;第一反应肯定是使用border-bottom。如果仅仅是切换，那么它完全可以满足需求，但是前面我们提到了，要动起来，显然，border暂时还做不到这一步。&emsp;&emsp;此路不通，next one.如果我们用一个新的div来绑定到当前ul上，是否能满足需求呢？have a try.我在li标签同级增加一个div元素，给出一个定高不定宽的线段，宽度则跟随当前所点击的li标签走。然后定位在ul下方，这样视觉效果则是下划线位置。思路明确了，接下来要做的就是在js中来获取想要的宽度和定位左边距即可。 3. 代码12345678910111213141516171819202122232425262728293031// html&lt;ul class=&quot;menu&quot;&gt; &lt;li&gt;Hey&lt;/li&gt; &lt;li&gt;ClickMe&lt;/li&gt; &lt;li&gt;I&apos;mIndex&lt;/li&gt; &lt;li&gt;AboutMe&lt;/li&gt; &lt;li&gt;MyCultureWall&lt;/li&gt;++ &lt;div class=&quot;slider&quot;&gt;&lt;/div&gt;&lt;/ul&gt;// css&lt;style&gt; ul&#123;display: inline-block;text-align: center;padding: 0;position: relative;list-style: none;transition: all .4s ease-in;&#125; ul li&#123;display: inline-block;cursor: pointer;padding: 5px 10px;transition: all .5s ease-in;&#125; .active&#123;color: deepskyblue;transition: all .5s ease-in;&#125;++ .slider&#123;width: 0;height: 3px;position: relative;transition: all .5s ease-in;&#125;&lt;/style&gt;// js&lt;script&gt;$(&apos;.menu&apos;).on(&apos;click&apos;, &apos;li&apos;, function () &#123; // 获取所需要的 宽、左边距， 此处新增一个随机色 let liWidth = $(this).width(), offsetLeft = $(this).offset().left, color = `rgba($&#123;Math.floor(Math.random()*255)&#125;,$&#123;Math.floor(Math.random()*255)&#125;,$&#123;Math.floor(Math.random()*255)&#125;,0.9)`; // 点击时，当前标签添加active样式，‘下划线’也随之变化 $(this).addClass(&apos;active&apos;).siblings().removeClass(&apos;active&apos;); $(&apos;.slider&apos;).css(&#123;&apos;width&apos;: `$&#123;liWidth&#125;px`,&apos;left&apos;: `$&#123;offsetLeft&#125;px`,&apos;background&apos;: `$&#123;color&#125;`&#125;);&#125;)&lt;/script&gt;]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>jquery</tag>
+        <tag>下划线跟随</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[秒懂——惹人烦恼的this指向]]></title>
     <url>%2F2019%2F06%2F11%2F%E7%A7%92%E6%87%82-%E6%83%B9%E4%BA%BA%E7%83%A6%E6%81%BC%E7%9A%84this%E6%8C%87%E5%90%91%2F</url>
     <content type="text"><![CDATA[关于 This 它是JS关键字，在JS中具有特殊意义，代表一个空间地址； this是执行的主体，谁执行的这个函数谁就是this。 惹人烦恼的this&emsp;&emsp;This是什么？什么是this指针？this指针指向哪里？何时使用this？use or not use, that is a question.&emsp;&emsp;其中至关重要的this指向问题，不仅自身麻烦，而且各类层出不穷的相关面试题更是让人应接不暇。既然这么麻烦，难倒无数js开发er，我们到底要做怎样的挣扎才能记住呢？且听下回…哦不，且往下看。 THIS&emsp;&emsp;首先，我们介绍下关于this。 1. 什么是this指针？this指针指向哪里？何时使用this？ &emsp;&emsp;在JavaScript中，在创建函数时，系统默认会生成的两个隐式参数：this和arguments。函数执行时，自动生成的一个内部对象，只能在函数内部使用。this指针指向与该函数调用进行隐式关联的一个对象，该对象被称为“函数上下文”。this是js的一个关键字，随着函数使用场合不同，this的值会发生变化。&emsp;&emsp;this永远指向其所在函数的真实调用者（谁调用的就指向谁，）如果没有所有者时，指向全局对象window。 &emsp;&emsp;接着，我们来看一下常见函数调用方式 2. 常见函数调用方式 直接调用: 12345function fn (n) &#123; ...&#125;fn(n); 作为对象方法调用: 12345678var obj = &#123; a: 1, fn: function (n) &#123; ... &#125;&#125;obj.fn(n); call/apply 12345function fn (n)&#123; ...&#125;fn.call(context, n); 3. 变幻&emsp;&emsp;观察 2 中的几种常见方式，其实前几种都与最后一种密不可分。原因是前两种都是第三种方式的简写（语法糖）。当然，前两种方式也可以转变为第三种： fn(n) =&gt; fn.call(undefined, n) obj.fn(n) =&gt; obj.fn.call(obj, n) &emsp;&emsp;因此，我们函数调用归根就是一种：fn.call(context, n) 4. 结论&emsp;&emsp;可是我们总结以上，跟this有什么关系呢？其实答案已经呼之欲出了！context就是this所指向！当context为null或undefined时，也可省略不写，并且this指向window。那么这时我们再来看看，就发现this指向很是明了了。&emsp;&emsp; 当转换为标准写法时，this指向context。当context为null或undefined时，也可省略不写，并且this指向window。]]></content>
@@ -58,8 +71,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>vue</tag>
         <tag>js</tag>
+        <tag>vue</tag>
         <tag>css</tag>
       </tags>
   </entry>
@@ -71,8 +84,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>vue</tag>
         <tag>js</tag>
+        <tag>vue</tag>
         <tag>全屏</tag>
       </tags>
   </entry>
@@ -135,8 +148,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>Promise</tag>
         <tag>es6</tag>
+        <tag>Promise</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
@@ -191,8 +204,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>vue</tag>
         <tag>js</tag>
+        <tag>vue</tag>
         <tag>前端</tag>
       </tags>
   </entry>
@@ -251,8 +264,8 @@
       </categories>
       <tags>
         <tag>随笔</tag>
-        <tag>电影</tag>
         <tag>读书笔记</tag>
+        <tag>电影</tag>
       </tags>
   </entry>
   <entry>
@@ -263,8 +276,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>vue</tag>
         <tag>js</tag>
+        <tag>vue</tag>
         <tag>前端</tag>
         <tag>输入框联想</tag>
       </tags>

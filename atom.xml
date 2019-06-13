@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.zhuxingmin.com/"/>
-  <updated>2019-06-11T12:35:22.952Z</updated>
+  <updated>2019-06-13T06:58:51.759Z</updated>
   <id>https://www.zhuxingmin.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>切换模块下划线跟随效果</title>
+    <link href="https://www.zhuxingmin.com/2019/06/13/%E5%88%87%E6%8D%A2%E6%A8%A1%E5%9D%97%E4%B8%8B%E5%88%92%E7%BA%BF%E8%B7%9F%E9%9A%8F%E6%95%88%E6%9E%9C/"/>
+    <id>https://www.zhuxingmin.com/2019/06/13/切换模块下划线跟随效果/</id>
+    <published>2019-06-13T05:51:22.000Z</published>
+    <updated>2019-06-13T06:58:51.759Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="/images/posts/下划线跟随.gif" alt="切换标签下划线跟随" title="切换标签下划线跟随"></p><a id="more"></a><h3 id><a href="#" class="headerlink" title="*"></a>*</h3><p><strong>&emsp;&emsp;经常看到一些网页的导航栏点击切换时，不仅改变当前样式，同时下划线会跟随鼠标点击的标签栏缓慢滑到相应位置，那么这个简单而又好看的效果是如何实现的呢？</strong></p><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><blockquote><ol><li>环境/依赖</li><li>分析</li><li>代码</li></ol></blockquote><h4 id="1-环境-依赖"><a href="#1-环境-依赖" class="headerlink" title="1. 环境/依赖"></a>1. 环境/依赖</h4><ul><li>原生JavaScript / jQuery</li></ul><h4 id="2-分析"><a href="#2-分析" class="headerlink" title="2. 分析"></a>2. 分析</h4><p>&emsp;&emsp;首先给出基本布局（如下）。html及css都是基础布局，<code>active</code>样式则是当点击某个li标签时动态添加即可。那么下划线我们如何处理呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// html</span><br><span class="line">&lt;ul class=&quot;menu&quot;&gt;</span><br><span class="line">    &lt;li&gt;Hey&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;ClickMe&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;I&apos;mIndex&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;AboutMe&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;MyCultureWall&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// css</span><br><span class="line">&lt;style&gt;</span><br><span class="line">ul&#123;display: inline-block;text-align: center;padding: 0;position: relative;list-style: none;transition: all .4s ease-in;&#125;</span><br><span class="line">ul li&#123;display: inline-block;cursor: pointer;padding: 5px 10px;transition: all .5s ease-in;&#125;</span><br><span class="line">.active&#123;color: deepskyblue;transition: all .5s ease-in;&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p><p>&emsp;&emsp;第一反应肯定是使用<code>border-bottom</code>。如果仅仅是切换，那么它完全可以满足需求，但是前面我们提到了，要<code>动</code>起来，显然，border暂时还做不到这一步。<br>&emsp;&emsp;此路不通，next one.如果我们用一个新的div来绑定到当前ul上，是否能满足需求呢？have a try.我在li标签同级增加一个div元素，给出一个定高不定宽的线段，宽度则跟随当前所点击的li标签走。然后定位在ul下方，这样视觉效果则是下划线位置。思路明确了，接下来要做的就是在js中来获取想要的宽度和定位左边距即可。</p><h4 id="3-代码"><a href="#3-代码" class="headerlink" title="3. 代码"></a>3. 代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">// html</span><br><span class="line">&lt;ul class=&quot;menu&quot;&gt;</span><br><span class="line">    &lt;li&gt;Hey&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;ClickMe&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;I&apos;mIndex&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;AboutMe&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;MyCultureWall&lt;/li&gt;</span><br><span class="line">++  &lt;div class=&quot;slider&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// css</span><br><span class="line">&lt;style&gt;</span><br><span class="line">ul&#123;display: inline-block;text-align: center;padding: 0;position: relative;list-style: none;transition: all .4s ease-in;&#125;</span><br><span class="line">ul li&#123;display: inline-block;cursor: pointer;padding: 5px 10px;transition: all .5s ease-in;&#125;</span><br><span class="line">.active&#123;color: deepskyblue;transition: all .5s ease-in;&#125;</span><br><span class="line">++.slider&#123;width: 0;height: 3px;position: relative;transition: all .5s ease-in;&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">// js</span><br><span class="line">&lt;script&gt;</span><br><span class="line">$(&apos;.menu&apos;).on(&apos;click&apos;, &apos;li&apos;, function () &#123;</span><br><span class="line">// 获取所需要的 宽、左边距， 此处新增一个随机色</span><br><span class="line">let liWidth = $(this).width(),</span><br><span class="line">offsetLeft = $(this).offset().left,</span><br><span class="line">color = `rgba($&#123;Math.floor(Math.random()*255)&#125;,$&#123;Math.floor(Math.random()*255)&#125;,$&#123;Math.floor(Math.random()*255)&#125;,0.9)`;</span><br><span class="line">// 点击时，当前标签添加active样式，‘下划线’也随之变化</span><br><span class="line">$(this).addClass(&apos;active&apos;).siblings().removeClass(&apos;active&apos;);</span><br><span class="line">$(&apos;.slider&apos;).css(&#123;&apos;width&apos;: `$&#123;liWidth&#125;px`,&apos;left&apos;: `$&#123;offsetLeft&#125;px`,&apos;background&apos;: `$&#123;color&#125;`&#125;);</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;效果&quot;&gt;&lt;a href=&quot;#效果&quot; class=&quot;headerlink&quot; title=&quot;效果&quot;&gt;&lt;/a&gt;效果&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/下划线跟随.gif&quot; alt=&quot;切换标签下划线跟随&quot; title=&quot;切换标签下划线跟随&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端笔记" scheme="https://www.zhuxingmin.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
+    
+      <category term="jquery" scheme="https://www.zhuxingmin.com/tags/jquery/"/>
+    
+      <category term="下划线跟随" scheme="https://www.zhuxingmin.com/tags/%E4%B8%8B%E5%88%92%E7%BA%BF%E8%B7%9F%E9%9A%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>秒懂——惹人烦恼的this指向</title>
@@ -140,9 +166,9 @@
       <category term="前端笔记" scheme="https://www.zhuxingmin.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
-    
       <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
+    
+      <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
     
       <category term="css" scheme="https://www.zhuxingmin.com/tags/css/"/>
     
@@ -166,9 +192,9 @@
       <category term="前端笔记" scheme="https://www.zhuxingmin.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
-    
       <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
+    
+      <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
     
       <category term="全屏" scheme="https://www.zhuxingmin.com/tags/%E5%85%A8%E5%B1%8F/"/>
     
@@ -301,9 +327,9 @@
     
       <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
     
-      <category term="Promise" scheme="https://www.zhuxingmin.com/tags/Promise/"/>
-    
       <category term="es6" scheme="https://www.zhuxingmin.com/tags/es6/"/>
+    
+      <category term="Promise" scheme="https://www.zhuxingmin.com/tags/Promise/"/>
     
       <category term="定时器" scheme="https://www.zhuxingmin.com/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/"/>
     
@@ -425,9 +451,9 @@
       <category term="前端笔记" scheme="https://www.zhuxingmin.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
-    
       <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
+    
+      <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
     
       <category term="前端" scheme="https://www.zhuxingmin.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
@@ -506,32 +532,6 @@
     
     
       <category term="随笔" scheme="https://www.zhuxingmin.com/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>js监测页面滑至底部响应事件</title>
-    <link href="https://www.zhuxingmin.com/2019/03/18/js%E7%9B%91%E6%B5%8B%E9%A1%B5%E9%9D%A2%E6%BB%91%E8%87%B3%E5%BA%95%E9%83%A8%E5%93%8D%E5%BA%94%E4%BA%8B%E4%BB%B6/"/>
-    <id>https://www.zhuxingmin.com/2019/03/18/js监测页面滑至底部响应事件/</id>
-    <published>2019-03-18T06:16:30.000Z</published>
-    <updated>2019-03-18T07:42:48.845Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>&emsp;&emsp;<font color="#0099ff">页面滑动至底部时候，触发响应</font></p><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ol><li>服务协议滑动完毕可点击同意按钮;</li><li>页面滑至底部加载更多(新闻、列表等);</li><li>自动加载下一页等…<a id="more"></a></li></ol><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>&emsp;&emsp;首先，既然是监听，则首要条件便是监听页面滑动(滚动)事件；其次，由于一般页面不会一屏展示完，因此需要依赖BOM来辅助完成一些计算。最后，达到某种条件，触发方法。</p><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> window.onscroll = function()&#123;</span><br><span class="line">//滚动条滚动时，距离顶部的距离</span><br><span class="line">let scrollTop = document.documentElement.scrollTop||document.body.scrollTop;</span><br><span class="line">//可视区的高度</span><br><span class="line">let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;</span><br><span class="line">//滚动条的总高度</span><br><span class="line">let scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;</span><br><span class="line">//滚动条到底部的条件</span><br><span class="line">if(scrollTop + windowHeight &gt;= scrollHeight)&#123;</span><br><span class="line">//此处触发响应事件</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">网页可见区域宽：document.body.clientWidth</span><br><span class="line">网页可见区域高：document.body.clientHeight</span><br><span class="line">网页可见区域宽：document.body.offsetWidth (包括边线的宽)</span><br><span class="line">网页可见区域高：document.body.offsetHeight (包括边线的高)</span><br><span class="line">网页正文全文宽：document.body.scrollWidth</span><br><span class="line">网页正文全文高：document.body.scrollHeight</span><br><span class="line">网页被卷去的高：document.body.scrollTop</span><br><span class="line">网页被卷去的左：document.body.scrollLeft</span><br><span class="line">//对应的dom元素的宽高有以下几个常用的：</span><br><span class="line">元素的实际高度：document.getElementById(&quot;div&quot;).offsetHeight</span><br><span class="line">元素的实际宽度：document.getElementById(&quot;div&quot;).offsetWidth</span><br><span class="line">元素的实际距离左边界的距离：document.getElementById(&quot;div&quot;).offsetLeft</span><br><span class="line">元素的实际距离上边界的距离：document.getElementById(&quot;div&quot;).offsetTop</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;需求&quot;&gt;&lt;a href=&quot;#需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求&lt;/h4&gt;&lt;p&gt;&amp;emsp;&amp;emsp;&lt;font color=&quot;#0099ff&quot;&gt;页面滑动至底部时候，触发响应&lt;/font&gt;&lt;/p&gt;
-&lt;h4 id=&quot;应用场景&quot;&gt;&lt;a href=&quot;#应用场景&quot; class=&quot;headerlink&quot; title=&quot;应用场景&quot;&gt;&lt;/a&gt;应用场景&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;服务协议滑动完毕可点击同意按钮;&lt;/li&gt;
-&lt;li&gt;页面滑至底部加载更多(新闻、列表等);&lt;/li&gt;
-&lt;li&gt;自动加载下一页等…
-    
-    </summary>
-    
-      <category term="前端笔记" scheme="https://www.zhuxingmin.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="js" scheme="https://www.zhuxingmin.com/tags/js/"/>
     
   </entry>
   
