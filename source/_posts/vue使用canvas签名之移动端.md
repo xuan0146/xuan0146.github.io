@@ -4,7 +4,7 @@ type: categories
 copyright: true
 date: 2020-01-14 15:04:37
 tags: [js, canvas, vue]
-categories:
+categories: 前端笔记
 description:
 ---
 ## 效果
