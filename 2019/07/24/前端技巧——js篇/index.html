@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="baidu-site-verification" content="4OYpSWALtb">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zxmLogo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/zxmLogo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/zxmLogo.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="js,前端,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前端技巧——js篇">
+<meta name="keywords" content="js,前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端技巧——js篇">
+<meta property="og:url" content="https://www.zhuxingmin.com/2019/07/24/前端技巧——js篇/index.html">
+<meta property="og:site_name" content="Lomo | 朱幸民">
+<meta property="og:description" content="前端技巧——js篇">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-24T02:18:27.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端技巧——js篇">
+<meta name="twitter:description" content="前端技巧——js篇">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.zhuxingmin.com/2019/07/24/前端技巧——js篇/">
+
+
+
+
+
+  <title>前端技巧——js篇 | Lomo | 朱幸民</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lomo | 朱幸民</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">on the way</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时间轴">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2019/07/24/前端技巧——js篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lomo 朱幸民">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headImg.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lomo | 朱幸民">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">前端技巧——js篇</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T10:11:18+08:00">
+                2019-07-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-24T10:18:27+08:00">
+                2019-07-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">前端笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/24/前端技巧——js篇/" class="leancloud_visitors" data-flag-title="前端技巧——js篇">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  前端技巧——js篇
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前端技巧——js篇-01"><a href="#前端技巧——js篇-01" class="headerlink" title="前端技巧——js篇[01]"></a>前端技巧——js篇[01]</h3><hr>
+<h4 id="复制操作"><a href="#复制操作" class="headerlink" title="复制操作"></a>复制操作</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">copy () &#123;</span><br><span class="line">  <span class="keyword">let</span> url = <span class="keyword">this</span>.code;</span><br><span class="line">  <span class="keyword">let</span> oInput = <span class="built_in">document</span>.createElement(<span class="string">'input'</span>);</span><br><span class="line">  oInput.value = url;</span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(oInput);</span><br><span class="line">  oInput.select();  <span class="comment">// 选择对象</span></span><br><span class="line">  <span class="built_in">console</span>.log(oINput.value);</span><br><span class="line">  <span class="built_in">document</span>.execCommand(<span class="string">'Cooy'</span>); <span class="comment">//  执行浏览器复制命令</span></span><br><span class="line">  alert(<span class="string">'复制成功'</span>);</span><br><span class="line">  oInput.remove();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="出生日期转年龄【正则】"><a href="#出生日期转年龄【正则】" class="headerlink" title="出生日期转年龄【正则】"></a>出生日期转年龄【正则】</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getAge</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> r = str.match(<span class="regexp">/^(\d&#123;1,4&#125;)(-|\/)(\d&#123;1,2&#125;)\2(\d&#123;1,2&#125;)$/</span>);</span><br><span class="line">  r === <span class="literal">null</span> ? <span class="keyword">return</span> <span class="literal">false</span> : <span class="string">''</span> ;</span><br><span class="line">  <span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>(r[<span class="number">1</span>], r[<span class="number">3</span>]<span class="number">-1</span>, r[<span class="number">4</span>]);</span><br><span class="line">  <span class="keyword">if</span> (d.getFullYear() == r[<span class="number">1</span>] &amp;&amp; (d.getMonth() + <span class="number">1</span>) == r[<span class="number">3</span>] &amp;&amp; d.getDate == r[<span class="number">4</span>]) &#123;</span><br><span class="line">    <span class="keyword">var</span> Y = <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear();</span><br><span class="line">    <span class="keyword">return</span> (Y - r[<span class="number">1</span>]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'输入有误,请检查格式'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="随即打乱顺序"><a href="#随即打乱顺序" class="headerlink" title="随即打乱顺序"></a>随即打乱顺序</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">0</span>];</span><br><span class="line">arr.sort(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="number">0.5</span> - <span class="built_in">Math</span>.random());</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="截取url参数"><a href="#截取url参数" class="headerlink" title="截取url参数"></a>截取url参数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getParams</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> url = <span class="built_in">window</span>.location.search; <span class="comment">// 截取'?'及之后的字符串</span></span><br><span class="line">  <span class="keyword">var</span> str = url.string(<span class="number">1</span>, url.length);  <span class="comment">// 删除'?'</span></span><br><span class="line">  <span class="keyword">var</span> arr = str.split(<span class="string">'&amp;'</span>); <span class="comment">// 分割数组</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i ++) &#123;</span><br><span class="line">    obj[arr[i].split(<span class="string">'='</span>)[<span class="number">0</span>]] = <span class="built_in">unescape</span>(arr[i].split(<span class="string">'='</span>)[<span class="number">1</span>]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="字体自适应"><a href="#字体自适应" class="headerlink" title="字体自适应"></a>字体自适应</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根元素</span></span><br><span class="line"><span class="keyword">var</span> win = <span class="built_in">window</span>,</span><br><span class="line">doc = <span class="built_in">document</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setFontSize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">　　<span class="keyword">var</span> winWidth = $(<span class="built_in">window</span>).width();</span><br><span class="line">　　<span class="comment">// 设计稿比如为750  可自定义</span></span><br><span class="line">　　<span class="keyword">var</span> size = (winWidth / <span class="number">750</span>) * <span class="number">100</span>;</span><br><span class="line">　　doc.documentElement.style.fontSize = (size &lt; <span class="number">100</span> ? size : <span class="number">100</span>) + <span class="string">'px'</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 页面初始化</span></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">　　setFontSize();</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="built_in">parseInt</span>(<span class="number">10</span> * <span class="built_in">Math</span>.random()); <span class="comment">// 0~10之间随机整数</span></span><br><span class="line"><span class="built_in">console</span>.log(n);</span><br></pre></td></tr></table></figure>
+<h4 id="form中上传图片"><a href="#form中上传图片" class="headerlink" title="form中上传图片"></a>form中上传图片</h4><ul>
+<li>选择图片，点击确定后将图片传至后台，获取到url；</li>
+<li>url存于本地或者隐藏域；</li>
+<li>form框完成后，将url传到后台即可。</li>
+</ul>
+<h4 id="input输入框控制【行内】"><a href="#input输入框控制【行内】" class="headerlink" title="input输入框控制【行内】"></a>input输入框控制【行内】</h4><ul>
+<li><p>输入大于0的正整数</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">onkeyup</span>=<span class="string">"if(this.value.length==1)&#123;this.value=this.value.replace(/[^1-9]/g,'')&#125;else&#123;this.value=this.value.replace(/\D/g,'')&#125;"</span> <span class="attr">onafterpaste</span>=<span class="string">"if(this.value.length==1)&#123;this.value=this.value.replace(/[^1-9]/g,'')&#125;else&#123;this.value=this.value.replace(/\D/g,'')&#125;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>纯数字</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">onkeyup</span>=<span class="string">"this.value=this.value.replace(/\D/g,'')"</span> <span class="attr">onafterpaste</span>=<span class="string">"this.value=this.value.replace(/\D/g,'')"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数字和小数点(1)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">onkeyup</span>=<span class="string">"if(isNaN(value))execCommand('undo')"</span> <span class="attr">onafterpaste</span>=<span class="string">"if(isNaN(value))execCommand('undo')"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">txt1</span> <span class="attr">onchange</span>=<span class="string">"if(/\D/.test(this.value))&#123;alert('只能输入数字');this.value='';&#125;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数字和小数点(2)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">text</span> <span class="attr">t_value</span>=<span class="string">""</span> <span class="attr">o_value</span>=<span class="string">""</span> <span class="attr">onkeypress</span>=<span class="string">"if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"</span> <span class="attr">onkeyup</span>=<span class="string">"if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"</span> <span class="attr">onblur</span>=<span class="string">"if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else&#123;if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value&#125;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>只能输入字母和汉字</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">onkeyup</span>=<span class="string">"value=value.replace(/[\d]/g,'') "</span><span class="attr">onbeforepaste</span>=<span class="string">"clipboardData.setData('text',clipboardData.getData('text').replace(/[\d]/g,''))"</span> <span class="attr">maxlength</span>=<span class="string">10</span> <span class="attr">name</span>=<span class="string">"Numbers"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>只能输入英文字母和数字,不能输入中文</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">onkeyup</span>=<span class="string">"value=value.replace(/[^\w\.\/]/ig,'')"</span>&gt;</span></span><br><span class="line">  ``` </span><br><span class="line">- 只能输入数字和英文    </span><br><span class="line">  ```html</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">onKeyUp</span>=<span class="string">"value=value.replace(/[^\d|chun]/g,'')"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>小数点后只能有最多两位(数字,中文都可输入),不能输入字母和运算符号:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">onKeyPress</span>=<span class="string">"if((event.keyCode&lt;48 || event.keyCode&gt;57) &amp;&amp; event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>小数点后只能有最多两位(数字,字母,中文都可输入),可以输入运算符号:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">onkeyup</span>=<span class="string">"this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="n个元素圆形布局"><a href="#n个元素圆形布局" class="headerlink" title="n个元素圆形布局"></a>n个元素圆形布局</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-class">.container</span>&#123;</span></span><br><span class="line"><span class="undefined">  position: relative;</span></span><br><span class="line"><span class="undefined">  width: 600px;</span></span><br><span class="line"><span class="undefined">  height: 600px;</span></span><br><span class="line"><span class="undefined">  margin: 0 auto;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#f00</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="css"><span class="selector-class">.box</span>&#123;</span></span><br><span class="line"><span class="undefined">  position: absolute;</span></span><br><span class="line"><span class="undefined">  width: 50px;</span></span><br><span class="line"><span class="undefined">  height: 50px;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">background</span>: <span class="selector-id">#eee</span>;</span></span><br><span class="line"><span class="undefined">  transform: translate(-50%, -50%);</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="comment">// 注，此方法的box可为n个</span></span></span><br><span class="line"><span class="javascript">  $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 中心点横坐标</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> ow = $(<span class="string">'.container'</span>).width() / <span class="number">2</span>;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 中心点纵坐标</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> ot = $(<span class="string">'.container'</span>).height() / <span class="number">2</span>;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 起始角度</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> start = <span class="number">0</span>;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 半径</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> radius = <span class="number">300</span>;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 每一个box对应的角度</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> avd = <span class="number">360</span> / $(<span class="string">'.box'</span>).length;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 每一个box对应的弧度</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> ahd = avd * <span class="built_in">Math</span>.PI / <span class="number">180</span>;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 设置每一个元素的位置</span></span></span><br><span class="line"><span class="javascript">    $(.box).each(<span class="function"><span class="keyword">function</span> (<span class="params">index, element</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      $(<span class="keyword">this</span>).css(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="string">'left'</span>: <span class="built_in">Math</span>.sin(ahd * index) * radius + ow,</span></span><br><span class="line"><span class="javascript">        <span class="string">'top'</span>: <span class="built_in">Math</span>.cos(ahd * index) * radius + oh</span></span><br><span class="line"><span class="undefined">      &#125;)</span></span><br><span class="line"><span class="undefined">    &#125;)</span></span><br><span class="line"><span class="undefined">  &#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="桌面弹窗【原生】"><a href="#桌面弹窗【原生】" class="headerlink" title="桌面弹窗【原生】"></a>桌面弹窗【原生】</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断浏览器是否支持“WebNotifications API”</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">justify_notifyAPI</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">window</span>.Notification) &#123;</span><br><span class="line">    <span class="comment">// 支持</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'支持： WebNotifications API'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'不支持： WebNotifications API'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 浏览器是否支持弹出实例</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">justify_showMsg</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">window</span>.Notification &amp;&amp; Notification.permission !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    Notification.requestPermission(<span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (status === <span class="string">'granted'</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> n = New Notification(<span class="string">'收到消息:-O'</span>, &#123;</span><br><span class="line">          body: <span class="string">'这是通知内容'</span>,</span><br><span class="line">          icon: <span class="string">'imgUrl'</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> n = <span class="keyword">new</span> Notification(<span class="string">'baby, i'</span>ll leave u<span class="string">');</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">// 实例展示弹出内容</span></span><br><span class="line"><span class="string">function otification_construct () &#123;</span></span><br><span class="line"><span class="string">  var notification = new Notification('</span>收到新邮件<span class="string">', &#123;</span></span><br><span class="line"><span class="string">    body: '</span>您有一封来自马来西亚🇲🇾的新邮件<span class="string">',</span></span><br><span class="line"><span class="string">    dir: '</span>auto<span class="string">',</span></span><br><span class="line"><span class="string">    lang: '</span>zh-CN<span class="string">',</span></span><br><span class="line"><span class="string">    tag: '</span>a1<span class="string">',</span></span><br><span class="line"><span class="string">    icon: '</span>imgUrl<span class="string">'</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">  console.log(notification.title);  // 收到新邮件</span></span><br><span class="line"><span class="string">  console.log(notification.body);   //  您有一封...</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">// Notifications API的相关事件</span></span><br><span class="line"><span class="string">function otification_event () &#123;</span></span><br><span class="line"><span class="string">  var MM = new Notification('</span>新消息<span class="string">', &#123;</span></span><br><span class="line"><span class="string">    body: '</span>一条来自越南🇻🇳的留言<span class="string">',</span></span><br><span class="line"><span class="string">    icon: '</span>imgUrl<span class="string">'</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">  // 查看信息</span></span><br><span class="line"><span class="string">  MM.onshow = function () &#123;</span></span><br><span class="line"><span class="string">    window.open('</span>index.html<span class="string">');  // 打开首页</span></span><br><span class="line"><span class="string">    MM.close(); // 关闭桌面弹窗</span></span><br><span class="line"><span class="string">  &#125;;</span></span><br><span class="line"><span class="string">  //  报错处理</span></span><br><span class="line"><span class="string">  MM.onerror = function () &#123;</span></span><br><span class="line"><span class="string">    console.log('</span>Notification have be click<span class="string">');</span></span><br><span class="line"><span class="string">    MM.close();</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="jQuery阻止重复加载"><a href="#jQuery阻止重复加载" class="headerlink" title="jQuery阻止重复加载"></a>jQuery阻止重复加载</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'#btn'</span>).off(<span class="string">'click'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="jQuery平缓滑动至顶部"><a href="#jQuery平缓滑动至顶部" class="headerlink" title="jQuery平缓滑动至顶部"></a>jQuery平缓滑动至顶部</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 点击返回顶部按钮平缓滑到顶部</span></span><br><span class="line">$(<span class="string">'#top'</span>).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  $(<span class="string">'html, body'</span>).animate(</span><br><span class="line">    &#123;<span class="attr">scrollTop</span>: <span class="number">0</span>,&#125;,</span><br><span class="line">    &#123;<span class="attr">duration</span>: <span class="number">500</span>,<span class="attr">easing</span>: <span class="string">'swing'</span>&#125;</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 绑定页面滚动事件</span></span><br><span class="line">$(<span class="built_in">window</span>).bind(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> t = $(<span class="keyword">this</span>).scrollTop();</span><br><span class="line">  <span class="keyword">if</span>(t &gt; <span class="number">100</span>) &#123;</span><br><span class="line">    $(<span class="string">'#top'</span>).fadeIn(<span class="number">1000</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $(<span class="string">'#top'</span>).fadeOut(<span class="number">1000</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="jQuery平缓滑倒自定义位置"><a href="#jQuery平缓滑倒自定义位置" class="headerlink" title="jQuery平缓滑倒自定义位置"></a>jQuery平缓滑倒自定义位置</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'.box'</span>).on(<span class="string">'click'</span>, <span class="string">'.link'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> linkAdd = $(<span class="keyword">this</span>).attr(<span class="string">'data'</span>);</span><br><span class="line">  $(<span class="string">'html, body'</span>).animate(</span><br><span class="line">    &#123;<span class="attr">scrollTop</span>: $(<span class="string">`#<span class="subst">$&#123;linkAdd&#125;</span>`</span>).offset().top - <span class="number">71</span> + <span class="string">'px'</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">duration</span>: <span class="number">500</span>, <span class="attr">easing</span>: <span class="string">'swing'</span>&#125;;</span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="全屏-取消全屏【原生】"><a href="#全屏-取消全屏【原生】" class="headerlink" title="全屏/取消全屏【原生】"></a>全屏/取消全屏【原生】</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"margin:0;height: 100vh;width:100vw; background:#900;overflow: hidden;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>js控制页面的全屏展示和退出全屏显示<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span> <span class="attr">style</span>=<span class="string">"width: 100%;height: 100%;background-color: #00ee00;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span>这个div的父级下是可以全屏显示的内容<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"exitFull()"</span>&gt;</span>js控制页面的退出全屏显示<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">language</span>=<span class="string">"JavaScript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>).onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> elem = <span class="built_in">document</span>.getElementById(<span class="string">"content"</span>);</span></span><br><span class="line"><span class="javascript">    requestFullScreen(elem);<span class="comment">// 某个页面元素</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//requestFullScreen(document.documentElement);// 整个网页</span></span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">requestFullScreen</span>(<span class="params">element</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 判断各种浏览器，找到正确的方法</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> requestMethod = element.requestFullScreen || <span class="comment">//W3C</span></span></span><br><span class="line"><span class="javascript">            element.webkitRequestFullScreen ||    <span class="comment">//Chrome等</span></span></span><br><span class="line"><span class="javascript">            element.mozRequestFullScreen || <span class="comment">//FireFox</span></span></span><br><span class="line"><span class="javascript">            element.msRequestFullScreen; <span class="comment">//IE11</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (requestMethod) &#123;</span></span><br><span class="line"><span class="undefined">        requestMethod.call(element);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.ActiveXObject !== <span class="string">"undefined"</span>) &#123;<span class="comment">//for Internet Explorer</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> wscript = <span class="keyword">new</span> ActiveXObject(<span class="string">"WScript.Shell"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (wscript !== <span class="literal">null</span>) &#123;</span></span><br><span class="line"><span class="javascript">            wscript.SendKeys(<span class="string">"&#123;F11&#125;"</span>);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="comment">//退出全屏 判断浏览器种类</span></span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">exitFull</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 判断各种浏览器，找到正确的方法</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> exitMethod = <span class="built_in">document</span>.exitFullscreen || <span class="comment">//W3C</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.mozCancelFullScreen ||    <span class="comment">//Chrome等</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.webkitExitFullscreen || <span class="comment">//FireFox</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.webkitExitFullscreen; <span class="comment">//IE11</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (exitMethod) &#123;</span></span><br><span class="line"><span class="javascript">        exitMethod.call(<span class="built_in">document</span>);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.ActiveXObject !== <span class="string">"undefined"</span>) &#123;<span class="comment">//for Internet Explorer</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> wscript = <span class="keyword">new</span> ActiveXObject(<span class="string">"WScript.Shell"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (wscript !== <span class="literal">null</span>) &#123;</span></span><br><span class="line"><span class="javascript">            wscript.SendKeys(<span class="string">"&#123;F11&#125;"</span>);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="select多选传值"><a href="#select多选传值" class="headerlink" title="select多选传值"></a>select多选传值</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 选中selected的所有项</span></span><br><span class="line"><span class="keyword">var</span> all = $(<span class="string">'#qwsType:selected'</span>);</span><br><span class="line"><span class="comment">// 建立数组</span></span><br><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="comment">// 遍历</span></span><br><span class="line">all.each(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  arr.push($(<span class="keyword">this</span>).val());</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 数组转字符串</span></span><br><span class="line"><span class="keyword">var</span> str = arr.join(<span class="string">'/'</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="jQuery阻止事件冒泡和默认行为"><a href="#jQuery阻止事件冒泡和默认行为" class="headerlink" title="jQuery阻止事件冒泡和默认行为"></a>jQuery阻止事件冒泡和默认行为</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">btn.click(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">  e.stopPropagation();</span><br><span class="line">  e.preventDefault();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="form提交格式问题"><a href="#form提交格式问题" class="headerlink" title="form提交格式问题"></a>form提交格式问题</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// $('#form').serialize(); // form表单所有的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 转换对象格式</span></span><br><span class="line"><span class="keyword">var</span> data = &#123;&#125;;</span><br><span class="line">$(<span class="string">'#form'</span>).serializeArray().map(<span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">  data[x.name] = x.value;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="find找子元素"><a href="#find找子元素" class="headerlink" title="find找子元素"></a>find找子元素</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = $(<span class="string">'#div'</span>).find(<span class="string">"option[value='ZTO']"</span>);</span><br><span class="line"><span class="keyword">if</span> (name) &#123;</span><br><span class="line">  name.attr(<span class="string">'select'</span>,<span class="string">'selected'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+	
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---本文结束<i class="fa fa-paw"></i>感谢您的阅读---</div>
+    
+</div>
+	  
+	</div>
+	<div>
+		  
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.main.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.css">
+
+  <p><span>本文标题:</span>前端技巧——js篇</p>
+  <p><span>文章作者:</span>Lomo 朱幸民</p>
+  <p><span>发布时间:</span>2019年07月24日 - 10:11:18</p>
+  <p><span>最后更新:</span>2019年07月24日 - 10:18:27</p>
+  <p><span>原始链接:</span><a href="/2019/07/24/前端技巧——js篇/" title="前端技巧——js篇">https://www.zhuxingmin.com/2019/07/24/前端技巧——js篇/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2019/07/24/前端技巧——js篇/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+		  
+	</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请作者喝杯咖啡吧~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Lomo 朱幸民 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Lomo 朱幸民 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/23/前端技巧——css篇/" rel="next" title="前端技巧——css篇">
+                <i class="fa fa-chevron-left"></i> 前端技巧——css篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/27/前端性能对业务数据的影响/" rel="prev" title="前端性能对业务数据的影响">
+                前端性能对业务数据的影响 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+	
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/headImg.png" alt="Lomo 朱幸民">
+            
+              <p class="site-author-name" itemprop="name">Lomo 朱幸民</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          <!--
+		  */
+		  -->
+
+
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xuan0146" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zxm0146@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/a708dcdb5061" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-book"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/5094024813" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=756112&auto=1&height=32"></iframe>
+		  
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前端技巧——js篇-01"><span class="nav-text">前端技巧——js篇[01]</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复制操作"><span class="nav-text">复制操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#出生日期转年龄【正则】"><span class="nav-text">出生日期转年龄【正则】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#随即打乱顺序"><span class="nav-text">随即打乱顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#截取url参数"><span class="nav-text">截取url参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字体自适应"><span class="nav-text">字体自适应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#随机数"><span class="nav-text">随机数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#form中上传图片"><span class="nav-text">form中上传图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#input输入框控制【行内】"><span class="nav-text">input输入框控制【行内】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#n个元素圆形布局"><span class="nav-text">n个元素圆形布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#桌面弹窗【原生】"><span class="nav-text">桌面弹窗【原生】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jQuery阻止重复加载"><span class="nav-text">jQuery阻止重复加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jQuery平缓滑动至顶部"><span class="nav-text">jQuery平缓滑动至顶部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jQuery平缓滑倒自定义位置"><span class="nav-text">jQuery平缓滑倒自定义位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全屏-取消全屏【原生】"><span class="nav-text">全屏/取消全屏【原生】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#select多选传值"><span class="nav-text">select多选传值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jQuery阻止事件冒泡和默认行为"><span class="nav-text">jQuery阻止事件冒泡和默认行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#form提交格式问题"><span class="nav-text">form提交格式问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#find找子元素"><span class="nav-text">find找子元素</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lomo 朱幸民</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共61.5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("ivrWycPPaTqpUQWlrrynaC9b-gzGzoHsz", "hEXywpn5sGaCnm5zWsMmEu2j");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

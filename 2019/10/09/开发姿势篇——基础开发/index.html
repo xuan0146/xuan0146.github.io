@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="baidu-site-verification" content="4OYpSWALtb">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zxmLogo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/zxmLogo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/zxmLogo.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="基础开发,大厂手册,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="「IE 虐我千百遍，我待 IE 如初恋」">
+<meta name="keywords" content="基础开发,大厂手册">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发姿势篇——基础开发">
+<meta property="og:url" content="https://www.zhuxingmin.com/2019/10/09/开发姿势篇——基础开发/index.html">
+<meta property="og:site_name" content="Lomo | 朱幸民">
+<meta property="og:description" content="「IE 虐我千百遍，我待 IE 如初恋」">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.zhuxingmin.com/images/posts/网页设计稿示例.jpg">
+<meta property="og:image" content="https://www.zhuxingmin.com/images/posts/当前页面复用组件示例.png">
+<meta property="og:updated_time" content="2019-10-23T12:08:17.177Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开发姿势篇——基础开发">
+<meta name="twitter:description" content="「IE 虐我千百遍，我待 IE 如初恋」">
+<meta name="twitter:image" content="https://www.zhuxingmin.com/images/posts/网页设计稿示例.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.zhuxingmin.com/2019/10/09/开发姿势篇——基础开发/">
+
+
+
+
+
+  <title>开发姿势篇——基础开发 | Lomo | 朱幸民</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lomo | 朱幸民</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">on the way</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时间轴">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2019/10/09/开发姿势篇——基础开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lomo 朱幸民">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headImg.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lomo | 朱幸民">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">开发姿势篇——基础开发</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-09T14:05:16+08:00">
+                2019-10-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T20:08:17+08:00">
+                2019-10-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">前端笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/10/09/开发姿势篇——基础开发/" class="leancloud_visitors" data-flag-title="开发姿势篇——基础开发">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  「IE 虐我千百遍，我待 IE 如初恋」
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>&emsp;&emsp;近期学习了一下大厂h5开发实战内容，并且参考实战手册做一些记录。大概包括以下几个方面内容：</p>
+<ol>
+<li>基础页面开发；</li>
+<li>响应式页面开发；</li>
+<li>滑屏应用开发；</li>
+<li>动效开发；（若干篇章）</li>
+</ol>
+<p>&emsp;&emsp;接下来会根据以上几个方向来进行总结和概述。（可参考<a href="https://juejin.im/book/5a7bfe595188257a7349b52a?referrer=5b6954626fb9a04fb13708c2" target="_blank" rel="noopener">掘金小册——大厂h5开发实战手册</a>）</p>
+<hr>
+<h2 id="基础页面开发"><a href="#基础页面开发" class="headerlink" title="基础页面开发"></a>基础页面开发</h2><p>&emsp;&emsp;很多开发者可能问，不就是画ui吗，有什么好说的呢？自然，基础页面开发是作为h5开发者，最为基础的能力。但是<strong>完成一个页面</strong>和<strong>做好一个页面</strong>是有本质区别的。因此，基础篇必不可少。<br>&emsp;&emsp;那，上菜吧。</p>
+<h3 id="一、-能力要求"><a href="#一、-能力要求" class="headerlink" title="一、 能力要求"></a>一、 能力要求</h3><p>&emsp;&emsp;你以为是简单的html/css/js吗？emm,对，但还不够。</p>
+<ul>
+<li>html/css</li>
+<li>JavaScript（简单脚本）</li>
+<li>切图</li>
+</ul>
+<p>&emsp;&emsp;你没看错，【切图】也在能力要求范围内。不会「切图」意味着我们无法将设计稿中的图层元素转换成为网页中所需要的图片，那么产品所要求的高保真还原设计稿便是更不能企及了。</p>
+<h3 id="二、-案例"><a href="#二、-案例" class="headerlink" title="二、 案例"></a>二、 案例</h3><p>如果我们得到设计稿如下图：<br><img src="/images/posts/网页设计稿示例.jpg" alt="网页设计稿示例"></p>
+<p>&emsp;&emsp;通常，我们在ui设计师得到类似的.psd文件，然后开始着手开发。那么我们在开发中一般步骤如下：</p>
+<blockquote>
+<ol>
+<li>设计稿审查;</li>
+<li>编写页面骨骼框架;</li>
+<li>填充网页血肉内容;</li>
+<li>润色;</li>
+<li>兼容性测试;</li>
+</ol>
+</blockquote>
+<p>&emsp;&emsp;我们一个一个来。</p>
+<h4 id="1-设计稿审查"><a href="#1-设计稿审查" class="headerlink" title="1. 设计稿审查"></a>1. 设计稿审查</h4><p><strong>审查意义：</strong></p>
+<ul>
+<li>了解设计稿的开发友好性</li>
+<li>了解设计稿的排版布局及内容构成</li>
+</ul>
+<p>&emsp;&emsp;此处也是常人的正向思维，拿到设计稿，先熟悉了解内容，然后思考以下是否有漏洞，或者是否有更好的建议与意见，其中某些模块细节如何处理，考虑复用性、易拓展性等，然后规划某些模块是否编写为可复用组件，复用范围等。<br>&emsp;&emsp;还以上图为例，明显多处可复用。那么可复用的又大致可分为两种类别：<code>跨页面复用</code>以及<code>当前页面复用</code>。那么该案例设计稿则可以划分如下：</p>
+<ol>
+<li>跨页面复用组件： 头部导航、脚部信息；</li>
+<li>当前页面复用组件： 如下图中1、2</li>
+</ol>
+<p><img src="/images/posts/当前页面复用组件示例.png" alt="当前页面复用组件示例"></p>
+<p>&emsp;&emsp;这些展示的只是该过程中最为基础的审查，当然，如果条件允许的话，团队内可以学习凹凸实验室，尝试总结出一个类似的审查清单：</p>
+<blockquote>
+<ul>
+<li>确定设计稿的开发友好性（是否有还原成本高或无法还原的地方）</li>
+<li>确定一些特殊的元素是否有合理的边界处理（如文案超出外层容器的边界怎么办）</li>
+<li>确定页面的框架结构（Layout）</li>
+<li>确定跨页面可复用的组件（Site Component）</li>
+<li>确定当前页面可复用的组件（Page Component）</li>
+<li>……</li>
+</ul>
+</blockquote>
+<p>&emsp;&emsp;此处不再一一赘述。</p>
+<h4 id="2-编写页面骨骼框架"><a href="#2-编写页面骨骼框架" class="headerlink" title="2. 编写页面骨骼框架"></a>2. 编写页面骨骼框架</h4><p>&emsp;&emsp;审查结束后，心里基本上有了比较成型的代码模型了，那么接下来就是<code>编写页面骨骼框架</code>了。通俗的来讲，就是搭架子。那么架子怎么搭？仁者见仁，但是最为基础的却都是统一的，比如必须掌握的知识点——盒模型。当然，此处不会讲解关于盒模型以及兼容性和差异性，还不太了解的可以自行搜索或者查询<a href="https://www.w3school.com.cn/css/css_boxmodel.asp" target="_blank" rel="noopener">w3school</a>。我们需要掌握盒模型在不同浏览器下的差异，盒模型宽高计算方法、内外边距以及一些兼容性问题的解决方案。然后，在摸清楚兼容性差异并解决之，达到统一后，便开始着手开发。<br>&emsp;&emsp;开发第一步：<strong>布局</strong>。<br>&emsp;&emsp;开发过程中，我们会写无数个块级元素，那么其实每个块级元素都相当于是一个盒模型，而一张完整的页面，正是由多个盒模型组合在一起组成的。如此来讲，我们的页面布局便是重中之重：我们应该如何<strong>合理</strong>的布局呢？想回答这个问题，不得不啰嗦一下目前常见的几种布局方式：</p>
+<ol>
+<li>文档流布局;</li>
+<li>浮动布局(float);</li>
+<li>绝对布局(absolute);</li>
+<li>弹性布局(flex);</li>
+<li>网格布局(grid)；</li>
+</ol>
+<p>&emsp;&emsp;在这几种常见的布局方式中，我们在经过第一步的审查设计稿之后，已经对开发内容有了一个大致的了解，起码架子方面是可以肯定的，因此根据设计稿内容选择合适的布局即可。目前一般页面布局都会属于混合布局，为了展示更加酷炫和对用户更加友好的内容，布局难度也在不断增加。但所谓复杂的布局，也要回归到基础布局上来回嵌套，因此这几种布局是必须全部熟悉并且掌握，合理运用。</p>
+<h4 id="3-填充网页血肉内容"><a href="#3-填充网页血肉内容" class="headerlink" title="3. 填充网页血肉内容"></a>3. 填充网页血肉内容</h4><p>&emsp;&emsp;在页面布局完成之后，下一步就是要开始填充页面内容了，图片、音视频、文字混排等等，都让我们的页面更加鲜活和立体。如果把网页开发比喻成房屋建设，那么我们前面完成的就是打好了地基。就此结束吗？醒醒，工头让我喊你搬砖。根据设计，砌墙、装修、水管电线等等都要一步步的来啊，任重而道远。<br>&emsp;&emsp;在小册中，凹凸实验室此处概述重点讲解了前端另一大能力——切图。我不再作出相关介绍，关于切图姿势、如何高效切图等，都可以查找相关介绍。而在此处，我额外补充一点：优化。我所说的优化不是代码优化，而是引入的资源优化，比如图片、音视频等。因此一些小技巧，如雪碧图、占位图、预加载、懒加载等功能的特性便需要掌握。</p>
+<h4 id="4-润色"><a href="#4-润色" class="headerlink" title="4. 润色"></a>4. 润色</h4><p>&emsp;&emsp;何谓润色？且不要多想，当作普通的css编写即可。<br>&emsp;&emsp;其实在我们基础页面开发过程中，最容易获取成就感的地方，就在于润色过程，就好似给图画上色，哦不，是拍照化妆开美颜加滤镜，效果感十足。但是写的时候容易，维护却是一大难题。<br>&emsp;&emsp;往往在写完某个页面一段时间后，需要对其中某个样式就行维护时，找到该css位置需要理一下思路，那么……我们怎么通过某种规范来规避此问题或者是使该问题简单化呢？</p>
+<h5 id="BEM"><a href="#BEM" class="headerlink" title="BEM"></a>BEM</h5><blockquote>
+<p>&emsp;&emsp;BEM(boundary element method，边界元法)是一种继有限元法之后发展起来的一种新数值方法，与有限元法在连续体域内划分单元的基本思想不同，边界元法是在定义域的边界上划分单元，用满足控制议程的函数去逼近边界条件。所以边界元法与有限元相比具有单元的未知数少，数据准备简单等优点。但用边界元法解非线性问题时，遇到同非线性项相对应的区域积分，这种积分在奇异点附近有强烈的奇异性，使求解变得困难。</p>
+</blockquote>
+<p>那么在我们的css代码中，如何使用BEM呢？</p>
+<blockquote>
+<p>BEM 的意思就模块（Block）、元素（Element）、修饰符（Modifier），使用这种命名方式可以让 CSS 的类名变得有实际意义且能自我解释，具有更高的开发友好性。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Block - 模块，名字的单词之间用 `-` 符号连接</span><br><span class="line">Element - 元素，模块中的子元素，用 `__` 符号连接</span><br><span class="line">Modifier - 修饰符，表示父元素或子元素的其他形态，用 `--` 符号连接</span><br></pre></td></tr></table></figure>
+<h5 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h5><p>普通写法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"footer-box"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">“left”</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">“right”</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>BEM写法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"footer-box"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">“footer-box__left”</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">“footer-box__right”</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;对比后可发现，模块的命名已经语义化，后期维护减少了些许的复杂程度，页面的渲染效率提升了，但是……会不会命名太复杂了呢？不得不说，sacc/less是个好东西。我们搭配其来使用，则可编写为：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.footer-box</span>&#123;</span><br><span class="line">    &amp;__left&#123; ... &#125;</span><br><span class="line">    &amp;__right&#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-兼容性测试"><a href="#5-兼容性测试" class="headerlink" title="5. 兼容性测试"></a>5. 兼容性测试</h4><p>&emsp;&emsp;在页面开发完成之后，别急，换个浏览器试试？换台设备试试？emm，内心是拒绝的。<br>&emsp;&emsp;兼容性测试是开发完成后必不可少的一步。由于各浏览器内核差异，版本差异甚至不同设备之间的分辨率差距，会导致同一个页面在不同设备不同浏览器中展现出千奇百怪的姿态来。为了完成页面的统一性，我们不得不一个个的做兼容，这也是印证了<code>IE 虐我千百遍，我待 IE 如初恋</code>这句话。</p>
+<h5 id="基本原则"><a href="#基本原则" class="headerlink" title="基本原则"></a>基本原则</h5><blockquote>
+<p>渐进增强与平稳退化。</p>
+</blockquote>
+<p>根据小册提议，兼容下问题解决流程步骤如下：</p>
+<ol>
+<li>确认触发的场景：什么浏览器，什么版本，什么情况下触发的问题，做到稳定复现。</li>
+<li>找出问题原因：是什么问题导致的，具体表现如何？</li>
+<li>确定解决办法：参考现成的解决方案，如哪些属性不能使用以及相应的 Hack 处理。</li>
+<li>收集兼容性处理方法，积累成文档。</li>
+</ol>
+<hr>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>&emsp;&emsp;我们根据案例，分析了基础开发的五个步骤：设计稿审查;编写页面骨骼框架;填充网页血肉内容;润色;兼容性测试。每个步骤有了一个简单的介绍，但是不够深入，总体来讲还是对基础开发有了一个大致的了解。至于更加深入的内容，下篇接着写。</p>
+
+      
+    </div>
+    
+    
+    
+	
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">---本文结束<i class="fa fa-paw"></i>感谢您的阅读---</div>
+    
+</div>
+	  
+	</div>
+	<div>
+		  
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.main.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.css">
+
+  <p><span>本文标题:</span>开发姿势篇——基础开发</p>
+  <p><span>文章作者:</span>Lomo 朱幸民</p>
+  <p><span>发布时间:</span>2019年10月09日 - 14:05:16</p>
+  <p><span>最后更新:</span>2019年10月23日 - 20:08:17</p>
+  <p><span>原始链接:</span><a href="/2019/10/09/开发姿势篇——基础开发/" title="开发姿势篇——基础开发">https://www.zhuxingmin.com/2019/10/09/开发姿势篇——基础开发/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2019/10/09/开发姿势篇——基础开发/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+		  
+	</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请作者喝杯咖啡吧~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Lomo 朱幸民 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Lomo 朱幸民 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础开发/" rel="tag"><i class="fa fa-tag"></i> 基础开发</a>
+          
+            <a href="/tags/大厂手册/" rel="tag"><i class="fa fa-tag"></i> 大厂手册</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/20/vue中-change兼容问题/" rel="next" title="vue中@change兼容问题">
+                <i class="fa fa-chevron-left"></i> vue中@change兼容问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/12/开发姿势篇——动效设计1/" rel="prev" title="开发姿势篇——动效设计1">
+                开发姿势篇——动效设计1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+	
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/headImg.png" alt="Lomo 朱幸民">
+            
+              <p class="site-author-name" itemprop="name">Lomo 朱幸民</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          <!--
+		  */
+		  -->
+
+
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xuan0146" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zxm0146@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/a708dcdb5061" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-book"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/5094024813" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=756112&auto=1&height=32"></iframe>
+		  
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础页面开发"><span class="nav-text">基础页面开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-能力要求"><span class="nav-text">一、 能力要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、-案例"><span class="nav-text">二、 案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-设计稿审查"><span class="nav-text">1. 设计稿审查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-编写页面骨骼框架"><span class="nav-text">2. 编写页面骨骼框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-填充网页血肉内容"><span class="nav-text">3. 填充网页血肉内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-润色"><span class="nav-text">4. 润色</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BEM"><span class="nav-text">BEM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#举个例子"><span class="nav-text">举个例子</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-兼容性测试"><span class="nav-text">5. 兼容性测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基本原则"><span class="nav-text">基本原则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lomo 朱幸民</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共61.5k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("ivrWycPPaTqpUQWlrrynaC9b-gzGzoHsz", "hEXywpn5sGaCnm5zWsMmEu2j");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
