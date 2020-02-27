@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[JS交互微信之获取收货地址]]></title>
+    <url>%2F2020%2F02%2F27%2FJS%E4%BA%A4%E4%BA%92%E5%BE%AE%E4%BF%A1%E4%B9%8B%E8%8E%B7%E5%8F%96%E6%94%B6%E8%B4%A7%E5%9C%B0%E5%9D%80%2F</url>
+    <content type="text"><![CDATA[前言本篇为JS交互微信系列篇的第二篇，上一篇《JS交互微信之基础配置》讲述了基础配置，本篇记录获取（共享）用户收货地址。 一、 场景在需要用户实际收货地址时，可以直接拉取用户微信中存在的收货地址，或者在微信中新增、编辑及删除收货地址，而后传给商户 二、 介绍1. 简介微信收货地址共享，是指用户在微信浏览器内打开网页，填写过地址后，后续可以免填写支持快速选择，也可增加和编辑。此地址为用户属性，可在各商户的网页中共享使用。支持原生控件填写地址，地址数据会传递到商户。 2. 功能支持地址共享是基于微信JavaScript API 实现，只能在微信内置浏览器中使用，其他浏览器调用无效。同时，需要微信5.0 版本才能支持，建议通过user agent 来确定用户当前的版本号后再调用地址接口。以iPhone 版本为例，可以通过useragent可获取如下微信版本示例信息：”Mozilla/5.0(iphone;CPU iphone OS 5_1_1 like Mac OS X)AppleWebKit/534.46(KHTML,like Geocko) Mobile/9B206MicroMessenger/5.0“其中5.0 为用户安装的微信版本号，商户可以判定版本号是否高于或者等于5.0。 3. 地址格式微信地址共享使用的数据字段包括： 收货人姓名 地区，省市区三级 详细地址 邮编 联系电话 国际编码 三、 接口说明openAddress12345678wx.openAddress(&#123; success: function () &#123; // 用户成功拉出地址 &#125;, cancel: function () &#123; // 用户取消拉出地址 &#125;&#125;); 返回值说明 返回值 说明 errMsg 获取编辑收货地址成功返回“openAddress:ok” userName 收货人姓名 postalCode 邮编 provinceName 国标收货地址第一级地址（省） cityName 国标收货地址第二级地址（市） countryName 国标收货地址第三级地址（国家） detailInfo 详细收货地址信息 nationalCode 收货地址国家码 telNumber 收货人手机号码 四、 示例代码1. 引入script12// 主文件 或 入口文件 引入&lt;script src="https://res.wx.qq.com/open/js/jweixin-1.1.0.js"&gt;&lt;/script&gt; 2. wx.config配置12345678910111213// 微信配置// appId、timestamp、nonceStr、signature从公众号和后台获取wx.config(&#123; debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。 appId: '', // 必填，公众号的唯一标识 timestamp: '', // 必填，生成签名的时间戳 nonceStr: '', // 必填，生成签名的随机串 signature: '',// 必填，签名 jsApiList: [ 'checkJsApi', 'openAddress' ] // 必填，需要使用的JS接口列表 这里填写需要用到的微信api openlocation为使用微信内置地图查看位置接口&#125;); 3. 获取地址12345678910111213141516171819202122232425262728293031wx.ready(function () &#123; // 检测接口是否可用，开发环境中测试用，生产环境没问题可不写 wx.checkJsApi(&#123; jsApiList: [ 'openAddress', ], success: function (res) &#123; alert(res); &#125; &#125;); // 请求接口 wx.openAddress(&#123; // 请求成功要做的事 success: (res) =&gt; &#123; // 这里我把获取到的用户信息存储到了vuex中的state中保存，以防后续路由跳转带来的组件销毁带来的数据没法保存 // 根据自己需求拿自己需要的参数即可，参数名可对照上面的返回值说明表 _this.$store.state.address.userName = res.userName; _this.$store.state.address.telNumber = res.telNumber; _this.$store.state.address.nationalCode = res.nationalCode; _this.$store.state.address.provinceName = res.provinceName; _this.$store.state.address.cityName = res.cityName; _this.$store.state.address.countryName = res.countryName; _this.$store.state.address.detailInfo = res.detailInfo; &#125;, cancel: function () &#123; // 用户取消要做的事儿 // 这里我把请求时打开的一个loading动画给关闭了 _this.$layer.close(); &#125;, &#125;);&#125;); 五、 常见问题在开发中，我遇到的问题如下： 必须发布到线上测试，没找到好的解决办法； 公众号（服务号）中要设置IP白名单，不然通不过验证！ 安卓可以调起而iOS无法调起：引入script链接时，应引入https而不是http，可能iOS对安全策略这块儿比较严格，在此处踩了个坑。 在PC端无法调起！ 以上。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>js</tag>
+        <tag>微信</tag>
+        <tag>jssdk</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS交互微信之基础配置]]></title>
     <url>%2F2020%2F02%2F25%2FJS%E4%BA%A4%E4%BA%92%E5%BE%AE%E4%BF%A1%E4%B9%8B%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%2F</url>
     <content type="text"><![CDATA[前言最近公司需求，需要在APP中分享出去的web页面中加入商品购买功能，目前需要使用微信支付。由于微信支付基础为0，因此不得不扒文档抄作业，加上度娘的支持，得以完成了一些功能，因此开一小模块记录下关于此项目中前端用到的东西。不过不得不说，复杂的东西都在后端执行，需要前端完成的真的是少之又少，都是一些基础配置以及调取微信文档中写的接口而已，不要想得过于复杂。 篇章介绍目前可能会更新以下几块内容，每个模块仅与基础配置篇相关，其他的相互独立（如，获取用户地址模块不参与自定义分享模块内容，但都基于基础配置篇），每篇内容尽量简洁明了。 基础配置（本篇） 获取用户收货地址 自定义分享 微信支付（微信浏览器，JSAPI支付） 微信支付（非微信浏览器,H5支付） 应用场景介绍 在微信内打开网页时候，如果需要获取用户在微信填写的收获地址，可通过api直接调取。 ———— 微信地址共享 商户已有H5商城网站，用户通过消息、分享、链接或扫描二维码等方式在微信内打开网页时，可以调用微信支付完成下单购买的流程。 ———— JSAPI支付 用户在微信内某个页面想要分享给朋友或朋友圈时，需要对分享内容、标题及图片重新配置时使用。 ———— 自定义分享 H5支付是指商户在微信客户端外的移动端网页展示商品或服务，用户在前述页面确认使用微信支付时，商户发起本服务呼起微信客户端进行支付。 ———— H5支付 一、 基础配置(JSSDK)本块儿内容基本上是微信开放文档中配置，可忽略 概述微信JS-SDK是微信公众平台面向网页开发者提供的基于微信内的网页开发工具包。通过使用微信JS-SDK，网页开发者可借助微信高效地使用拍照、选图、语音、位置等手机系统的能力，同时可以直接使用微信分享、扫一扫、卡券、支付等微信特有的能力，为微信用户提供更优质的网页体验。 使用步骤1. 绑定域名先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。备注：登录后可在“开发者中心”查看对应的接口权限 2. 引入JS在需要调用JS接口的页面引入如下JS文件，（支持https）：1&lt;script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"&gt;&lt;/script&gt; 备注：支持使用 AMD/CMD 标准模块加载方法加载 3. 通过config接口注入权限验证配置所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用（同一个url仅需调用一次，对于变化url的SPA的web app可在每次url变化时进行调用,目前Android微信客户端不支持pushState的H5新特性，所以使用pushState来实现web app的页面会导致签名失败，此问题会在Android6.2中修复）。12345678wx.config(&#123; debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。 appId: '', // 必填，公众号的唯一标识 timestamp: , // 必填，生成签名的时间戳 nonceStr: '', // 必填，生成签名的随机串 signature: '',// 必填，签名 jsApiList: [] // 必填，需要使用的JS接口列表&#125;); 4. 接口验证12345678// 成功wx.ready(function()&#123; // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。&#125;);// 失败wx.error(function(res)&#123; // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。&#125;); 二、 补充在上面几个步骤中，有几个注意点： 步骤3中的参数，后端提供； 步骤4中，通过ready验证成功的接口，有以下通用参数： success：接口调用成功时执行的回调函数。 fail：接口调用失败时执行的回调函数。 complete：接口调用完成时执行的回调函数，无论成功或失败都会执行。 cancel：用户点击取消时的回调函数，仅部分有用户取消操作的api才会用到。 trigger: 监听Menu中的按钮点击时触发的方法，该方法仅支持Menu中的相关接口。 备注：不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回。 在使用每个JS接口前，可以使用checkJsApi的方法判断是否支持该接口： 1234567wx.checkJsApi(&#123; jsApiList: ['onMenuShareTimeline'], // 需要检测的JS接口列表，此处为分享到朋友圈接口示例 success: function(res) &#123; // 以键值对的形式返回，可用的api值true，不可用为false // 如：&#123;"checkResult":&#123;"onMenuShareTimeline":true&#125;,"errMsg":"checkJsApi:ok"&#125; &#125;&#125;); 所有接口列表 接口名 用途 updateAppMessageShareData 分享给朋友 updateTimelineShareData 分享到朋友圈 onMenuShareTimeline（即将废弃） 分享到朋友圈 onMenuShareAppMessage（即将废弃） 分享给朋友 onMenuShareQQ（即将废弃） 分享到QQ onMenuShareWeibo 分享到微博 onMenuShareQZone 分享到空间 startRecord 开始录音 stopRecord 停止录音 onVoiceRecordEnd 录音超时 playVoice 播放 pauseVoice 暂停 stopVoice 停止 onVoicePlayEnd 播放结束时执行 uploadVoice 上传录音 downloadVoice 下载录音 chooseImage 选择本地照片 previewImage 预览 uploadImage 上传 downloadImage 下载 translateVoice 翻译 getNetworkType 网络状况 openLocation 打开内置地图 getLocation 获取用户位置 hideOptionMenu 隐藏菜单 showOptionMenu 显示菜单 hideMenuItems 隐藏菜单按钮 hideAllNonBaseMenuItem 屏蔽所有按钮 showAllNonBaseMenuItem 显示所有按钮 closeWindow 关闭页面 scanQRCode 扫描二维码 chooseWXPay 微信支付 openProductSpecificView 微信卡券 addCard 添加卡券到卡包 chooseCard 拉取卡券 openCard 添加卡券]]></content>
@@ -299,8 +313,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>小王子</tag>
+        <tag>读书笔记</tag>
         <tag>读后感</tag>
       </tags>
   </entry>
@@ -351,8 +365,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>下划线跟随</tag>
         <tag>jquery</tag>
+        <tag>下划线跟随</tag>
       </tags>
   </entry>
   <entry>
@@ -376,8 +390,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>jquery</tag>
         <tag>电商放大镜</tag>
+        <tag>jquery</tag>
       </tags>
   </entry>
   <entry>

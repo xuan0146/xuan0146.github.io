@@ -98,7 +98,7 @@
 
 
 
-  <meta name="keywords" content="js,es6,Promise,定时器,">
+  <meta name="keywords" content="vue,js,微信,jssdk,">
 
 
 
@@ -109,18 +109,18 @@
 
 
 
-<meta name="description" content="Promise Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理且更强大。它最早由社区提出并实现，ES6将其写进了语言标准，统一了用法，并原生提供了Promise对象。">
-<meta name="keywords" content="js,es6,Promise,定时器">
+<meta name="description" content="前言本篇为JS交互微信系列篇的第二篇，上一篇《JS交互微信之基础配置》讲述了基础配置，本篇记录获取（共享）用户收货地址。 一、 场景在需要用户实际收货地址时，可以直接拉取用户微信中存在的收货地址，或者在微信中新增、编辑及删除收货地址，而后传给商户">
+<meta name="keywords" content="vue,js,微信,jssdk">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js执行——Promise">
-<meta property="og:url" content="https://www.zhuxingmin.com/2019/04/28/js执行——Promise/index.html">
+<meta property="og:title" content="JS交互微信之获取收货地址">
+<meta property="og:url" content="https://www.zhuxingmin.com/2020/02/27/JS交互微信之获取收货地址/index.html">
 <meta property="og:site_name" content="Lomo | 朱幸民">
-<meta property="og:description" content="Promise Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理且更强大。它最早由社区提出并实现，ES6将其写进了语言标准，统一了用法，并原生提供了Promise对象。">
+<meta property="og:description" content="前言本篇为JS交互微信系列篇的第二篇，上一篇《JS交互微信之基础配置》讲述了基础配置，本篇记录获取（共享）用户收货地址。 一、 场景在需要用户实际收货地址时，可以直接拉取用户微信中存在的收货地址，或者在微信中新增、编辑及删除收货地址，而后传给商户">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-28T07:53:07.362Z">
+<meta property="og:updated_time" content="2020-02-27T09:09:32.527Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js执行——Promise">
-<meta name="twitter:description" content="Promise Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理且更强大。它最早由社区提出并实现，ES6将其写进了语言标准，统一了用法，并原生提供了Promise对象。">
+<meta name="twitter:title" content="JS交互微信之获取收货地址">
+<meta name="twitter:description" content="前言本篇为JS交互微信系列篇的第二篇，上一篇《JS交互微信之基础配置》讲述了基础配置，本篇记录获取（共享）用户收货地址。 一、 场景在需要用户实际收货地址时，可以直接拉取用户微信中存在的收货地址，或者在微信中新增、编辑及删除收货地址，而后传给商户">
 
 
 
@@ -150,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zhuxingmin.com/2019/04/28/js执行——Promise/">
+  <link rel="canonical" href="https://www.zhuxingmin.com/2020/02/27/JS交互微信之获取收货地址/">
 
 
 
 
 
-  <title>js执行——Promise | Lomo | 朱幸民</title>
+  <title>JS交互微信之获取收货地址 | Lomo | 朱幸民</title>
   
 
 
@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2019/04/28/js执行——Promise/">
+    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2020/02/27/JS交互微信之获取收货地址/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lomo 朱幸民">
@@ -332,7 +332,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">js执行——Promise</h2>
+          <h2 class="post-title" itemprop="name headline">JS交互微信之获取收货地址</h2>
         
 
         <div class="post-meta">
@@ -344,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-28T12:09:15+08:00">
-                2019-04-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-27T16:29:13+08:00">
+                2020-02-27
               </time>
             
 
@@ -360,8 +360,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-28T15:53:07+08:00">
-                2019-04-28
+              <time title="更新于" itemprop="dateModified" datetime="2020-02-27T17:09:32+08:00">
+                2020-02-27
               </time>
             
           </span>
@@ -396,7 +396,7 @@
 
           
           
-             <span id="/2019/04/28/js执行——Promise/" class="leancloud_visitors" data-flag-title="js执行——Promise">
+             <span id="/2020/02/27/JS交互微信之获取收货地址/" class="leancloud_visitors" data-flag-title="JS交互微信之获取收货地址">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -458,68 +458,79 @@
       
 
       
-        <h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><blockquote>
-<p>Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理且更强大。它最早由社区提出并实现，ES6将其写进了语言标准，统一了用法，并原生提供了Promise对象。</p>
-</blockquote>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇为<strong>JS交互微信系列篇</strong>的第二篇，上一篇《JS交互微信之基础配置》讲述了基础配置，本篇记录获取（共享）用户收货地址。</p>
+<h2 id="一、-场景"><a href="#一、-场景" class="headerlink" title="一、 场景"></a>一、 场景</h2><p>在需要用户实际收货地址时，可以直接拉取用户微信中存在的收货地址，或者在微信中新增、编辑及删除收货地址，而后传给商户</p>
 <a id="more"></a>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
-<li>对象的状态不受外界影响 （3种状态）<ul>
-<li>Pending状态（进行中）</li>
-<li>Fulfilled状态（已成功）</li>
-<li>Rejected状态（已失败）</li>
-</ul>
-</li>
-<li>一旦状态改变就不会再变 （两种状态改变：成功或失败）<ul>
-<li>Pending -&gt; Fulfilled</li>
-<li>Pending -&gt; Rejected</li>
-</ul>
-</li>
-</ol>
-<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><h4 id="创建Promise实例"><a href="#创建Promise实例" class="headerlink" title="创建Promise实例"></a>创建Promise实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var promise = new Promise(function(resolve, reject)&#123;</span><br><span class="line">	// ... some code</span><br><span class="line">	</span><br><span class="line">	if (/* 异步操作成功 */) &#123;</span><br><span class="line">		resolve(value);</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		reject(error);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;Promise构造函数接受一个函数作为参数，该函数的两个参数分别是<code>resolve</code>和<code>reject</code>。它们是两个函数，由JavaScript引擎提供，不用自己部署。<br>&emsp;&emsp;resolve作用是将Promise对象状态由“未完成”变为“成功”，也就是<code>Pending -&gt; Fulfilled</code>，在异步操作成功时调用，并将异步操作的结果作为参数传递出去；而reject函数则是将Promise对象状态由“未完成”变为“失败”，也就是<code>Pending -&gt; Rejected</code>，在异步操作失败时调用，并将异步操作的结果作为参数传递出去。</p>
-<h4 id="then"><a href="#then" class="headerlink" title="then"></a>then</h4><p>&emsp;&emsp;Promise实例生成后，可用<code>then</code>方法分别指定两种状态回调参数。then 方法可以接受两个回调函数作为参数：</p>
-<ol>
-<li>Promise对象状态改为Resolved时调用 （必选）</li>
-<li>Promise对象状态改为Rejected时调用 （可选）</li>
-</ol>
-<h4 id="基本用法示例"><a href="#基本用法示例" class="headerlink" title="基本用法示例"></a>基本用法示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">	return new Promise(function(resolve, reject) &#123;</span><br><span class="line">		setTimeout(resolve, ms);</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line">sleep(500).then( ()=&gt; console.log(&quot;finished&quot;));</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;这段代码定义了一个函数sleep，调用后，等待了指定参数(500)毫秒后执行then中的函数。值得注意的是，Promise新建后就会立即执行。</p>
-<h4 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h4><p>&emsp;&emsp;接下来我们探究一下它的执行顺序，看以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let promise = new Promise(function(resolve, reject)&#123;</span><br><span class="line">	console.log(&quot;AAA&quot;);</span><br><span class="line">	resolve()</span><br><span class="line">&#125;);</span><br><span class="line">promise.then(() =&gt; console.log(&quot;BBB&quot;));</span><br><span class="line">console.log(&quot;CCC&quot;)</span><br><span class="line"></span><br><span class="line">// AAA</span><br><span class="line">// CCC</span><br><span class="line">// BBB</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;执行后，我们发现输出顺序总是 <code>AAA -&gt; CCC -&gt; BBB</code>。表明，在Promise新建后会立即执行，所以<code>首先输出 AAA</code>。然后，then方法指定的回调函数将在当前脚本所有同步任务执行完后才会执行，所以<code>BBB 最后输出</code>。</p>
-<h4 id="与定时器混用"><a href="#与定时器混用" class="headerlink" title="与定时器混用"></a>与定时器混用</h4><p>&emsp;&emsp;首先看一个实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let promise = new Promise(function(resolve, reject)&#123;</span><br><span class="line">	console.log(&quot;1&quot;);</span><br><span class="line">	resolve();</span><br><span class="line">&#125;);</span><br><span class="line">setTimeout(()=&gt;console.log(&quot;2&quot;), 0);</span><br><span class="line">promise.then(() =&gt; console.log(&quot;3&quot;));</span><br><span class="line">console.log(&quot;4&quot;);</span><br><span class="line"></span><br><span class="line">// 1</span><br><span class="line">// 4</span><br><span class="line">// 3</span><br><span class="line">// 2</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;可以看到，结果输出顺序总是：<code>1 -&gt; 4 -&gt; 3 -&gt; 2</code>。1与4的顺序不必再说，而2与3先输出Promise的then，而后输出定时器任务。原因则是Promise属于JavaScript引擎内部任务，而setTimeout则是浏览器API，而引擎内部任务优先级高于浏览器API任务，所以有此结果。</p>
-<h3 id="拓展-async-await"><a href="#拓展-async-await" class="headerlink" title="拓展 async/await"></a>拓展 async/await</h3><h4 id="async"><a href="#async" class="headerlink" title="async"></a>async</h4><p>&emsp;&emsp;顾名思义，异步。async函数对 Generator 函数的改进，async 函数必定返回 Promise，我们把所有返回 Promise 的函数都可以认为是异步函数。特点体现在以下四点：</p>
+<h2 id="二、-介绍"><a href="#二、-介绍" class="headerlink" title="二、 介绍"></a>二、 介绍</h2><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h3><p>微信收货地址共享，是指用户在微信浏览器内打开网页，填写过地址后，后续可以免填写支持快速选择，也可增加和编辑。<br>此地址为用户属性，可在各商户的网页中共享使用。支持原生控件填写地址，地址数据会传递到商户。</p>
+<h3 id="2-功能支持"><a href="#2-功能支持" class="headerlink" title="2. 功能支持"></a>2. 功能支持</h3><p>地址共享是基于微信JavaScript API 实现，<code>只能在微信内置浏览器中使用，其他浏览器调用无效</code>。同时，需要微信5.0 版本才能支持，建议通过user agent 来确定用户当前的版本号后再调用地址接口。<br>以iPhone 版本为例，可以通过useragent可获取如下微信版本示例信息：”<code>Mozilla/5.0(iphone;CPU iphone OS 5_1_1 like Mac OS X)AppleWebKit/534.46(KHTML,like Geocko) Mobile/9B206MicroMessenger/5.0</code>“其中5.0 为用户安装的微信版本号，商户可以判定版本号是否高于或者等于5.0。</p>
+<h3 id="3-地址格式"><a href="#3-地址格式" class="headerlink" title="3. 地址格式"></a>3. 地址格式</h3><p>微信地址共享使用的数据字段包括：</p>
 <ul>
-<li>内置执行器</li>
-<li>更好的语义</li>
-<li>更广的适用性</li>
-<li>返回值是 Promise</li>
+<li>收货人姓名</li>
+<li>地区，省市区三级</li>
+<li>详细地址</li>
+<li>邮编</li>
+<li>联系电话</li>
+<li>国际编码</li>
 </ul>
-<h4 id="await"><a href="#await" class="headerlink" title="await"></a>await</h4><p>&emsp;&emsp;顾名思义，等待。正常情况下，await命令后面是一个 Promise 对象，返回该对象的结果。如果不是 Promise 对象，就直接返回对应的值。另一种情况是，await命令后面是一个thenable对象（即定义then方法的对象），那么await会将其等同于 Promise 对象。</p>
-<h4 id="混合使用"><a href="#混合使用" class="headerlink" title="混合使用"></a>混合使用</h4><p>&emsp;&emsp;先看示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">    return new Promise(function(resolve, reject) &#123;</span><br><span class="line">        setTimeout(resolve,ms);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">async function handle()&#123;</span><br><span class="line">    console.log(&quot;AAA&quot;)</span><br><span class="line">    await sleep(5000)</span><br><span class="line">    console.log(&quot;BBB&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handle();</span><br><span class="line"></span><br><span class="line">// AAA</span><br><span class="line">// BBB (5000ms后)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们定义函数sleep，返回一个Promise。然后在handle函数前加上async关键词，这样就定义了一个async函数。在该函数中，利用await来等待一个Promise。</p>
-<h3 id="Promise优缺点"><a href="#Promise优缺点" class="headerlink" title="Promise优缺点"></a>Promise优缺点</h3><table>
+<h2 id="三、-接口说明"><a href="#三、-接口说明" class="headerlink" title="三、 接口说明"></a>三、 接口说明</h2><p><strong>openAddress</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wx.openAddress(&#123;</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 用户成功拉出地址 </span></span><br><span class="line">    &#125;,</span><br><span class="line">    cancel: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 用户取消拉出地址</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><strong>返回值说明</strong></p>
+<table>
 <thead>
 <tr>
-<th style="text-align:center">优点</th>
-<th style="text-align:center">缺点</th>
+<th style="text-align:center">返回值</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">解决回调</td>
-<td style="text-align:center">无法监测进行状态</td>
+<td style="text-align:center">errMsg</td>
+<td>获取编辑收货地址成功返回“openAddress:ok”</td>
 </tr>
 <tr>
-<td style="text-align:center">链式调用</td>
-<td style="text-align:center">新建立即执行且无法取消</td>
+<td style="text-align:center">userName</td>
+<td>收货人姓名</td>
 </tr>
 <tr>
-<td style="text-align:center">减少嵌套</td>
-<td style="text-align:center">内部错误无法抛出</td>
+<td style="text-align:center">postalCode</td>
+<td>邮编</td>
+</tr>
+<tr>
+<td style="text-align:center">provinceName</td>
+<td>国标收货地址第一级地址（省）</td>
+</tr>
+<tr>
+<td style="text-align:center">cityName</td>
+<td>国标收货地址第二级地址（市）</td>
+</tr>
+<tr>
+<td style="text-align:center">countryName</td>
+<td>国标收货地址第三级地址（国家）</td>
+</tr>
+<tr>
+<td style="text-align:center">detailInfo</td>
+<td>详细收货地址信息</td>
+</tr>
+<tr>
+<td style="text-align:center">nationalCode</td>
+<td>收货地址国家码</td>
+</tr>
+<tr>
+<td style="text-align:center">telNumber</td>
+<td>收货人手机号码</td>
 </tr>
 </tbody>
 </table>
+<h2 id="四、-示例代码"><a href="#四、-示例代码" class="headerlink" title="四、 示例代码"></a>四、 示例代码</h2><h3 id="1-引入script"><a href="#1-引入script" class="headerlink" title="1. 引入script"></a>1. 引入script</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 主文件 或 入口文件 引入</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://res.wx.qq.com/open/js/jweixin-1.1.0.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-wx-config配置"><a href="#2-wx-config配置" class="headerlink" title="2. wx.config配置"></a>2. wx.config配置</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 微信配置</span></span><br><span class="line"><span class="comment">// appId、timestamp、nonceStr、signature从公众号和后台获取</span></span><br><span class="line">wx.config(&#123;</span><br><span class="line">    debug: <span class="literal">false</span>, <span class="comment">// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span></span><br><span class="line">    appId: <span class="string">''</span>, <span class="comment">// 必填，公众号的唯一标识</span></span><br><span class="line">    timestamp: <span class="string">''</span>, <span class="comment">// 必填，生成签名的时间戳</span></span><br><span class="line">    nonceStr: <span class="string">''</span>, <span class="comment">// 必填，生成签名的随机串</span></span><br><span class="line">    signature: <span class="string">''</span>,<span class="comment">// 必填，签名</span></span><br><span class="line">    jsApiList: [</span><br><span class="line">        <span class="string">'checkJsApi'</span>,</span><br><span class="line">        <span class="string">'openAddress'</span></span><br><span class="line">    ] <span class="comment">// 必填，需要使用的JS接口列表 这里填写需要用到的微信api openlocation为使用微信内置地图查看位置接口</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="3-获取地址"><a href="#3-获取地址" class="headerlink" title="3. 获取地址"></a>3. 获取地址</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">wx.ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 检测接口是否可用，开发环境中测试用，生产环境没问题可不写</span></span><br><span class="line">    wx.checkJsApi(&#123;</span><br><span class="line">        jsApiList: [</span><br><span class="line">            <span class="string">'openAddress'</span>,</span><br><span class="line">        ],</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">            alert(res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 请求接口</span></span><br><span class="line">    wx.openAddress(&#123;</span><br><span class="line">        <span class="comment">// 请求成功要做的事</span></span><br><span class="line">        success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 这里我把获取到的用户信息存储到了vuex中的state中保存，以防后续路由跳转带来的组件销毁带来的数据没法保存</span></span><br><span class="line">            <span class="comment">// 根据自己需求拿自己需要的参数即可，参数名可对照上面的返回值说明表</span></span><br><span class="line">            _this.$store.state.address.userName = res.userName;</span><br><span class="line">            _this.$store.state.address.telNumber = res.telNumber;</span><br><span class="line">            _this.$store.state.address.nationalCode = res.nationalCode;</span><br><span class="line">            _this.$store.state.address.provinceName = res.provinceName;</span><br><span class="line">            _this.$store.state.address.cityName = res.cityName;</span><br><span class="line">            _this.$store.state.address.countryName = res.countryName;</span><br><span class="line">            _this.$store.state.address.detailInfo = res.detailInfo;</span><br><span class="line">        &#125;,</span><br><span class="line">        cancel: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 用户取消要做的事儿</span></span><br><span class="line">            <span class="comment">// 这里我把请求时打开的一个loading动画给关闭了</span></span><br><span class="line">            _this.$layer.close();</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="五、-常见问题"><a href="#五、-常见问题" class="headerlink" title="五、 常见问题"></a>五、 常见问题</h2><p>在开发中，我遇到的问题如下：</p>
+<ol>
+<li>必须发布到线上测试，没找到好的解决办法；</li>
+<li>公众号（服务号）中要设置IP白名单，不然通不过验证！</li>
+<li>安卓可以调起而iOS无法调起：引入<code>script</code>链接时，应引入<code>https</code>而不是<code>http</code>，可能iOS对安全策略这块儿比较严格，在此处踩了个坑。</li>
+<li>在PC端无法调起！</li>
+</ol>
+<p>以上。</p>
 
       
     </div>
@@ -547,12 +558,12 @@
   <script src="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.main.js"></script>
   <link rel="stylesheet" type="text/css" href="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.css">
 
-  <p><span>本文标题:</span>js执行——Promise</p>
+  <p><span>本文标题:</span>JS交互微信之获取收货地址</p>
   <p><span>文章作者:</span>Lomo 朱幸民</p>
-  <p><span>发布时间:</span>2019年04月28日 - 12:09:15</p>
-  <p><span>最后更新:</span>2019年04月28日 - 15:53:07</p>
-  <p><span>原始链接:</span><a href="/2019/04/28/js执行——Promise/" title="js执行——Promise">https://www.zhuxingmin.com/2019/04/28/js执行——Promise/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2019/04/28/js执行——Promise/" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2020年02月27日 - 16:29:13</p>
+  <p><span>最后更新:</span>2020年02月27日 - 17:09:32</p>
+  <p><span>原始链接:</span><a href="/2020/02/27/JS交互微信之获取收货地址/" title="JS交互微信之获取收货地址">https://www.zhuxingmin.com/2020/02/27/JS交互微信之获取收货地址/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2020/02/27/JS交互微信之获取收货地址/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -612,13 +623,13 @@
       
         <div class="post-tags">
           
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          
             <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
           
-            <a href="/tags/es6/" rel="tag"><i class="fa fa-tag"></i> es6</a>
+            <a href="/tags/微信/" rel="tag"><i class="fa fa-tag"></i> 微信</a>
           
-            <a href="/tags/Promise/" rel="tag"><i class="fa fa-tag"></i> Promise</a>
-          
-            <a href="/tags/定时器/" rel="tag"><i class="fa fa-tag"></i> 定时器</a>
+            <a href="/tags/jssdk/" rel="tag"><i class="fa fa-tag"></i> jssdk</a>
           
         </div>
       
@@ -631,8 +642,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/26/vue吸顶效果/" rel="next" title="vue吸顶效果">
-                <i class="fa fa-chevron-left"></i> vue吸顶效果
+              <a href="/2020/02/25/JS交互微信之基础配置/" rel="next" title="JS交互微信之基础配置">
+                <i class="fa fa-chevron-left"></i> JS交互微信之基础配置
               </a>
             
           </div>
@@ -640,10 +651,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/29/js模拟信号灯/" rel="prev" title="js模拟信号灯">
-                js模拟信号灯 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -818,7 +825,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise"><span class="nav-text">Promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-text">用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Promise实例"><span class="nav-text">创建Promise实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#then"><span class="nav-text">then</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本用法示例"><span class="nav-text">基本用法示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行顺序"><span class="nav-text">执行顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与定时器混用"><span class="nav-text">与定时器混用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拓展-async-await"><span class="nav-text">拓展 async/await</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#async"><span class="nav-text">async</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#await"><span class="nav-text">await</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混合使用"><span class="nav-text">混合使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise优缺点"><span class="nav-text">Promise优缺点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、-场景"><span class="nav-text">一、 场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、-介绍"><span class="nav-text">二、 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-简介"><span class="nav-text">1. 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-功能支持"><span class="nav-text">2. 功能支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-地址格式"><span class="nav-text">3. 地址格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-接口说明"><span class="nav-text">三、 接口说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、-示例代码"><span class="nav-text">四、 示例代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-引入script"><span class="nav-text">1. 引入script</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-wx-config配置"><span class="nav-text">2. wx.config配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-获取地址"><span class="nav-text">3. 获取地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、-常见问题"><span class="nav-text">五、 常见问题</span></a></li></ol></div>
             
 
           </div>
