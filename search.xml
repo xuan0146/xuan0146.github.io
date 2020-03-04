@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[JS交互微信之JSAPI支付]]></title>
+    <url>%2F2020%2F03%2F03%2FJS%E4%BA%A4%E4%BA%92%E5%BE%AE%E4%BF%A1%E4%B9%8BJSAPI%E6%94%AF%E4%BB%98%2F</url>
+    <content type="text"><![CDATA[前言本篇为JS交互微信系列篇的第四篇微信JSAPI支付，记录在微信内置浏览器内用调用微信支付过程。 一、 介绍JSAPI支付是用户在微信中打开商户的H5页面，商户在H5页面通过调用微信支付提供的JSAPI接口调起微信支付模块完成支付。 应用场景： 用户在微信公众账号内进入商家公众号，打开某个主页面，完成支付 用户的好友在朋友圈、聊天窗口等分享商家页面连接，用户点击链接打开商家页面，完成支付 将商户页面转换成二维码，用户扫描二维码后在微信浏览器中打开页面后完成支付 二、 准备1. 准备内容要拥有两个账号： 微信服务号，要通过认证（企业才拥有资格） 微信商户平台号(微信支付平台) 2. 平台配置2.1 微信支付(商户平台)中要开通产品中心的JSAPI支付。然后产品中心=&gt;开发配置=&gt;支付配置=&gt;公众号支付配置绑定支付授权目录，写已通过ICP备案的域名。另外，要在ip白名单中，配置测试地址ip和线上生产地址ip，不然各种回调都会失败！ 2.2 微信公众平台中由于在微信内支付需要获取用户的openid，要获取它则必须通过网页授权配置。在公微信公众平台中，公众号设置=&gt;功能设置=&gt;网页授权域名中按要求填写。 三、 开发在支付流程方面，重点依然都在后端处理，前端方面步骤比较简单。本文只叙述前端内容。 1. 用户授权，获取code在将要进入支付的前一页面，直接接入微信授权，然后跳转进要支付的那个页面。举个例子：有a、b两个页面，在b页面用到支付，b页面由a页面跳转而来。那么在a页面跳b页面的时候，别直接跳转b的url，而是跳转到：https://open.weixin.qq.com/connect/oauth2/authorize?appid={appId}&amp;redirect_uri={b.html}&amp;response_type=code&amp;scope=snsapi_base#wechat_redirect我们注意到，这里有这两个需要自己写的参数：appid和redirect_uri，意义是： appid——服务号id redirect_uri——获取授权后回调的页面地址，比如b页面 另外，还有一个注意的点是，b.html这个url我们要进行encode转码，不然地址解析可能会出现问题！ 123// url转码let url = 'a.html';url = escape(url); 2. 得到code，换取凭证获取openid上一步执行完后，在微信浏览器中，我们会得到一个链接，类似：b.html?&amp;code={code}&amp;state=#/在此处，我们得到了一个code值，这就是我们获取openid的凭证了。获取方法当然是把值传给后台，后台去处理啦~ 3. 接收后端返回的我们需要的参数值在上一步中，我们拿到code值后，就可以提交一些信息给后端了，比如商品相关属性、总价等，另外加上code值，传给后端。后端一顿操作后，返回给前端。我们需要的参数如下（后端返回下面这些参数）：123456789// 微信支付需要参数orderInfo: &#123; package: '', // 前端需要从后台获取该数据 paySign: '', // 微信签名，前端需要从后台获取该数据 appId: '', // 需要在微信绑定商户号，成功之后会生成有appid signType: '', // 微信签名方式,默认为"MD5",也可以从后台获取 nonceStr: '', // 随机串，前端需要从后台获取该数据 timeStamp: '', // 时间戳，自1970年以来的秒数，前端需要从后台获取该数据&#125; 4. 交互微信上个步骤拿到需要交互微信的参数后，就开始调用微信的支付接口了，如下：1234567891011121314151617181920212223242526// 微信支付WeixinJSBridge.invoke('getBrandWCPayRequest', &#123; appId: _this.orderInfo.appId, // 上一步得到的参数 nonceStr: _this.orderInfo.nonceStr, // 上一步得到的参数 package: _this.orderInfo.package, // 上一步得到的参数 signType: _this.orderInfo.signType, // 上一步得到的参数 timeStamp: _this.orderInfo.timeStamp, // 上一步得到的参数 paySign: _this.orderInfo.paySign // 上一步得到的参数&#125;, res =&gt; &#123; // 调用后要做的事儿 // codes... // 根据get_brand_wcpay_request的值判断支付状态 if (res.err_msg === "get_brand_wcpay_request:ok") &#123; // ok：支付成功 // 支付成功要做的事儿，比如跳转支付完成后的页面等 &#125; else if (res.err_msg === "get_brand_wcpay_request:cancel") &#123; // cancel：用户取消支付 // 取消支付要做的事儿，比如进入重新支付步骤等 &#125; else if (res.err_msg === "get_brand_wcpay_request:fail") &#123; // fail： 支付失败 // 支付失败要做的事儿，比如进入支付失败步骤等 &#125; // 注： 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok,但并不保证它绝对可靠。&#125;) 5. 常见错误码 名称 描述 原因 解决方案 INVALID_REQUEST 参数错误 参数格式有误或者未按规则上传 订单重入时，要求参数值与原请求一致，请确认参数问题 NOAUTH 商户无此接口权限 商户未开通此接口权限 请商户前往申请此接口权限 NOTENOUGH 余额不足 用户帐号余额不足 用户帐号余额不足，请用户充值或更换支付卡后再支付 ORDERPAID 商户订单已支付 商户订单已支付，无需重复操作 商户订单已支付，无需更多操作 ORDERCLOSED 订单已关闭 当前订单已关闭，无法支付 当前订单已关闭，请重新下单 SYSTEMERROR 系统错误 系统超时 系统异常，请用相同参数重新调用 APPID_NOT_EXIST APPID不存在 参数中缺少APPID 请检查APPID是否正确 MCHID_NOT_EXIST MCHID不存在 参数中缺少MCHID 请检查MCHID是否正确 APPID_MCHID_NOT_MATCH appid和mch_id不匹配 appid和mch_id不匹配 请确认appid和mch_id是否匹配 LACK_PARAMS 缺少参数 缺少必要的请求参数 请检查参数是否齐全 OUT_TRADE_NO_USED 商户订单号重复 同一笔交易不能多次提交 请核实商户订单号是否重复提交 SIGNERROR 签名错误 参数签名结果不正确 请检查签名参数和方法是否都符合签名算法要求 XML_FORMAT_ERROR XML格式错误 XML格式错误 请检查XML参数格式是否正确 REQUIRE_POST_METHOD 请使用post方法 未使用post传递参数 请检查请求参数是否通过post方法提交 POST_DATA_EMPTY post数据为空 post数据不能为空 请检查post数据是否为空 NOT_UTF8 编码格式错误 未使用指定编码格式 请使用UTF-8编码格式 三、 完成至此，调用微信JSAPI来完成在微信内的支付就完成了。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>微信</tag>
+        <tag>js</tag>
+        <tag>jssdk</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS交互微信之自定义分享]]></title>
     <url>%2F2020%2F02%2F28%2FJS%E4%BA%A4%E4%BA%92%E5%BE%AE%E4%BF%A1%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%88%86%E4%BA%AB%2F</url>
     <content type="text"><![CDATA[前言本篇为JS交互微信系列篇的第三篇自定义微信分享，记录在微信内置浏览器打开页面再分享时对分享的处理。 一、 介绍在微信中打开的页面，如果我们不加操作直接分享出去，除了分享的不太美观（只有title\url，而不是自定义的标题、副标题、图片等），也有可能不太符合正常流程，如：用户在a页面通过登录进如了b页面，然后将b页面直接分享给别的用户，如果我们不加以处理，那么别的用户点击b页面则会是错误页（因为跨过了登录）。当面临此类情况时，搞一下自定义分享还是十分有必要的。 二、 注意事项请注意，不要有诱导分享等违规行为，对于诱导分享行为将永久回收公众号接口权限 请注意，原有的 wx.onMenuShareTimeline、wx.onMenuShareAppMessage、wx.onMenuShareQQ、wx.onMenuShareQZone 接口，即将废弃。请尽快迁移使用客户端6.7.2及JSSDK 1.4.0以上版本支持的 wx.updateAppMessageShareData、wx.updateTimelineShareData接口。引入低版本的script链接，这些接口暂时仍可用。 三、 示例代码1. 引入script12// 主文件 或 入口文件 引入&lt;script src="https://res.wx.qq.com/open/js/jweixin-1.1.0.js"&gt;&lt;/script&gt; 2. wx.config配置12345678910111213// 微信配置// appId、timestamp、nonceStr、signature从公众号和后台获取wx.config(&#123; debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。 appId: '', // 必填，公众号的唯一标识 timestamp: '', // 必填，生成签名的时间戳 nonceStr: '', // 必填，生成签名的随机串 signature: '',// 必填，签名 jsApiList: [ 'checkJsApi', 'openAddress' ] // 必填，需要使用的JS接口列表 这里填写需要用到的微信api openlocation为使用微信内置地图查看位置接口&#125;); 3. 自定义分享[老版本]3.1 分享到朋友圈12345678wx.onMenuShareTimeline(&#123; title: '', // 分享标题 link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致 imgUrl: '', // 分享图标 success: function () &#123; // 用户点击了分享后执行的回调函数 &#125;&#125; 3.2 分享给朋友1234567891011wx.onMenuShareAppMessage(&#123; title: '', // 分享标题 desc: '', // 分享描述 link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致 imgUrl: '', // 分享图标 type: '', // 分享类型,music、video或link，不填默认为link dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空 success: function () &#123; // 用户点击了分享后执行的回调函数 &#125;&#125;) 3.3 分享到QQ123456789101112wx.onMenuShareQQ(&#123; title: '', // 分享标题 desc: '', // 分享描述 link: '', // 分享链接 imgUrl: '', // 分享图标 success: function () &#123; // 用户确认分享后执行的回调函数 &#125;, cancel: function () &#123; // 用户取消分享后执行的回调函数 &#125;&#125;) 3.4 分享到QQ空间123456789101112wx.onMenuShareQZone(&#123; title: '', // 分享标题 desc: '', // 分享描述 link: '', // 分享链接 imgUrl: '', // 分享图标 success: function () &#123; // 用户确认分享后执行的回调函数 &#125;, cancel: function () &#123; // 用户取消分享后执行的回调函数 &#125;&#125;) 4. 自定义分享[新版本]4.1 分享给朋友&amp;&amp;分享到QQ1234567891011wx.ready(function () &#123; //需在用户可能点击分享按钮前就先调用 wx.updateAppMessageShareData(&#123; title: '', // 分享标题 desc: '', // 分享描述 link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致 imgUrl: '', // 分享图标 success: function () &#123; // 设置成功 &#125; &#125;)&#125;) 4.2 分享到朋友圈 &amp;&amp; 分享到QQ空间12345678910wx.ready(function () &#123; //需在用户可能点击分享按钮前就先调用 wx.updateTimelineShareData(&#123; title: '', // 分享标题 link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致 imgUrl: '', // 分享图标 success: function () &#123; // 设置成功 &#125; &#125;)&#125;) 以上。]]></content>
@@ -9,8 +23,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -23,8 +37,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -37,8 +51,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -518,8 +532,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>es6</tag>
         <tag>Promise</tag>
+        <tag>es6</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
