@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[MockJs使用分享]]></title>
+    <url>%2F2020%2F03%2F24%2FMockJs%E4%BD%BF%E7%94%A8%E5%88%86%E4%BA%AB%2F</url>
+    <content type="text"><![CDATA[前言&emsp;&emsp;在前后端分离的时代，项目开发测试中我们常常因为前后端完成模块功能时间不一致而导致开发效率的降低，尤其是需要接口对接之时。鉴于此，MockJs应时而生，对此痛点予以重击。&emsp;本篇案例则属于一个简单的示范案例，在脱离后端（在没与后端联调前）怎么自己模拟数据来调试前端内容。 一、 效果图先看效果图： 二、 简介 1. 地址 官网http://mockjs.com/ 示例https://github.com/nuysoft/Mock/wiki 2. 资源 官网资源http://mockjs.com/dist/mock.js cdn&lt;script src=&quot;https://cdn.bootcss.com/Mock.js/1.0.1-beta3/mock-min.js&quot;&gt;&lt;/script&gt; 3. 亮点 六大优点 描述 前后端分离 让前端攻城师独立于后端进行开发 增加单元测试的真实性 通过随机数据，模拟各种场景 开发无侵入 不需要修改既有代码，就可以拦截 Ajax 请求，返回模拟的响应数据 用法简单 符合直觉的接口 数据类型丰富 支持生成随机的文本、数字、布尔值、日期、邮箱、链接、图片、颜色等 方便扩展 支持支持扩展更多数据类型，支持自定义函数和正则 三、 使用1. 引入普通的.html文件直接标签引入即可，一些框架类可使用后者npm等安装使用 标签引入12345// html&lt;script src="http://mockjs.com/dist/mock.js"&gt;&lt;/script&gt;&lt;script&gt; // some codes...&lt;/script&gt; npm通过npm安装，引入12// 安装npm i mockjs 12345678// 使用import Mock from 'nockjs'// 示例Mock.mock('/data', &#123; name: '@cname' // 生成中文姓名 ... // 按API写各种配置就能得到自己想要的数据&#125;) 2. 常用接口Mock.mock( rurl, rtype, template | function(options) ) 参数对照： 参数 是否必选 描述 rurl 可选 要拦截的url。注意，如果使用get的拼参链接，可以使用正则匹配 rtype 可选 要拦截的请求类型，一般为get或post template 可选 要返回的数据模板，也就是在此处写生成规则，返回数据都会按照这个模板返回 function(options) 可选 同上template二选一。其中options打印出来是一些基础参数，包括url,请求方式等，可以从中获取到请求中传的值，根据这些数据模拟更加真实的返回数据 四、 实例上面分享了一个动图，是简单地通过一个数字传输，到生成返回数据，到数据渲染，简单地展示MockJs在实际使用时的操作。接下来实现一下： 1. 布局12345678910111213141516171819202122232425262728&lt;!-- 输入框和按钮 --&gt;&lt;div&gt; &lt;div&gt; &lt;label for="counts"&gt;Data Length&lt;/label&gt; &lt;input type="number" id="counts" placeholder="生成数据长度" &gt; &lt;/div&gt; &lt;button type="submit" id="build"&gt;Build&lt;/button&gt;&lt;/div&gt;&lt;!-- 表格 --&gt;&lt;div&gt; &lt;table&gt; &lt;thead&gt; &lt;th&gt;ID&lt;/th&gt; &lt;th&gt;姓名&lt;/th&gt; &lt;th&gt;年龄&lt;/th&gt; &lt;th&gt;性别&lt;/th&gt; &lt;th&gt;地址&lt;/th&gt; &lt;th&gt;文章数&lt;/th&gt; &lt;th&gt;回答数&lt;/th&gt; &lt;th&gt;点赞&lt;/th&gt; &lt;/thead&gt; &lt;tbody id="data"&gt; &lt;!-- 这里渲染返回数据 --&gt; &lt;/tbody&gt; &lt;/table&gt;&lt;/div&gt; 2. ajax请求1234567891011121314151617181920212223// 此处使用的jq，用axios等亦可$('#build').click(() =&gt; &#123; const counts = parseInt($('#counts').val()); if(! counts) &#123; alert('请输入您想要的长度哦'); &#125;else&#123; if($('#counts').val() &lt; 0 || $('#counts').val() &gt; 100) &#123; alert('请输入1-100的长度哦~'); &#125;else&#123; $.ajax(&#123; url: 'https://www.zhuxingmin.com/lists', type: 'get', dataType: 'json', data: &#123; counts: counts &#125;, success: res =&gt; &#123; // 返回数据结果处理 &#125; &#125;) &#125; &#125;&#125;) 3. Mock登场123456789101112131415161718192021222324252627282930// 拦截// url正则匹配// get方式// params即上边提到的options，可从中得到url,post,body等信息Mock.mock(RegExp('/lists*.'), 'get', params =&gt; &#123; // 拿到ajax传的数据 const len = params.url.split('?')[1].split('&amp;')[0].split('=')[1]; // 返回随机数据的模板 return Mock.mock(&#123; code: 200, // 默认固定code:200 data: &#123; // 重头戏 // userList|$&#123;len&#125;： mockJs语法，len表示个数 [`userList|$&#123;len&#125;`]: [ &#123; 'uid|+1': 1, // uid从1开始，依次+1 name: '@cname', // 随机中文名 'age|13-30': 13, // 13-30的随机整数 'gender|1-2': 0, // 1-2的随机整数 address: '@county(true)', // 生成随机地址 info: &#123; 'articles|3-150': 3, // 3-150随机整数 'answer|9-99': 1, // 9-99随机整数 'favorate|15-99999': 1, // 15-99999随机整数 &#125; &#125; ] &#125;, msg: '请求成功' // 返回默认提示 &#125;)&#125;) 4. 返回数据处理刚才在第二步的时候，我们只是发送了请求，在success中没有对返回数据进行处理。现作如下处理：12345678910111213141516success: res =&gt; &#123; let html = ''; for(let i = 0; i &lt; res.data.userList.length; i ++) &#123; html += `&lt;tr&gt; &lt;td&gt;$&#123;res.data.userList[i].uid&#125;&lt;/td&gt; &lt;td&gt;$&#123;res.data.userList[i].name&#125;&lt;/td&gt; &lt;td&gt;$&#123;res.data.userList[i].age&#125;&lt;/td&gt; &lt;td&gt;$&#123;res.data.userList[i].gender === 1 ? '男' : '女'&#125;&lt;/td&gt; &lt;td&gt;$&#123;res.data.userList[i].address&#125;&lt;/td&gt; &lt;td&gt;$&#123;res.data.userList[i].info.articles&#125;&lt;/td&gt; &lt;td&gt;$&#123;res.data.userList[i].info.answer&#125;&lt;/td&gt; &lt;td&gt;$&#123;res.data.userList[i].info.favorate&#125;&lt;/td&gt; &lt;/tr&gt;` &#125; $('#data').html(html);&#125; 可以适当的添加样式来美化一些，不再示例。完成. 结语&emsp;&emsp;不难看出，有了Mock，前后端人员只需要定义好接口文档就可以开始并行工作，互不影响，在前端工程化中，能够高效定位代码缺陷，提前管理/修复缺陷，且有利于整个产品质量以及进度的保证。本案例只是入门级的示例，但依然能够帮助前端开发人员有一个不错的提升。更加深层次的例如原理等，本文不再探究。PS：想要完整版demo的可以扫描二维码或者微信搜索公众号”流眸“回复mock获取~]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>tools</tag>
+        <tag>mockjs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS交互微信之JSAPI支付]]></title>
     <url>%2F2020%2F03%2F03%2FJS%E4%BA%A4%E4%BA%92%E5%BE%AE%E4%BF%A1%E4%B9%8BJSAPI%E6%94%AF%E4%BB%98%2F</url>
     <content type="text"><![CDATA[前言本篇为JS交互微信系列篇的第四篇微信JSAPI支付，记录在微信内置浏览器内用调用微信支付过程。 一、 介绍JSAPI支付是用户在微信中打开商户的H5页面，商户在H5页面通过调用微信支付提供的JSAPI接口调起微信支付模块完成支付。 应用场景： 用户在微信公众账号内进入商家公众号，打开某个主页面，完成支付 用户的好友在朋友圈、聊天窗口等分享商家页面连接，用户点击链接打开商家页面，完成支付 将商户页面转换成二维码，用户扫描二维码后在微信浏览器中打开页面后完成支付 二、 准备1. 准备内容要拥有两个账号： 微信服务号，要通过认证（企业才拥有资格） 微信商户平台号(微信支付平台) 2. 平台配置2.1 微信支付(商户平台)中要开通产品中心的JSAPI支付。然后产品中心=&gt;开发配置=&gt;支付配置=&gt;公众号支付配置绑定支付授权目录，写已通过ICP备案的域名。另外，要在ip白名单中，配置测试地址ip和线上生产地址ip，不然各种回调都会失败！ 2.2 微信公众平台中由于在微信内支付需要获取用户的openid，要获取它则必须通过网页授权配置。在公微信公众平台中，公众号设置=&gt;功能设置=&gt;网页授权域名中按要求填写。 三、 开发在支付流程方面，重点依然都在后端处理，前端方面步骤比较简单。本文只叙述前端内容。 1. 用户授权，获取code在将要进入支付的前一页面，直接接入微信授权，然后跳转进要支付的那个页面。举个例子：有a、b两个页面，在b页面用到支付，b页面由a页面跳转而来。那么在a页面跳b页面的时候，别直接跳转b的url，而是跳转到：https://open.weixin.qq.com/connect/oauth2/authorize?appid={appId}&amp;redirect_uri={b.html}&amp;response_type=code&amp;scope=snsapi_base#wechat_redirect我们注意到，这里有这两个需要自己写的参数：appid和redirect_uri，意义是： appid——服务号id redirect_uri——获取授权后回调的页面地址，比如b页面 另外，还有一个注意的点是，b.html这个url我们要进行encode转码，不然地址解析可能会出现问题！ 123// url转码let url = 'a.html';url = escape(url); 2. 得到code，换取凭证获取openid上一步执行完后，在微信浏览器中，我们会得到一个链接，类似：b.html?&amp;code={code}&amp;state=#/在此处，我们得到了一个code值，这就是我们获取openid的凭证了。获取方法当然是把值传给后台，后台去处理啦~ 3. 接收后端返回的我们需要的参数值在上一步中，我们拿到code值后，就可以提交一些信息给后端了，比如商品相关属性、总价等，另外加上code值，传给后端。后端一顿操作后，返回给前端。我们需要的参数如下（后端返回下面这些参数）：123456789// 微信支付需要参数orderInfo: &#123; package: '', // 前端需要从后台获取该数据 paySign: '', // 微信签名，前端需要从后台获取该数据 appId: '', // 需要在微信绑定商户号，成功之后会生成有appid signType: '', // 微信签名方式,默认为"MD5",也可以从后台获取 nonceStr: '', // 随机串，前端需要从后台获取该数据 timeStamp: '', // 时间戳，自1970年以来的秒数，前端需要从后台获取该数据&#125; 4. 交互微信上个步骤拿到需要交互微信的参数后，就开始调用微信的支付接口了，如下：1234567891011121314151617181920212223242526// 微信支付WeixinJSBridge.invoke('getBrandWCPayRequest', &#123; appId: _this.orderInfo.appId, // 上一步得到的参数 nonceStr: _this.orderInfo.nonceStr, // 上一步得到的参数 package: _this.orderInfo.package, // 上一步得到的参数 signType: _this.orderInfo.signType, // 上一步得到的参数 timeStamp: _this.orderInfo.timeStamp, // 上一步得到的参数 paySign: _this.orderInfo.paySign // 上一步得到的参数&#125;, res =&gt; &#123; // 调用后要做的事儿 // codes... // 根据get_brand_wcpay_request的值判断支付状态 if (res.err_msg === "get_brand_wcpay_request:ok") &#123; // ok：支付成功 // 支付成功要做的事儿，比如跳转支付完成后的页面等 &#125; else if (res.err_msg === "get_brand_wcpay_request:cancel") &#123; // cancel：用户取消支付 // 取消支付要做的事儿，比如进入重新支付步骤等 &#125; else if (res.err_msg === "get_brand_wcpay_request:fail") &#123; // fail： 支付失败 // 支付失败要做的事儿，比如进入支付失败步骤等 &#125; // 注： 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok,但并不保证它绝对可靠。&#125;) 5. 常见错误码 名称 描述 原因 解决方案 INVALID_REQUEST 参数错误 参数格式有误或者未按规则上传 订单重入时，要求参数值与原请求一致，请确认参数问题 NOAUTH 商户无此接口权限 商户未开通此接口权限 请商户前往申请此接口权限 NOTENOUGH 余额不足 用户帐号余额不足 用户帐号余额不足，请用户充值或更换支付卡后再支付 ORDERPAID 商户订单已支付 商户订单已支付，无需重复操作 商户订单已支付，无需更多操作 ORDERCLOSED 订单已关闭 当前订单已关闭，无法支付 当前订单已关闭，请重新下单 SYSTEMERROR 系统错误 系统超时 系统异常，请用相同参数重新调用 APPID_NOT_EXIST APPID不存在 参数中缺少APPID 请检查APPID是否正确 MCHID_NOT_EXIST MCHID不存在 参数中缺少MCHID 请检查MCHID是否正确 APPID_MCHID_NOT_MATCH appid和mch_id不匹配 appid和mch_id不匹配 请确认appid和mch_id是否匹配 LACK_PARAMS 缺少参数 缺少必要的请求参数 请检查参数是否齐全 OUT_TRADE_NO_USED 商户订单号重复 同一笔交易不能多次提交 请核实商户订单号是否重复提交 SIGNERROR 签名错误 参数签名结果不正确 请检查签名参数和方法是否都符合签名算法要求 XML_FORMAT_ERROR XML格式错误 XML格式错误 请检查XML参数格式是否正确 REQUIRE_POST_METHOD 请使用post方法 未使用post传递参数 请检查请求参数是否通过post方法提交 POST_DATA_EMPTY post数据为空 post数据不能为空 请检查post数据是否为空 NOT_UTF8 编码格式错误 未使用指定编码格式 请使用UTF-8编码格式 三、 完成至此，调用微信JSAPI来完成在微信内的支付就完成了。]]></content>
@@ -9,8 +22,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -23,8 +36,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -37,8 +50,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -51,8 +64,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -341,8 +354,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>小王子</tag>
         <tag>读书笔记</tag>
+        <tag>小王子</tag>
         <tag>读后感</tag>
       </tags>
   </entry>
@@ -532,8 +545,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>Promise</tag>
         <tag>es6</tag>
+        <tag>Promise</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
