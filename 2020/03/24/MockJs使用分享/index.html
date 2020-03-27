@@ -509,7 +509,7 @@
 </tbody>
 </table>
 <h2 id="三、-使用"><a href="#三、-使用" class="headerlink" title="三、 使用"></a>三、 使用</h2><h3 id="1-引入"><a href="#1-引入" class="headerlink" title="1. 引入"></a>1. 引入</h3><p>普通的<code>.html</code>文件直接标签引入即可，一些框架类可使用后者<code>npm</code>等安装使用</p>
-<h4 id="标签引入"><a href="#标签引入" class="headerlink" title="标签引入"></a>标签引入</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// html</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://mockjs.com/dist/mock.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    // some codes...</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="标签引入"><a href="#标签引入" class="headerlink" title="标签引入"></a>标签引入</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// html</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://mockjs.com/dist/mock.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// some codes...</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h4 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h4><p>通过npm安装，引入<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装</span></span><br><span class="line">npm i mockjs</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">import</span> Mock <span class="keyword">from</span> <span class="string">'nockjs'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 示例</span></span><br><span class="line">Mock.mock(<span class="string">'/data'</span>, &#123;</span><br><span class="line">    name: <span class="string">'@cname'</span>  <span class="comment">// 生成中文姓名</span></span><br><span class="line">    ... <span class="comment">// 按API写各种配置就能得到自己想要的数据</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h3 id="2-常用接口"><a href="#2-常用接口" class="headerlink" title="2. 常用接口"></a>2. 常用接口</h3><p><code>Mock.mock( rurl, rtype, template | function(options) )</code></p>
@@ -672,6 +672,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/03/25/test/" rel="prev" title="test">
+                test <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -755,7 +759,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
