@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.zhuxingmin.com/"/>
-  <updated>2020-03-25T09:12:11.310Z</updated>
+  <updated>2020-03-24T10:18:59.365Z</updated>
   <id>https://www.zhuxingmin.com/</id>
   
   <author>
@@ -15,30 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>test</title>
-    <link href="https://www.zhuxingmin.com/2020/03/25/test/"/>
-    <id>https://www.zhuxingmin.com/2020/03/25/test/</id>
-    <published>2020-03-25T09:07:56.000Z</published>
-    <updated>2020-03-25T09:12:11.310Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p><img src="/images/posts/.png" alt></p><hr><p>adasjdjdsa d</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;标题&quot;&gt;&lt;a href=&quot;#标题&quot; class=&quot;headerlink&quot; title=&quot;标题&quot;&gt;&lt;/a&gt;标题&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/.png&quot; alt&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;adasjdjdsa d&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>MockJs使用分享</title>
@@ -562,6 +538,33 @@
       <category term="移动web" scheme="https://www.zhuxingmin.com/tags/%E7%A7%BB%E5%8A%A8web/"/>
     
       <category term="解决方案" scheme="https://www.zhuxingmin.com/tags/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vue构建项目入口文件index.html缓存引发的白屏问题</title>
+    <link href="https://www.zhuxingmin.com/2019/09/03/vue%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6index-html%E7%BC%93%E5%AD%98%E5%BC%95%E5%8F%91%E7%9A%84%E7%99%BD%E5%B1%8F%E9%97%AE%E9%A2%98/"/>
+    <id>https://www.zhuxingmin.com/2019/09/03/vue构建项目入口文件index-html缓存引发的白屏问题/</id>
+    <published>2019-09-03T07:14:27.000Z</published>
+    <updated>2019-09-16T07:47:28.580Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>&emsp;&emsp;vue项目打包后，在非首次线上替换dist文件时，某些手机/浏览器在之后首次打开页面，可能出现白屏情况。那么该问题产生原因是什么呢？我们又该如何应对呢？</p><h3 id="背景及原因分析"><a href="#背景及原因分析" class="headerlink" title="背景及原因分析"></a>背景及原因分析</h3><p>&emsp;&emsp;在使用vue-cli脚手架构建完项目，项目完成后，需打包上线。默认打包方式则是<code>npm build</code>，然后项目根目录会生成 <strong><em>dist</em></strong> 文件夹。服务端将该文件夹替换线上即可。但是当第n（n&gt;1）次上线后，由于在用户端会默认缓存index.html入口文件，而由于vue打包生成的css/js都是哈希值，跟上次的文件名都不同，因此会出现找不到css/js的情况，导致白屏的产生。<br><a id="more"></a><br>&emsp;&emsp;经常使用vue作为开发框架的开发者都知道，build打包后，所生成的css/js的文件名中间会夹杂哈希值，以此来避免缓存问题。但是由于入口文件index.html的名字每次打包后不改变，并且也不能乱变，就导致了index.html在用户端仍然会被缓存下来。那么在服务端更新包之后，由于旧的文件被删除，而index.html所链接的路径依然是旧文件路径，因此会找不到文件，从而白屏。解决方案一般是强制刷新页面或者清除缓存重新加载。当然，网上也给出不少的“缓解方案”。为什么称之为缓解方案而不是解决方案呢？因为前端缓存问题是一个具有行业性的难题，在没有根治之前，一般是优化为主。当然，引领前端行业的大佬们自然是要挑战极限的，不在该问题之内讨论。<br>&emsp;&emsp;下面给出部分优化方案。</p><h3 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h3><h4 id="方案1-meta标签"><a href="#方案1-meta标签" class="headerlink" title="方案1. meta标签"></a>方案1. meta标签</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 在入口文件index.html中，头部添加meta标签 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Expires"</span> <span class="attr">content</span>=<span class="string">"0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Pragma"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-control"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span></span><br></pre></td></tr></table></figure><h4 id="方案2-时间戳区分"><a href="#方案2-时间戳区分" class="headerlink" title="方案2. 时间戳区分"></a>方案2. 时间戳区分</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.prod.conf.js</span></span><br><span class="line"><span class="keyword">const</span> Version = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line"></span><br><span class="line">output: &#123;</span><br><span class="line">    path: config.build.assetsRoot,</span><br><span class="line">    filename: utils.assetsPath(<span class="string">'js/[name].[chunkhash].'</span>+_Version+<span class="string">'js'</span>),</span><br><span class="line">    chunkFilename: utils.assetsPath(<span class="string">'js/[id].[chunkhash].'</span>+_Version+<span class="string">'js'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="方案3-服务端配置"><a href="#方案3-服务端配置" class="headerlink" title="方案3. 服务端配置"></a>方案3. 服务端配置</h5><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// nginx端配置</span><br><span class="line"><span class="attribute">location</span> = /index.html &#123;</span><br><span class="line">    <span class="attribute">add_header</span> Cache-Control <span class="string">"no-cache, no-store"</span>;</span><br><span class="line">    <span class="comment"># add_header Cache-Control no-store;</span></span><br><span class="line">    <span class="comment"># add_header Pragma no-cache;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="方案对比"><a href="#方案对比" class="headerlink" title="方案对比"></a>方案对比</h4><table><thead><tr><th style="text-align:center">方案</th><th style="text-align:center">操作难度</th><th style="text-align:center">优缺点</th></tr></thead><tbody><tr><td style="text-align:center">1</td><td style="text-align:center">html文件简单修改</td><td style="text-align:center">基本上没用</td></tr><tr><td style="text-align:center">2</td><td style="text-align:center">webpack配置简单修改</td><td style="text-align:center">跟hash值文件名一个性质，不解决痛点</td></tr><tr><td style="text-align:center">3</td><td style="text-align:center">服务端加配置，简单</td><td style="text-align:center">解决部分缓存问题，不解决全部；白屏问题依旧存在</td></tr></tbody></table><h4 id="新思路"><a href="#新思路" class="headerlink" title="新思路"></a>新思路</h4><p>&emsp;&emsp;在一些论坛中，在某些特定情况下（如混合开发App，原生嵌入webview还在h5)，可在原生端尝试解决：</p><ul><li>加载webview前清除缓存再加载；</li><li>销毁webview前清除缓存；</li></ul><p>&emsp;&emsp;效果如何，有待验证。</p><p>以上。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h3&gt;&lt;p&gt;&amp;emsp;&amp;emsp;vue项目打包后，在非首次线上替换dist文件时，某些手机/浏览器在之后首次打开页面，可能出现白屏情况。那么该问题产生原因是什么呢？我们又该如何应对呢？&lt;/p&gt;
+&lt;h3 id=&quot;背景及原因分析&quot;&gt;&lt;a href=&quot;#背景及原因分析&quot; class=&quot;headerlink&quot; title=&quot;背景及原因分析&quot;&gt;&lt;/a&gt;背景及原因分析&lt;/h3&gt;&lt;p&gt;&amp;emsp;&amp;emsp;在使用vue-cli脚手架构建完项目，项目完成后，需打包上线。默认打包方式则是&lt;code&gt;npm build&lt;/code&gt;，然后项目根目录会生成 &lt;strong&gt;&lt;em&gt;dist&lt;/em&gt;&lt;/strong&gt; 文件夹。服务端将该文件夹替换线上即可。但是当第n（n&amp;gt;1）次上线后，由于在用户端会默认缓存index.html入口文件，而由于vue打包生成的css/js都是哈希值，跟上次的文件名都不同，因此会出现找不到css/js的情况，导致白屏的产生。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="前端笔记" scheme="https://www.zhuxingmin.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="vue" scheme="https://www.zhuxingmin.com/tags/vue/"/>
+    
+      <category term="白屏" scheme="https://www.zhuxingmin.com/tags/%E7%99%BD%E5%B1%8F/"/>
+    
+      <category term="缓存" scheme="https://www.zhuxingmin.com/tags/%E7%BC%93%E5%AD%98/"/>
     
   </entry>
   
