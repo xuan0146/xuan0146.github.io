@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[axios进阶之路——基础篇]]></title>
+    <url>%2F2020%2F05%2F12%2Faxios%E8%BF%9B%E9%98%B6%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%AF%87%2F</url>
+    <content type="text"><![CDATA[一、 关于Axios1. Axios是什么 Axios是一个基于 promise 的 HTTP 库 可以用于浏览器和 node.js 类似于 Ajax，进行前后端交互使用 2. Axios 特性 支持 Promise API 拦截请求和响应 转换请求数据和响应数据 取消请求 自动转换JSON数据 客户端支持防御 XSRF 二、 安装使用1. 安装两种方式：（二选一） npm yarn 12// 使用npm：$ npm install axios 12// 或者使用yarn：$ yarn add axios 2. 使用基础使用示例12345678// 引入axiosimport axios from 'axios'axios.get('url').then(res =&gt; &#123; // 请求成功要做的事&#125;).catch(err =&gt; &#123; // 请求失败要做的事&#125;) 三、 基础介绍及使用1. axios常用请求方法 get post put patch delete 2. 区别 方法 用途 备注 get 获取数据 / post 提交数据 表单提交、文件上传等 put 更新数据 所有数据推送到后端 patch 更新数据 只将修改的数据推送到后端 delete 删除数据 / 其中get,post目前前后端交互中最为常用 注：请求方法一般由后端定义，实际项目使用参照后端文档规则 3. 常用示例（GET、POST）GET123456789// getaxios.get('/data.json',&#123; // 注 此处参数写入params中 params: &#123; id: 'zxm' &#125;&#125;).then(res =&gt; &#123; console.log(res);&#125;) POST12345678// post：参数直接跟在url后面即可axios.post('xxxxxxxxx', &#123; xxx: 'xxxx', xxxx: 'xxxx' &#125;&#125;).then(res =&gt; &#123; console.log(res);&#125;) 4. 并发请求并发请求： 同时进行多个请求，并统一处理返回值。两个步骤： axios.all([]).then() axios.spread() 举例：12345678axios.all([ axios.get('url1'), axios.get('url2')]).then( axios.spread((res1, res2) =&gt; &#123; console.log(res1, res2); &#125;)) ——基础篇到此结束，下篇记录axios简单实例，请求拦截器，响应拦截器。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>axios</tag>
+        <tag>拦截器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[css布局之道——内凹圆角设计]]></title>
     <url>%2F2020%2F04%2F29%2Fcss%E5%B8%83%E5%B1%80%E4%B9%8B%E9%81%93%E2%80%94%E2%80%94%E5%86%85%E5%87%B9%E5%9C%86%E8%A7%92%E8%AE%BE%E8%AE%A1%2F</url>
     <content type="text"><![CDATA[一、 效果图先来看一下效果图： 二、 实现1. 场景看上图，此类场景应该很是常用吧，比如账单、卡片、列表等。 2. 实现思路看到效果图，能想到的实现方法则是 planA：border-radius直接搞起来 planB：定位 但是细想之后发现两者皆不可用，border-radius处理的话是凸角，舍弃；定位需要独立出来两个模块，复杂度高了，舍弃。可是舍弃后，需要怎么做呢？切背景图吗？显然不合理，如果内容不固定，则模块的长度也不一样，背景图也会拉伸；思来想去，还是得从定位上做文章：既然元素多比较复杂，那就直接在伪类上动手。可能大家猜到了，就是直接在::before、::after上模拟出来。 三、 代码1. 基础布局123456&lt;!-- html：随便一些div --&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt; 1234567891011121314151617body&#123; margin: 0; background: #000; padding: 20px 0;&#125;div&#123; width: 80vw; min-height: 15vh; background: #666; border-radius: 6px; margin: 0 auto; position: relative; border-top: 1px dashed #333;&#125;div:first-child&#123; border: none;&#125; 2. 伪类基础布局出来后，怎么利用伪类处理呢？思路是这样的： 利用伪类画出来一个与主题背景色一样的圆； 定位，向左(右)偏移圆自身的一半，视觉效果就是半个圆在上面； 继续定位，向上继续偏移小球的一半，视觉效果则是每个模块有个四分之一内凹圆角一样。 知道思路后，就继续实现吧：12345678910111213141516171819202122div::before,div::after&#123; content: ''; width: 20px; height: 20px; border-radius: 50%; background: #000; position: absolute; z-index: 999;&#125;div::before&#123; left: -10px; top: -10px;&#125;div::after&#123; right: -10px; top: -10px;&#125;div:first-child::before,div:first-child::after&#123; content: ''; width: 0; height: 0;&#125; 这样就完成了~]]></content>
