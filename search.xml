@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[axios进阶之路——拦截器篇]]></title>
+    <url>%2F2020%2F05%2F13%2Faxios%E8%BF%9B%E9%98%B6%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%8B%A6%E6%88%AA%E5%99%A8%E7%AF%87%2F</url>
+    <content type="text"><![CDATA[一、 拦截器介绍一般在使用axios时，会用到拦截器的功能，一般分为两种：请求拦截器、响应拦截器。 请求拦截器在请求发送前进行必要操作处理，例如添加统一cookie、请求体加验证、设置请求头等，相当于是对每个接口里相同操作的一个封装； 响应拦截器同理，响应拦截器也是如此功能，只是在请求得到响应之后，对响应体的一些处理，通常是数据统一处理等，也常来判断登录失效等。 二、 Axios实例准备工作：axios安装： yarn add axios 实例创建：新建js文件12345678// 引入axiosimport axios from 'axios'// 实例let instance = axios.create(&#123; baseURL: 'xxxxxxxxxx', timeout: 15000 // 毫秒&#125;) baseURL设置：1234567891011121314...let baseURL;if(process.env.NODE_ENV === 'development') &#123; baseURL = 'xxx本地环境xxx';&#125; else if(process.env.NODE_ENV === 'production') &#123; baseURL = 'xxx生产环境xxx';&#125;// 实例let instance = axios.create(&#123; baseURL: baseURL, ...&#125;) 修改实例的3种配置 全局配置 123// 局限性比较大axios.defaults.timeout = 1000;axios.defaults.baseURL = 'xxxxx'; 实例配置 123456let instance = axios.create(&#123; baseURL: 'xxxxx', timeout: 1000, // 超时，401&#125;)// 创建完想要修改：instance.defaults.timeout = 3000 请求配置 123instance.get('/xxx',&#123; timeout: 5000&#125;) 优先级如下：请求配置 &gt; 实例配置 &gt; 全局配置 三、 拦截器配置首先了解两个方法：1234// 请求拦截器instance.interceptors.request.use(req=&gt;&#123;&#125;, err=&gt;&#123;&#125;);// 响应拦截器instance.interceptors.reponse.use(req=&gt;&#123;&#125;, err=&gt;&#123;&#125;); 从上可以看出，instance依然是第二步中创建的实例，然后对齐进行拦截，请求用request，响应用reponse，二者都有两个配置项，一个是成功配置，一个是error配置。接下来简单举例说明。 请求拦截器1234567891011// use(两个参数)axios.interceptors.request.use(req =&gt; &#123; // 在发送请求前要做的事儿 ... return req&#125;, err =&gt; &#123; // 在请求错误时要做的事儿 ... // 该返回的数据则是axios.catch(err)中接收的数据 return Promise.reject(err)&#125;) 响应拦截器123456789101112// use(两个参数)axios.interceptors.reponse.use(res =&gt; &#123; // 请求成功对响应数据做处理 ... // 该返回的数据则是axios.then(res)中接收的数据 return res&#125;, err =&gt; &#123; // 在请求错误时要做的事儿 ... // 该返回的数据则是axios.catch(err)中接收的数据 return Promise.reject(err)&#125;) 常见错误码处理(error)错误处理，请求错误时进行的处理。123axios.get().then().catch(err =&gt; &#123; // 错误处理&#125;) 但实际开发过程中，一般在请求/响应拦截器中统一做错误处理，有特殊接口的话做单独的catch错误处理。 1. 请求错误码处理 404： not found 401： 请求超时123axios.interceptors.request.use(req, err =&gt; &#123; // 此处做统一处理&#125;) 2. 响应错误码处理 500： 系统错误 502： 系统重启123axios.interceptors.reponse.use(res, err =&gt; &#123; // 此处做统一处理&#125;) ——以上。下一篇记录整个请求流程，以及请求的封装。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>axios</tag>
+        <tag>拦截器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[axios进阶之路——基础篇]]></title>
     <url>%2F2020%2F05%2F12%2Faxios%E8%BF%9B%E9%98%B6%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%AF%87%2F</url>
     <content type="text"><![CDATA[一、 关于Axios1. Axios是什么 Axios是一个基于 promise 的 HTTP 库 可以用于浏览器和 node.js 类似于 Ajax，进行前后端交互使用 2. Axios 特性 支持 Promise API 拦截请求和响应 转换请求数据和响应数据 取消请求 自动转换JSON数据 客户端支持防御 XSRF 二、 安装使用1. 安装两种方式：（二选一） npm yarn 12// 使用npm：$ npm install axios 12// 或者使用yarn：$ yarn add axios 2. 使用基础使用示例12345678// 引入axiosimport axios from 'axios'axios.get('url').then(res =&gt; &#123; // 请求成功要做的事&#125;).catch(err =&gt; &#123; // 请求失败要做的事&#125;) 三、 基础介绍及使用1. axios常用请求方法 get post put patch delete 2. 区别 方法 用途 备注 get 获取数据 / post 提交数据 表单提交、文件上传等 put 更新数据 所有数据推送到后端 patch 更新数据 只将修改的数据推送到后端 delete 删除数据 / 其中get,post目前前后端交互中最为常用 注：请求方法一般由后端定义，实际项目使用参照后端文档规则 3. 常用示例（GET、POST）GET123456789// getaxios.get('/data.json',&#123; // 注 此处参数写入params中 params: &#123; id: 'zxm' &#125;&#125;).then(res =&gt; &#123; console.log(res);&#125;) POST12345678// post：参数直接跟在url后面即可axios.post('xxxxxxxxx', &#123; xxx: 'xxxx', xxxx: 'xxxx' &#125;&#125;).then(res =&gt; &#123; console.log(res);&#125;) 4. 并发请求并发请求： 同时进行多个请求，并统一处理返回值。两个步骤： axios.all([]).then() axios.spread() 举例：12345678axios.all([ axios.get('url1'), axios.get('url2')]).then( axios.spread((res1, res2) =&gt; &#123; console.log(res1, res2); &#125;)) ——基础篇到此结束，下篇记录axios简单实例，请求拦截器，响应拦截器。]]></content>
@@ -387,8 +400,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>小王子</tag>
+        <tag>读书笔记</tag>
         <tag>读后感</tag>
       </tags>
   </entry>
@@ -578,8 +591,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>es6</tag>
         <tag>Promise</tag>
+        <tag>es6</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
