@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[vscode/webstorm自定义vue模板]]></title>
+    <url>%2F2020%2F05%2F14%2Fvscode-webstorm%E8%87%AA%E5%AE%9A%E4%B9%89vue%E6%A8%A1%E6%9D%BF%2F</url>
+    <content type="text"><![CDATA[webstorm1. 打开设置打开设置：File =&gt; Settings 2. 安装vue插件在搜索区输入plugins，或者找到plugins选项，右边的Marketplace搜索vue，安装。 3. 自定义模板有时候我们新建vue文件时默认的模板不是我们想要的，这时可以自定义模板：还是在设置中，搜索框输入file and code template或者在设置中找到该选项也行，在右侧选择vue模板，然后在编辑区修改模板即可。如图 4. 参考给出一份我自己的作为参考，可按自己常用规则优化修改。其中，${COMPONENT_NAME}直接获取组件名。123456789101112131415161718192021222324252627282930&lt;template&gt; &lt;div&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; name: &quot;$&#123;COMPONENT_NAME&#125;&quot;, props: [], components: &#123; &#125;, data () &#123; return &#123; &#125; &#125;, methods: &#123; &#125;, mounted () &#123; &#125; &#125;&lt;/script&gt;&lt;style type=&quot;text/scss&quot; lang=&quot;scss&quot; scoped&gt;&lt;/style&gt; vscode1. 安装Vetur在应用市场中安装Vetur 2. 使用此时，在vue项目中新建.vue文件，然后输入vue时，按tab键则会出来一份默认的模板。由于默认模板涵盖内容过少，因此我们仍需要对齐进行自定义模板配置。 3. 自定义模板 打开 文件 =&gt; 首选项 =&gt; 用户片段 搜索关键词vue 在候选列表中选择vue.json 在打开的文件中自定义配置即可 如果没有找到vue.json，可以重启一下vscode试一下。 4. 参考给出一份参考123456789101112131415161718192021222324252627282930313233&#123; "Print to console": &#123; "prefix": "vue", "body": [ "&lt;template&gt;", " &lt;div&gt;\n", " &lt;/div&gt;", "&lt;/template&gt;\n", "&lt;script&gt;", "export default &#123;", " props: &#123;\n", " &#125;,", " components: &#123;\n", " &#125;,", " data() &#123;", " return &#123;\n", " &#125;;", " &#125;,", " watch: &#123;\n", " &#125;,", " methods: &#123;\n", " &#125;,", " mounted() &#123;\n", " &#125;,", "&#125;;", "&lt;/script&gt;\n", "&lt;style scoped lang=\"$&#123;1:scss&#125;\" type=\"text/scss\"&gt;\n", "&lt;/style&gt;\n", ], "description": "Create vue template" &#125;&#125;]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>webstorm</tag>
+        <tag>vscode</tag>
+        <tag>配置</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[axios进阶之路——拦截器篇]]></title>
     <url>%2F2020%2F05%2F13%2Faxios%E8%BF%9B%E9%98%B6%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%8B%A6%E6%88%AA%E5%99%A8%E7%AF%87%2F</url>
     <content type="text"><![CDATA[一、 拦截器介绍一般在使用axios时，会用到拦截器的功能，一般分为两种：请求拦截器、响应拦截器。 请求拦截器在请求发送前进行必要操作处理，例如添加统一cookie、请求体加验证、设置请求头等，相当于是对每个接口里相同操作的一个封装； 响应拦截器同理，响应拦截器也是如此功能，只是在请求得到响应之后，对响应体的一些处理，通常是数据统一处理等，也常来判断登录失效等。 二、 Axios实例准备工作：axios安装： yarn add axios 实例创建：新建js文件12345678// 引入axiosimport axios from 'axios'// 实例let instance = axios.create(&#123; baseURL: 'xxxxxxxxxx', timeout: 15000 // 毫秒&#125;) baseURL设置：1234567891011121314...let baseURL;if(process.env.NODE_ENV === 'development') &#123; baseURL = 'xxx本地环境xxx';&#125; else if(process.env.NODE_ENV === 'production') &#123; baseURL = 'xxx生产环境xxx';&#125;// 实例let instance = axios.create(&#123; baseURL: baseURL, ...&#125;) 修改实例的3种配置 全局配置 123// 局限性比较大axios.defaults.timeout = 1000;axios.defaults.baseURL = 'xxxxx'; 实例配置 123456let instance = axios.create(&#123; baseURL: 'xxxxx', timeout: 1000, // 超时，401&#125;)// 创建完想要修改：instance.defaults.timeout = 3000 请求配置 123instance.get('/xxx',&#123; timeout: 5000&#125;) 优先级如下：请求配置 &gt; 实例配置 &gt; 全局配置 三、 拦截器配置首先了解两个方法：1234// 请求拦截器instance.interceptors.request.use(req=&gt;&#123;&#125;, err=&gt;&#123;&#125;);// 响应拦截器instance.interceptors.reponse.use(req=&gt;&#123;&#125;, err=&gt;&#123;&#125;); 从上可以看出，instance依然是第二步中创建的实例，然后对齐进行拦截，请求用request，响应用reponse，二者都有两个配置项，一个是成功配置，一个是error配置。接下来简单举例说明。 请求拦截器1234567891011// use(两个参数)axios.interceptors.request.use(req =&gt; &#123; // 在发送请求前要做的事儿 ... return req&#125;, err =&gt; &#123; // 在请求错误时要做的事儿 ... // 该返回的数据则是axios.catch(err)中接收的数据 return Promise.reject(err)&#125;) 响应拦截器123456789101112// use(两个参数)axios.interceptors.reponse.use(res =&gt; &#123; // 请求成功对响应数据做处理 ... // 该返回的数据则是axios.then(res)中接收的数据 return res&#125;, err =&gt; &#123; // 在请求错误时要做的事儿 ... // 该返回的数据则是axios.catch(err)中接收的数据 return Promise.reject(err)&#125;) 常见错误码处理(error)错误处理，请求错误时进行的处理。123axios.get().then().catch(err =&gt; &#123; // 错误处理&#125;) 但实际开发过程中，一般在请求/响应拦截器中统一做错误处理，有特殊接口的话做单独的catch错误处理。 1. 请求错误码处理 404： not found 401： 请求超时123axios.interceptors.request.use(req, err =&gt; &#123; // 此处做统一处理&#125;) 2. 响应错误码处理 500： 系统错误 502： 系统重启123axios.interceptors.reponse.use(res, err =&gt; &#123; // 此处做统一处理&#125;) ——以上。下一篇记录整个请求流程，以及请求的封装。]]></content>
@@ -591,8 +605,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>Promise</tag>
         <tag>es6</tag>
+        <tag>Promise</tag>
         <tag>定时器</tag>
       </tags>
   </entry>

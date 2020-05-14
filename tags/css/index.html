@@ -112,7 +112,7 @@
 <meta name="description" content="Lomo blog | 朱幸民个人博客">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Lomo | 朱幸民">
-<meta property="og:url" content="https://www.zhuxingmin.com/tags/css/index.html">
+<meta property="og:url" content="https://www.zhuxingmin.com/tags/CSS/index.html">
 <meta property="og:site_name" content="Lomo | 朱幸民">
 <meta property="og:description" content="Lomo blog | 朱幸民个人博客">
 <meta property="og:locale" content="zh-Hans">
@@ -148,13 +148,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zhuxingmin.com/tags/css/">
+  <link rel="canonical" href="https://www.zhuxingmin.com/tags/CSS/">
 
 
 
 
 
-  <title>标签: css | Lomo | 朱幸民</title>
+  <title>标签: CSS | Lomo | 朱幸民</title>
   
 
 
@@ -306,7 +306,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h2>css<small>标签</small>
+        <h2>CSS<small>标签</small>
         </h2>
       </div>
 
@@ -318,95 +318,17 @@
 
       <h3 class="post-title">
         
-            <a class="post-title-link" href="/2020/04/29/css布局之道——内凹圆角设计/" itemprop="url">
+            <a class="post-title-link" href="/2019/07/23/前端技巧——css篇/" itemprop="url">
               
-                <span itemprop="name">css布局之道——内凹圆角设计</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-04-29T11:51:37+08:00" content="2020-04-29">
-          04-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/12/开发姿势篇——动效设计1/" itemprop="url">
-              
-                <span itemprop="name">开发姿势篇——动效设计1</span>
+                <span itemprop="name">前端技巧——css篇</span>
               
             </a>
         
       </h3>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-12T15:27:57+08:00" content="2019-10-12">
-          10-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/08/26/css篇-loading动画/" itemprop="url">
-              
-                <span itemprop="name">css篇:loading动画</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-08-26T17:00:38+08:00" content="2019-08-26">
-          08-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/05/20/520特辑———旋转爱/" itemprop="url">
-              
-                <span itemprop="name">520特辑———旋转爱</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-20T13:55:53+08:00" content="2019-05-20">
-          05-20
+        <time class="post-time" itemprop="dateCreated" datetime="2019-07-23T11:58:00+08:00" content="2019-07-23">
+          07-23
         </time>
       </div>
 
@@ -470,7 +392,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -492,7 +414,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -583,7 +505,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共69k字</span>
+  <span class="post-count">博客全站共69.4k字</span>
 </div>
 
         
@@ -1099,6 +1021,80 @@
       var $visitors = $(".leancloud_visitors");
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+ttr('data-flag-title').trim();
       var query = new AV.Query(Counter);
 
       query.equalTo("url", url);
