@@ -98,7 +98,7 @@
 
 
 
-  <meta name="keywords" content="vue,js,微信,jssdk,">
+  <meta name="keywords" content="vue,axios,拦截器,">
 
 
 
@@ -109,18 +109,18 @@
 
 
 
-<meta name="description" content="前言本篇为JS交互微信系列篇的第四篇微信JSAPI支付，记录在微信内置浏览器内用调用微信支付过程。 一、 介绍JSAPI支付是用户在微信中打开商户的H5页面，商户在H5页面通过调用微信支付提供的JSAPI接口调起微信支付模块完成支付。">
-<meta name="keywords" content="vue,js,微信,jssdk">
+<meta name="description" content="本课题包含三篇：基础篇；拦截器篇；封装篇。本篇为封装篇，主题为为axios进行封装使用。">
+<meta name="keywords" content="vue,axios,拦截器">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS交互微信之JSAPI支付">
-<meta property="og:url" content="https://www.zhuxingmin.com/2020/03/03/JS交互微信之JSAPI支付/index.html">
+<meta property="og:title" content="axios进阶之路——封装篇">
+<meta property="og:url" content="https://www.zhuxingmin.com/2020/05/26/axios进阶之路——封装篇/index.html">
 <meta property="og:site_name" content="Lomo | 朱幸民">
-<meta property="og:description" content="前言本篇为JS交互微信系列篇的第四篇微信JSAPI支付，记录在微信内置浏览器内用调用微信支付过程。 一、 介绍JSAPI支付是用户在微信中打开商户的H5页面，商户在H5页面通过调用微信支付提供的JSAPI接口调起微信支付模块完成支付。">
+<meta property="og:description" content="本课题包含三篇：基础篇；拦截器篇；封装篇。本篇为封装篇，主题为为axios进行封装使用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-04T06:31:44.177Z">
+<meta property="og:updated_time" content="2020-05-26T11:52:42.504Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS交互微信之JSAPI支付">
-<meta name="twitter:description" content="前言本篇为JS交互微信系列篇的第四篇微信JSAPI支付，记录在微信内置浏览器内用调用微信支付过程。 一、 介绍JSAPI支付是用户在微信中打开商户的H5页面，商户在H5页面通过调用微信支付提供的JSAPI接口调起微信支付模块完成支付。">
+<meta name="twitter:title" content="axios进阶之路——封装篇">
+<meta name="twitter:description" content="本课题包含三篇：基础篇；拦截器篇；封装篇。本篇为封装篇，主题为为axios进行封装使用。">
 
 
 
@@ -150,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zhuxingmin.com/2020/03/03/JS交互微信之JSAPI支付/">
+  <link rel="canonical" href="https://www.zhuxingmin.com/2020/05/26/axios进阶之路——封装篇/">
 
 
 
 
 
-  <title>JS交互微信之JSAPI支付 | Lomo | 朱幸民</title>
+  <title>axios进阶之路——封装篇 | Lomo | 朱幸民</title>
   
 
 
@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2020/03/03/JS交互微信之JSAPI支付/">
+    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2020/05/26/axios进阶之路——封装篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lomo 朱幸民">
@@ -332,7 +332,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">JS交互微信之JSAPI支付</h2>
+          <h2 class="post-title" itemprop="name headline">axios进阶之路——封装篇</h2>
         
 
         <div class="post-meta">
@@ -344,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-03T17:06:15+08:00">
-                2020-03-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-26T17:42:59+08:00">
+                2020-05-26
               </time>
             
 
@@ -360,8 +360,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-03-04T14:31:44+08:00">
-                2020-03-04
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-26T19:52:42+08:00">
+                2020-05-26
               </time>
             
           </span>
@@ -396,7 +396,7 @@
 
           
           
-             <span id="/2020/03/03/JS交互微信之JSAPI支付/" class="leancloud_visitors" data-flag-title="JS交互微信之JSAPI支付">
+             <span id="/2020/05/26/axios进阶之路——封装篇/" class="leancloud_visitors" data-flag-title="axios进阶之路——封装篇">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -421,7 +421,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.7k字
+                  1.4k字
                 </span>
               
 
@@ -437,12 +437,16 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6分钟
+                  5分钟
                 </span>
               
             </div>
           
 
+          
+              <div class="post-description">
+                  本课题包含三篇：基础篇；拦截器篇；封装篇。本篇为封装篇，主题为为axios进行封装使用。
+              </div>
           
 
         </div>
@@ -458,141 +462,28 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇为<strong>JS交互微信系列篇</strong>的第四篇<strong>微信JSAPI支付</strong>，记录在微信内置浏览器内用调用微信支付过程。</p>
-<h2 id="一、-介绍"><a href="#一、-介绍" class="headerlink" title="一、 介绍"></a>一、 介绍</h2><p>JSAPI支付是用户在微信中打开商户的H5页面，商户在H5页面通过调用微信支付提供的JSAPI接口调起微信支付模块完成支付。</p>
-<a id="more"></a>
-<h3 id="应用场景："><a href="#应用场景：" class="headerlink" title="应用场景："></a>应用场景：</h3><ul>
-<li>用户在微信公众账号内进入商家公众号，打开某个主页面，完成支付</li>
-<li>用户的好友在朋友圈、聊天窗口等分享商家页面连接，用户点击链接打开商家页面，完成支付</li>
-<li>将商户页面转换成二维码，用户扫描二维码后在微信浏览器中打开页面后完成支付</li>
-</ul>
-<h2 id="二、-准备"><a href="#二、-准备" class="headerlink" title="二、 准备"></a>二、 准备</h2><h3 id="1-准备内容"><a href="#1-准备内容" class="headerlink" title="1. 准备内容"></a>1. 准备内容</h3><p>要拥有两个账号：</p>
-<ol>
-<li>微信服务号，要通过认证（企业才拥有资格）</li>
-<li>微信商户平台号(微信支付平台)</li>
-</ol>
-<h3 id="2-平台配置"><a href="#2-平台配置" class="headerlink" title="2. 平台配置"></a>2. 平台配置</h3><h4 id="2-1-微信支付-商户平台-中"><a href="#2-1-微信支付-商户平台-中" class="headerlink" title="2.1 微信支付(商户平台)中"></a>2.1 微信支付(商户平台)中</h4><p>要开通产品中心的JSAPI支付。然后<code>产品中心=&gt;开发配置=&gt;支付配置=&gt;公众号支付配置</code>绑定支付授权目录，写已通过ICP备案的域名。<br>另外，要在ip白名单中，配置测试地址ip和线上生产地址ip，不然各种回调都会失败！</p>
-<h4 id="2-2-微信公众平台中"><a href="#2-2-微信公众平台中" class="headerlink" title="2.2 微信公众平台中"></a>2.2 微信公众平台中</h4><p>由于在微信内支付需要获取用户的<code>openid</code>，要获取它则必须通过网页授权配置。在公微信公众平台中，<code>公众号设置=&gt;功能设置=&gt;网页授权域名</code>中按要求填写。</p>
-<h2 id="三、-开发"><a href="#三、-开发" class="headerlink" title="三、 开发"></a>三、 开发</h2><p>在支付流程方面，重点依然都在后端处理，前端方面步骤比较简单。本文只叙述前端内容。</p>
-<h3 id="1-用户授权，获取code"><a href="#1-用户授权，获取code" class="headerlink" title="1. 用户授权，获取code"></a>1. 用户授权，获取code</h3><p>在将要进入支付的前一页面，直接接入微信授权，然后跳转进要支付的那个页面。举个例子：有a、b两个页面，在b页面用到支付，b页面由a页面跳转而来。那么在a页面跳b页面的时候，别直接跳转b的url，而是跳转到：<br><code>https://open.weixin.qq.com/connect/oauth2/authorize?appid={appId}&amp;redirect_uri={b.html}&amp;response_type=code&amp;scope=snsapi_base#wechat_redirect</code><br>我们注意到，这里有这两个需要自己写的参数：<code>appid</code>和<code>redirect_uri</code>，意义是：</p>
+        <h2 id="一、-封装前准备"><a href="#一、-封装前准备" class="headerlink" title="一、 封装前准备"></a>一、 封装前准备</h2><p>在前两篇讲过了axios的安装、基本配置、拦截器使用，如下：</p>
 <ul>
-<li>appid——服务号id</li>
-<li>redirect_uri——获取授权后回调的页面地址，比如b页面</li>
+<li><a href="/2020/05/12/axios进阶之路——基础篇/" title="axios进阶之路——基础篇">axios进阶之路——基础篇</a></li>
+<li><a href="/2020/05/13/axios进阶之路——拦截器篇/" title="axios进阶之路——拦截器篇">axios进阶之路——拦截器篇</a>
+</li>
 </ul>
-<p>另外，还有一个注意的点是，<strong><em>b.html这个url我们要进行encode转码，不然地址解析可能会出现问题！</em></strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// url转码</span></span><br><span class="line"><span class="keyword">let</span> url = <span class="string">'a.html'</span>;</span><br><span class="line">url = <span class="built_in">escape</span>(url);</span><br></pre></td></tr></table></figure>
-<h3 id="2-得到code，换取凭证获取openid"><a href="#2-得到code，换取凭证获取openid" class="headerlink" title="2. 得到code，换取凭证获取openid"></a>2. 得到code，换取凭证获取openid</h3><p>上一步执行完后，在微信浏览器中，我们会得到一个链接，类似：<br><code>b.html?&amp;code={code}&amp;state=#/</code><br>在此处，我们得到了一个code值，这就是我们获取<code>openid</code>的凭证了。<br>获取方法当然是把值传给后台，后台去处理啦~</p>
-<h3 id="3-接收后端返回的我们需要的参数值"><a href="#3-接收后端返回的我们需要的参数值" class="headerlink" title="3. 接收后端返回的我们需要的参数值"></a>3. 接收后端返回的我们需要的参数值</h3><p>在上一步中，我们拿到code值后，就可以提交一些信息给后端了，比如商品相关属性、总价等，另外加上code值，传给后端。后端一顿操作后，返回给前端。我们需要的参数如下（后端返回下面这些参数）：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 微信支付需要参数</span></span><br><span class="line">orderInfo: &#123;</span><br><span class="line">    package: <span class="string">''</span>,    <span class="comment">// 前端需要从后台获取该数据</span></span><br><span class="line">    paySign: <span class="string">''</span>,    <span class="comment">// 微信签名，前端需要从后台获取该数据</span></span><br><span class="line">    appId: <span class="string">''</span>,  <span class="comment">// 需要在微信绑定商户号，成功之后会生成有appid</span></span><br><span class="line">    signType: <span class="string">''</span>,   <span class="comment">// 微信签名方式,默认为"MD5",也可以从后台获取</span></span><br><span class="line">    nonceStr: <span class="string">''</span>,   <span class="comment">// 随机串，前端需要从后台获取该数据</span></span><br><span class="line">    timeStamp: <span class="string">''</span>,  <span class="comment">// 时间戳，自1970年以来的秒数，前端需要从后台获取该数据</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="4-交互微信"><a href="#4-交互微信" class="headerlink" title="4. 交互微信"></a>4. 交互微信</h3><p>上个步骤拿到需要交互微信的参数后，就开始调用微信的支付接口了，如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 微信支付</span></span><br><span class="line">WeixinJSBridge.invoke(<span class="string">'getBrandWCPayRequest'</span>, &#123;</span><br><span class="line">    appId: _this.orderInfo.appId,   <span class="comment">// 上一步得到的参数</span></span><br><span class="line">    nonceStr: _this.orderInfo.nonceStr, <span class="comment">// 上一步得到的参数</span></span><br><span class="line">    package: _this.orderInfo.package,   <span class="comment">// 上一步得到的参数</span></span><br><span class="line">    signType: _this.orderInfo.signType, <span class="comment">// 上一步得到的参数</span></span><br><span class="line">    timeStamp: _this.orderInfo.timeStamp,   <span class="comment">// 上一步得到的参数</span></span><br><span class="line">    paySign: _this.orderInfo.paySign    <span class="comment">// 上一步得到的参数</span></span><br><span class="line">&#125;, res =&gt; &#123;</span><br><span class="line">    <span class="comment">// 调用后要做的事儿</span></span><br><span class="line">    <span class="comment">// codes...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据get_brand_wcpay_request的值判断支付状态</span></span><br><span class="line">    <span class="keyword">if</span> (res.err_msg === <span class="string">"get_brand_wcpay_request:ok"</span>) &#123;</span><br><span class="line">        <span class="comment">// ok：支付成功</span></span><br><span class="line">        <span class="comment">// 支付成功要做的事儿，比如跳转支付完成后的页面等</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.err_msg === <span class="string">"get_brand_wcpay_request:cancel"</span>) &#123;</span><br><span class="line">        <span class="comment">// cancel：用户取消支付</span></span><br><span class="line">        <span class="comment">// 取消支付要做的事儿，比如进入重新支付步骤等</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.err_msg === <span class="string">"get_brand_wcpay_request:fail"</span>) &#123;</span><br><span class="line">        <span class="comment">// fail： 支付失败</span></span><br><span class="line">        <span class="comment">// 支付失败要做的事儿，比如进入支付失败步骤等</span></span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">// 注： 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok,但并不保证它绝对可靠。</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h3 id="5-常见错误码"><a href="#5-常见错误码" class="headerlink" title="5. 常见错误码"></a>5. 常见错误码</h3><table>
-<thead>
-<tr>
-<th style="text-align:left">名称</th>
-<th style="text-align:left">描述</th>
-<th style="text-align:left">原因</th>
-<th style="text-align:left">解决方案</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">INVALID_REQUEST</td>
-<td style="text-align:left">参数错误</td>
-<td style="text-align:left">参数格式有误或者未按规则上传</td>
-<td style="text-align:left">订单重入时，要求参数值与原请求一致，请确认参数问题</td>
-</tr>
-<tr>
-<td style="text-align:left">NOAUTH</td>
-<td style="text-align:left">商户无此接口权限</td>
-<td style="text-align:left">商户未开通此接口权限</td>
-<td style="text-align:left">请商户前往申请此接口权限</td>
-</tr>
-<tr>
-<td style="text-align:left">NOTENOUGH</td>
-<td style="text-align:left">余额不足</td>
-<td style="text-align:left">用户帐号余额不足</td>
-<td style="text-align:left">用户帐号余额不足，请用户充值或更换支付卡后再支付</td>
-</tr>
-<tr>
-<td style="text-align:left">ORDERPAID</td>
-<td style="text-align:left">商户订单已支付</td>
-<td style="text-align:left">商户订单已支付，无需重复操作</td>
-<td style="text-align:left">商户订单已支付，无需更多操作</td>
-</tr>
-<tr>
-<td style="text-align:left">ORDERCLOSED</td>
-<td style="text-align:left">订单已关闭</td>
-<td style="text-align:left">当前订单已关闭，无法支付</td>
-<td style="text-align:left">当前订单已关闭，请重新下单</td>
-</tr>
-<tr>
-<td style="text-align:left">SYSTEMERROR</td>
-<td style="text-align:left">系统错误</td>
-<td style="text-align:left">系统超时</td>
-<td style="text-align:left">系统异常，请用相同参数重新调用</td>
-</tr>
-<tr>
-<td style="text-align:left">APPID_NOT_EXIST</td>
-<td style="text-align:left">APPID不存在</td>
-<td style="text-align:left">参数中缺少APPID</td>
-<td style="text-align:left">请检查APPID是否正确</td>
-</tr>
-<tr>
-<td style="text-align:left">MCHID_NOT_EXIST</td>
-<td style="text-align:left">MCHID不存在</td>
-<td style="text-align:left">参数中缺少MCHID</td>
-<td style="text-align:left">请检查MCHID是否正确</td>
-</tr>
-<tr>
-<td style="text-align:left">APPID_MCHID_NOT_MATCH</td>
-<td style="text-align:left">appid和mch_id不匹配</td>
-<td style="text-align:left">appid和mch_id不匹配</td>
-<td style="text-align:left">请确认appid和mch_id是否匹配</td>
-</tr>
-<tr>
-<td style="text-align:left">LACK_PARAMS</td>
-<td style="text-align:left">缺少参数</td>
-<td style="text-align:left">缺少必要的请求参数</td>
-<td style="text-align:left">请检查参数是否齐全</td>
-</tr>
-<tr>
-<td style="text-align:left">OUT_TRADE_NO_USED</td>
-<td style="text-align:left">商户订单号重复</td>
-<td style="text-align:left">同一笔交易不能多次提交</td>
-<td style="text-align:left">请核实商户订单号是否重复提交</td>
-</tr>
-<tr>
-<td style="text-align:left">SIGNERROR</td>
-<td style="text-align:left">签名错误</td>
-<td style="text-align:left">参数签名结果不正确</td>
-<td style="text-align:left">请检查签名参数和方法是否都符合签名算法要求</td>
-</tr>
-<tr>
-<td style="text-align:left">XML_FORMAT_ERROR</td>
-<td style="text-align:left">XML格式错误</td>
-<td style="text-align:left">XML格式错误</td>
-<td style="text-align:left">请检查XML参数格式是否正确</td>
-</tr>
-<tr>
-<td style="text-align:left">REQUIRE_POST_METHOD</td>
-<td style="text-align:left">请使用post方法</td>
-<td style="text-align:left">未使用post传递参数</td>
-<td style="text-align:left">请检查请求参数是否通过post方法提交</td>
-</tr>
-<tr>
-<td style="text-align:left">POST_DATA_EMPTY</td>
-<td style="text-align:left">post数据为空</td>
-<td style="text-align:left">post数据不能为空</td>
-<td style="text-align:left">请检查post数据是否为空</td>
-</tr>
-<tr>
-<td style="text-align:left">NOT_UTF8</td>
-<td style="text-align:left">编码格式错误</td>
-<td style="text-align:left">未使用指定编码格式</td>
-<td style="text-align:left">请使用UTF-8编码格式</td>
-</tr>
-</tbody>
-</table>
-<h2 id="三、-完成"><a href="#三、-完成" class="headerlink" title="三、 完成"></a>三、 完成</h2><p>至此，调用微信JSAPI来完成在微信内的支付就完成了。</p>
+<p>那么本篇的封装也是基于前两篇的基础之上进行的。</p>
+<h2 id="二、-开拔"><a href="#二、-开拔" class="headerlink" title="二、 开拔"></a>二、 开拔</h2><h3 id="1-新建文件夹"><a href="#1-新建文件夹" class="headerlink" title="1. 新建文件夹"></a>1. 新建文件夹</h3><p>在<code>src</code>目录下新建文件夹，用于存放所有请求列表和请求封装的js。如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">├── src	</span><br><span class="line">│  ├── service	    // ++ 新建文件夹</span><br><span class="line">│  │  ├── http.js	// ++ 用于封装请求</span><br><span class="line">│  │  ├── apiList.js	// ++ 存放请求路径</span><br><span class="line">│  ├── page	</span><br><span class="line">│  │  ├── Home.vue	// 主页组件</span><br><span class="line">│  ├── router	</span><br><span class="line">│  │  ├── index.js	</span><br><span class="line">│  ├── App.vue	</span><br><span class="line">│  ├── main.js</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-所有接口请求的统一管理"><a href="#2-所有接口请求的统一管理" class="headerlink" title="2. 所有接口请求的统一管理"></a>2. 所有接口请求的统一管理</h3><p>一般情况下，一个项目的所有请求都会由一个统一的基础路径加上不同的接口路径和接口名组成，并且大部分接口都会有统一的请求或者响应处理，例如返回不同code值，要做响应处理，如果把所有接口都单独处理可谓是资源的极大浪费，因此想办法统一管理。<br>在上一步中，已经新建了一个名为<code>service</code>的文件夹，包含两个js文件：</p>
+<ul>
+<li><strong>apiList.js</strong>：存放请求路径</li>
+<li><strong>http.js</strong>：封装请求</li>
+</ul>
+<p>先看第一个：<code>apiList</code>，就是用来将所有接口统一管理的。<br>例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义请求列表对象API_LIST，其下每个请求(对象)包含请求方法与请求路径两项</span></span><br><span class="line"><span class="keyword">const</span> API_LIST = &#123;</span><br><span class="line">    <span class="comment">// get请求</span></span><br><span class="line">    getData1: &#123;</span><br><span class="line">        method: <span class="string">'get'</span>,</span><br><span class="line">        url: <span class="string">'/xx/getData1'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// post请求</span></span><br><span class="line">    getData2: &#123;</span><br><span class="line">        method: <span class="string">'post'</span>,</span><br><span class="line">        url: <span class="string">'/xx/getData2'</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 导出</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> API_LIST</span><br></pre></td></tr></table></figure></p>
+<p>一个项目，特殊接口的话可以单独处理，其余的的所有请求都可以放在这个文件中进行统一管理，之后项目变动找接口修改也会更好维护。</p>
+<h3 id="3-请求封装"><a href="#3-请求封装" class="headerlink" title="3. 请求封装"></a>3. 请求封装</h3><p>在请求接口列表处理得当之后，就该在请求实例上做文章了。一般需要处理两个问题：一是走请求，二是拦截器处理。<br><em>尽可能加上注释的提供一份参考</em><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// http.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入axios</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"><span class="comment">// 引入刚才封装的请求接口列表</span></span><br><span class="line"><span class="keyword">import</span> api_list <span class="keyword">from</span> <span class="string">'./api/api_list'</span></span><br><span class="line"><span class="comment">// 吐司框组件，配合拦截器使用，可自行处理（不要也行）</span></span><br><span class="line"><span class="keyword">import</span> Toast <span class="keyword">from</span> <span class="string">'xxx'</span></span><br><span class="line"><span class="comment">// 路由设置，配合拦截器使用，可不要</span></span><br><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">'../router/index'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// baseUrl判断</span></span><br><span class="line"><span class="keyword">let</span> baseURL;</span><br><span class="line"><span class="comment">// 如果是开发环境，用本地baseURL，如果是生产环境用线上baseURL</span></span><br><span class="line"><span class="keyword">if</span>(process.env.NODE_ENV === <span class="string">'development'</span>) &#123;</span><br><span class="line">    baseURL = <span class="string">'http://&#123;本地地址&#125;/xxx'</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span>(process.env.NODE_ENV === <span class="string">'production'</span>) &#123;</span><br><span class="line">    baseURL = <span class="string">'https://&#123;线上地址&#125;/xxx'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例</span></span><br><span class="line"><span class="keyword">let</span> instance = axios.create(&#123;</span><br><span class="line">    baseURL: baseURL,   <span class="comment">// url判断</span></span><br><span class="line">    timeout: <span class="number">15000</span>  <span class="comment">// 超时时间设置</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Http = &#123;&#125;;    <span class="comment">// 用来包裹请求的容器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历接口列表</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> api_list) &#123;</span><br><span class="line">    <span class="keyword">let</span> api = api_list[key];    <span class="comment">// 每一项api都包含method, url</span></span><br><span class="line">    </span><br><span class="line">    Http[key] = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">        params,    <span class="regexp">//</span> 请求参数</span></span></span><br><span class="line"><span class="function"><span class="params">        isFormData = true,    <span class="regexp">//</span> 是否是form-data请求</span></span></span><br><span class="line"><span class="function"><span class="params">        config = &#123;&#125;    <span class="regexp">//</span> 配置参数</span></span></span><br><span class="line"><span class="function"><span class="params">    </span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> newParams = &#123;&#125;; <span class="comment">// 参数容器</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// content-type 参数转换</span></span><br><span class="line">        <span class="comment">// 如果需要form-data请求，则格式化为form-data，一般用于post请求</span></span><br><span class="line">        <span class="keyword">if</span>(params &amp;&amp; isFormData) &#123;</span><br><span class="line">            newParams = <span class="keyword">new</span> FormData();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> params) &#123;</span><br><span class="line">                newParams.append(key, params[key])</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 一般用于get请求</span></span><br><span class="line">            newParams = params;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 返回值容器</span></span><br><span class="line">        <span class="keyword">let</span> res = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不同请求判断</span></span><br><span class="line">        <span class="keyword">if</span>(api.method === <span class="string">'post'</span>) &#123;</span><br><span class="line">            <span class="comment">// post请求处理</span></span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                res = <span class="keyword">await</span> instance[api.method](api.url, newParams, config);</span><br><span class="line">            &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">                res = err;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(api.method === <span class="string">'get'</span>) &#123;</span><br><span class="line">            <span class="comment">// get请求处理</span></span><br><span class="line">            config.params = newParams;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                res = <span class="keyword">await</span> instance[api.method](api.url, config);</span><br><span class="line">            &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">                res = err;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 返回返回值</span></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求拦截器</span></span><br><span class="line">instance.interceptors.request.use(<span class="function"><span class="params">req</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 吐司：loading框加载，不要也行</span></span><br><span class="line">    Toast.loading(&#123;</span><br><span class="line">        message: <span class="string">'加载中...'</span>,</span><br><span class="line">        forbidClick: <span class="literal">true</span>,</span><br><span class="line">        loadingType: <span class="string">'spinner'</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;, err =&gt; &#123;</span><br><span class="line">    <span class="comment">// 请求错误</span></span><br><span class="line">    Toast.clear();  <span class="comment">// 清除吐司</span></span><br><span class="line">    Toast.fail(<span class="string">'请求失败，请稍后重试'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 响应拦截器</span></span><br><span class="line">instance.interceptors.response.use(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    Toast.clear();  <span class="comment">// 清除吐司</span></span><br><span class="line">    <span class="comment">// 不同的返回值跳相应路由即可，如201跳登陆，202跳加载失败等，根据需求自行处理</span></span><br><span class="line">    <span class="keyword">if</span>(res.data.code === <span class="number">201</span>) &#123;</span><br><span class="line">        Router.push(<span class="string">'/login'</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(res.data.code === <span class="number">202</span>) &#123;</span><br><span class="line">        Router.push(<span class="string">'/loadfail'</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 返回返回值，返回值为res.data</span></span><br><span class="line">    <span class="keyword">return</span> res.data</span><br><span class="line">&#125;, err =&gt; &#123;</span><br><span class="line">    Toast.clear();  <span class="comment">// 清除吐司</span></span><br><span class="line">    Toast.fail(<span class="string">'无响应，请稍后重试'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导出请求</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Http</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-使用"><a href="#4-使用" class="headerlink" title="4. 使用"></a>4. 使用</h3><p>封装完成，盘他！</p>
+<h4 id="4-1-挂载到vue实例上"><a href="#4-1-挂载到vue实例上" class="headerlink" title="4.1 挂载到vue实例上"></a>4.1 挂载到vue实例上</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="comment">// 引入</span></span><br><span class="line"><span class="keyword">import</span> Http <span class="keyword">from</span> <span class="string">'./service/http'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Vue 实例挂载</span></span><br><span class="line">Vue.prototype.$Http = Http</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-2-测试使用"><a href="#4-2-测试使用" class="headerlink" title="4.2 测试使用"></a>4.2 测试使用</h4><p>在某个vue文件中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            data: &#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        <span class="comment">// 获取get请求数据，注意async和await配对使用</span></span><br><span class="line">        <span class="keyword">async</span> getData1() &#123;</span><br><span class="line">            <span class="keyword">let</span> res = <span class="keyword">await</span> _this.$Http.getData1(&#123;</span><br><span class="line">                id: <span class="string">'xxx'</span>,</span><br><span class="line">                token: <span class="string">'xxx'</span></span><br><span class="line">            &#125;, <span class="literal">false</span>);  <span class="comment">// false代表不是formdata格式</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(res.code === <span class="number">200</span>) &#123;</span><br><span class="line">                alert(<span class="string">'get数据返回成功'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取post请求数据，注意async和await配对使用</span></span><br><span class="line">        <span class="comment">// 此处是formdata格式，第二个参数可写true,因为默认为true，因此可以不写</span></span><br><span class="line">        <span class="keyword">async</span> getData2() &#123;</span><br><span class="line">            <span class="keyword">let</span> res = <span class="keyword">await</span> <span class="keyword">this</span>.$Http.getData2(&#123;</span><br><span class="line">                id: <span class="string">'xxx'</span>,</span><br><span class="line">                token: <span class="string">'xxx'</span></span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(res.code === <span class="number">200</span>) &#123;</span><br><span class="line">                alert(<span class="string">'post数据返回成功'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted() &#123;</span><br><span class="line">        <span class="keyword">this</span>.getData1();</span><br><span class="line">        <span class="keyword">this</span>.getData2();</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>经测试，普通格式（非文件等）请求有效，简单封装完成~</p>
+<h2 id="三、-完结撒花"><a href="#三、-完结撒花" class="headerlink" title="三、 完结撒花~"></a>三、 完结撒花~</h2><p>一般接口的请求封装完毕，用到了基于axios的一些知识，记录至此。在项目中灵活运用，相比于一个个接口单独处理，可谓是大幅度的提升哟~<br>另外，基于此，也可配合proxy（在vue.config.js中配置）处理跨域问题，就不在此处赘述了。</p>
+<p>以上。</p>
 
       
     </div>
@@ -620,12 +511,12 @@
   <script src="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.main.js"></script>
   <link rel="stylesheet" type="text/css" href="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.css">
 
-  <p><span>本文标题:</span>JS交互微信之JSAPI支付</p>
+  <p><span>本文标题:</span>axios进阶之路——封装篇</p>
   <p><span>文章作者:</span>Lomo 朱幸民</p>
-  <p><span>发布时间:</span>2020年03月03日 - 17:06:15</p>
-  <p><span>最后更新:</span>2020年03月04日 - 14:31:44</p>
-  <p><span>原始链接:</span><a href="/2020/03/03/JS交互微信之JSAPI支付/" title="JS交互微信之JSAPI支付">https://www.zhuxingmin.com/2020/03/03/JS交互微信之JSAPI支付/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2020/03/03/JS交互微信之JSAPI支付/" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2020年05月26日 - 17:42:59</p>
+  <p><span>最后更新:</span>2020年05月26日 - 19:52:42</p>
+  <p><span>原始链接:</span><a href="/2020/05/26/axios进阶之路——封装篇/" title="axios进阶之路——封装篇">https://www.zhuxingmin.com/2020/05/26/axios进阶之路——封装篇/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2020/05/26/axios进阶之路——封装篇/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -687,11 +578,9 @@
           
             <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
           
-            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+            <a href="/tags/axios/" rel="tag"><i class="fa fa-tag"></i> axios</a>
           
-            <a href="/tags/微信/" rel="tag"><i class="fa fa-tag"></i> 微信</a>
-          
-            <a href="/tags/jssdk/" rel="tag"><i class="fa fa-tag"></i> jssdk</a>
+            <a href="/tags/拦截器/" rel="tag"><i class="fa fa-tag"></i> 拦截器</a>
           
         </div>
       
@@ -704,8 +593,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/02/28/JS交互微信之自定义分享/" rel="next" title="JS交互微信之自定义分享">
-                <i class="fa fa-chevron-left"></i> JS交互微信之自定义分享
+              <a href="/2020/05/14/vscode-webstorm自定义vue模板/" rel="next" title="vscode/webstorm自定义vue模板">
+                <i class="fa fa-chevron-left"></i> vscode/webstorm自定义vue模板
               </a>
             
           </div>
@@ -713,10 +602,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/24/MockJs使用分享/" rel="prev" title="MockJs使用分享">
-                MockJs使用分享 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -891,7 +776,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、-介绍"><span class="nav-text">一、 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景："><span class="nav-text">应用场景：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、-准备"><span class="nav-text">二、 准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-准备内容"><span class="nav-text">1. 准备内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-平台配置"><span class="nav-text">2. 平台配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-微信支付-商户平台-中"><span class="nav-text">2.1 微信支付(商户平台)中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-微信公众平台中"><span class="nav-text">2.2 微信公众平台中</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-开发"><span class="nav-text">三、 开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-用户授权，获取code"><span class="nav-text">1. 用户授权，获取code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-得到code，换取凭证获取openid"><span class="nav-text">2. 得到code，换取凭证获取openid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-接收后端返回的我们需要的参数值"><span class="nav-text">3. 接收后端返回的我们需要的参数值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-交互微信"><span class="nav-text">4. 交互微信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-常见错误码"><span class="nav-text">5. 常见错误码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-完成"><span class="nav-text">三、 完成</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、-封装前准备"><span class="nav-text">一、 封装前准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、-开拔"><span class="nav-text">二、 开拔</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-新建文件夹"><span class="nav-text">1. 新建文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-所有接口请求的统一管理"><span class="nav-text">2. 所有接口请求的统一管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-请求封装"><span class="nav-text">3. 请求封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-使用"><span class="nav-text">4. 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-挂载到vue实例上"><span class="nav-text">4.1 挂载到vue实例上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-测试使用"><span class="nav-text">4.2 测试使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-完结撒花"><span class="nav-text">三、 完结撒花~</span></a></li></ol></div>
             
 
           </div>

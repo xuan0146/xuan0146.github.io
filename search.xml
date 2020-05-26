@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[axios进阶之路——封装篇]]></title>
+    <url>%2F2020%2F05%2F26%2Faxios%E8%BF%9B%E9%98%B6%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%B0%81%E8%A3%85%E7%AF%87%2F</url>
+    <content type="text"><![CDATA[一、 封装前准备在前两篇讲过了axios的安装、基本配置、拦截器使用，如下： axios进阶之路——基础篇 axios进阶之路——拦截器篇 那么本篇的封装也是基于前两篇的基础之上进行的。 二、 开拔1. 新建文件夹在src目录下新建文件夹，用于存放所有请求列表和请求封装的js。如12345678910├── src │ ├── service // ++ 新建文件夹│ │ ├── http.js // ++ 用于封装请求│ │ ├── apiList.js // ++ 存放请求路径│ ├── page │ │ ├── Home.vue // 主页组件│ ├── router │ │ ├── index.js │ ├── App.vue │ ├── main.js 2. 所有接口请求的统一管理一般情况下，一个项目的所有请求都会由一个统一的基础路径加上不同的接口路径和接口名组成，并且大部分接口都会有统一的请求或者响应处理，例如返回不同code值，要做响应处理，如果把所有接口都单独处理可谓是资源的极大浪费，因此想办法统一管理。在上一步中，已经新建了一个名为service的文件夹，包含两个js文件： apiList.js：存放请求路径 http.js：封装请求 先看第一个：apiList，就是用来将所有接口统一管理的。例如：123456789101112131415// 定义请求列表对象API_LIST，其下每个请求(对象)包含请求方法与请求路径两项const API_LIST = &#123; // get请求 getData1: &#123; method: 'get', url: '/xx/getData1' &#125;, // post请求 getData2: &#123; method: 'post', url: '/xx/getData2' &#125;,&#125;// 导出export default API_LIST 一个项目，特殊接口的话可以单独处理，其余的的所有请求都可以放在这个文件中进行统一管理，之后项目变动找接口修改也会更好维护。 3. 请求封装在请求接口列表处理得当之后，就该在请求实例上做文章了。一般需要处理两个问题：一是走请求，二是拦截器处理。尽可能加上注释的提供一份参考123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113// http.js// 引入axiosimport axios from 'axios'// 引入刚才封装的请求接口列表import api_list from './api/api_list'// 吐司框组件，配合拦截器使用，可自行处理（不要也行）import Toast from 'xxx'// 路由设置，配合拦截器使用，可不要import Router from '../router/index'// baseUrl判断let baseURL;// 如果是开发环境，用本地baseURL，如果是生产环境用线上baseURLif(process.env.NODE_ENV === 'development') &#123; baseURL = 'http://&#123;本地地址&#125;/xxx';&#125; else if(process.env.NODE_ENV === 'production') &#123; baseURL = 'https://&#123;线上地址&#125;/xxx';&#125;// 实例let instance = axios.create(&#123; baseURL: baseURL, // url判断 timeout: 15000 // 超时时间设置&#125;)const Http = &#123;&#125;; // 用来包裹请求的容器// 遍历接口列表for(let key in api_list) &#123; let api = api_list[key]; // 每一项api都包含method, url Http[key] = async function( params, // 请求参数 isFormData = true, // 是否是form-data请求 config = &#123;&#125; // 配置参数 ) &#123; let newParams = &#123;&#125;; // 参数容器 // content-type 参数转换 // 如果需要form-data请求，则格式化为form-data，一般用于post请求 if(params &amp;&amp; isFormData) &#123; newParams = new FormData(); for(let key in params) &#123; newParams.append(key, params[key]) &#125; &#125; else &#123; // 一般用于get请求 newParams = params; &#125; // 返回值容器 let res = &#123;&#125;; // 不同请求判断 if(api.method === 'post') &#123; // post请求处理 try&#123; res = await instance[api.method](api.url, newParams, config); &#125; catch(err) &#123; res = err; &#125; &#125; else if(api.method === 'get') &#123; // get请求处理 config.params = newParams; try&#123; res = await instance[api.method](api.url, config); &#125; catch(err) &#123; res = err; &#125; &#125; // 返回返回值 return res; &#125;&#125;// 请求拦截器instance.interceptors.request.use(req =&gt; &#123; // 吐司：loading框加载，不要也行 Toast.loading(&#123; message: '加载中...', forbidClick: true, loadingType: 'spinner' &#125;); return req;&#125;, err =&gt; &#123; // 请求错误 Toast.clear(); // 清除吐司 Toast.fail('请求失败，请稍后重试');&#125;)// 响应拦截器instance.interceptors.response.use(res =&gt; &#123; Toast.clear(); // 清除吐司 // 不同的返回值跳相应路由即可，如201跳登陆，202跳加载失败等，根据需求自行处理 if(res.data.code === 201) &#123; Router.push('/login') &#125; else if(res.data.code === 202) &#123; Router.push('/loadfail') &#125; else &#123; // ... &#125; // 返回返回值，返回值为res.data return res.data&#125;, err =&gt; &#123; Toast.clear(); // 清除吐司 Toast.fail('无响应，请稍后重试');&#125;)// 导出请求export default Http 4. 使用封装完成，盘他！ 4.1 挂载到vue实例上123456789// main.jsimport Vue from 'vue'// 引入import Http from './service/http'// Vue 实例挂载Vue.prototype.$Http = Http// ... 4.2 测试使用在某个vue文件中：12345678910111213141516171819202122232425262728293031323334353637export default &#123; data() &#123; return &#123; data: &#123;&#125; &#125; &#125;, methods: &#123; // 获取get请求数据，注意async和await配对使用 async getData1() &#123; let res = await _this.$Http.getData1(&#123; id: 'xxx', token: 'xxx' &#125;, false); // false代表不是formdata格式 if(res.code === 200) &#123; alert('get数据返回成功'); &#125; &#125;, // 获取post请求数据，注意async和await配对使用 // 此处是formdata格式，第二个参数可写true,因为默认为true，因此可以不写 async getData2() &#123; let res = await this.$Http.getData2(&#123; id: 'xxx', token: 'xxx' &#125;); if(res.code === 200) &#123; alert('post数据返回成功'); &#125; &#125;, &#125;, mounted() &#123; this.getData1(); this.getData2(); &#125;,&#125; 经测试，普通格式（非文件等）请求有效，简单封装完成~ 三、 完结撒花~一般接口的请求封装完毕，用到了基于axios的一些知识，记录至此。在项目中灵活运用，相比于一个个接口单独处理，可谓是大幅度的提升哟~另外，基于此，也可配合proxy（在vue.config.js中配置）处理跨域问题，就不在此处赘述了。 以上。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>axios</tag>
+        <tag>拦截器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vscode/webstorm自定义vue模板]]></title>
     <url>%2F2020%2F05%2F14%2Fvscode-webstorm%E8%87%AA%E5%AE%9A%E4%B9%89vue%E6%A8%A1%E6%9D%BF%2F</url>
     <content type="text"><![CDATA[webstorm1. 打开设置打开设置：File =&gt; Settings 2. 安装vue插件在搜索区输入plugins，或者找到plugins选项，右边的Marketplace搜索vue，安装。 3. 自定义模板有时候我们新建vue文件时默认的模板不是我们想要的，这时可以自定义模板：还是在设置中，搜索框输入file and code template或者在设置中找到该选项也行，在右侧选择vue模板，然后在编辑区修改模板即可。如图 4. 参考给出一份我自己的作为参考，可按自己常用规则优化修改。其中，${COMPONENT_NAME}直接获取组件名。123456789101112131415161718192021222324252627282930&lt;template&gt; &lt;div&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; name: &quot;$&#123;COMPONENT_NAME&#125;&quot;, props: [], components: &#123; &#125;, data () &#123; return &#123; &#125; &#125;, methods: &#123; &#125;, mounted () &#123; &#125; &#125;&lt;/script&gt;&lt;style type=&quot;text/scss&quot; lang=&quot;scss&quot; scoped&gt;&lt;/style&gt; vscode1. 安装Vetur在应用市场中安装Vetur 2. 使用此时，在vue项目中新建.vue文件，然后输入vue时，按tab键则会出来一份默认的模板。由于默认模板涵盖内容过少，因此我们仍需要对齐进行自定义模板配置。 3. 自定义模板 打开 文件 =&gt; 首选项 =&gt; 用户片段 搜索关键词vue 在候选列表中选择vue.json 在打开的文件中自定义配置即可 如果没有找到vue.json，可以重启一下vscode试一下。 4. 参考给出一份参考123456789101112131415161718192021222324252627282930313233&#123; "Print to console": &#123; "prefix": "vue", "body": [ "&lt;template&gt;", " &lt;div&gt;\n", " &lt;/div&gt;", "&lt;/template&gt;\n", "&lt;script&gt;", "export default &#123;", " props: &#123;\n", " &#125;,", " components: &#123;\n", " &#125;,", " data() &#123;", " return &#123;\n", " &#125;;", " &#125;,", " watch: &#123;\n", " &#125;,", " methods: &#123;\n", " &#125;,", " mounted() &#123;\n", " &#125;,", "&#125;;", "&lt;/script&gt;\n", "&lt;style scoped lang=\"$&#123;1:scss&#125;\" type=\"text/scss\"&gt;\n", "&lt;/style&gt;\n", ], "description": "Create vue template" &#125;&#125;]]></content>
@@ -414,8 +427,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>小王子</tag>
         <tag>读书笔记</tag>
+        <tag>小王子</tag>
         <tag>读后感</tag>
       </tags>
   </entry>
@@ -605,8 +618,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>es6</tag>
         <tag>Promise</tag>
+        <tag>es6</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
