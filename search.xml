@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[常用验证码之滑动验证码|图形验证码]]></title>
+    <url>%2F2020%2F07%2F02%2F%E5%B8%B8%E7%94%A8%E9%AA%8C%E8%AF%81%E7%A0%81%E4%B9%8B%E6%BB%91%E5%8A%A8%E9%AA%8C%E8%AF%81%E7%A0%81-%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[写在前面这里是常用验证码的第三篇——滑动/图形验证码。在前两篇已经实现了随机验证码和算术验证码，感兴趣的可以去看一下~ 常用验证码之字符串验证码 常用验证码之算数验证码 除了这两种常用的验证码之外，现在最经常用到的还有几种，比如滑动验证，图片验证等，这一类的验证码一般借助于第三方来处理即可。比如图形验证码： 本篇纪录两种常用验证码的第三方调用方式： 滑动验证码 图形验证码 滑动验证码1. 示例 2. 应用场景人机验证服务适用于登录、注册、活动、论坛、短信等高风险业务场景。 3. 实际意义通过对用户的行为数据、设备特征与网络数据构建多维度数据分析，使用业界先进的风控引擎结合“规则+AI”模型，对风险设备使用、模拟行为、暴力重放等攻击进行综合实时风控判决。 4. 使用流程 接入平台： 阿里云搜索引擎搜索打开阿里云官网，注册并登录。 搜索栏搜索关键词：验证码然后在结果中点击进入【人机验证(验证码)】 点立即开通，即可获取自己的专属token,记录下即可~在代码配置中会用得到~ 点击产品文档，各种配置在里面查看配置即可； 示例 1&lt;div id="checkId" class="nc-container"&gt;&lt;/div&gt; &lt;!--No-Captcha渲染的位置，其中 class 中必须包含 nc-container--&gt; 12345678910111213141516171819202122232425262728293031323334// 首先得先引入资源如下&lt;script type="text/javascript" charset="utf-8" src="https://g.alicdn.com/sd/ncpc/nc.js?t=2015052012"&gt;&lt;/script&gt;// 配置即可var nc_token = ["[自己的key值]", (new Date()).getTime(), Math.random()].join(':');var NC_Opt = &#123; renderTo: "#checkId", appkey: "[自己的key值]", scene: "nc_login", token: nc_token, customWidth: 300, trans:&#123;"key1":"code0"&#125;, elementID: ["usernameID"], is_Opt: 0, language: "cn", isEnabled: true, timeout: 3000, times:5, callback: function (data) &#123; // 验证后续操作 window.console &amp;&amp; console.log(nc_token) window.console &amp;&amp; console.log(data.csessionid) window.console &amp;&amp; console.log(data.sig) &#125;&#125;var nc = new noCaptcha(NC_Opt)// 在此处配置相关文案信息nc.upLang('cn', &#123; _startTEXT: "请按住滑块，拖动到最右边", _yesTEXT: "验证通过", _error300: "哎呀，出错了，点击&lt;a href=\"javascript:__nc.reset()\"&gt;刷新&lt;/a&gt;再来一次", _errorNetwork: "网络不给力，请&lt;a href=\"javascript:__nc.reset()\"&gt;点击刷新&lt;/a&gt;",&#125;) 打开后如案例所示，完成~ 图形验证码1. 示例 2. 应用场景 注册登录 活动秒杀 点赞发帖 数据保护 3. 实际意义为网页、App、小程序开发者打造立体、全面的人机验证，最大程度地保护注册登录、活动秒杀、点赞发帖、数据保护等各大场景下的业务安全。 4. 使用流程 接入平台： 腾讯云搜索引擎搜索打开腾讯云官网，注册并登录。 搜索栏搜索关键词：验证码然后在结果中点击进入【验证码】 点立即选购（体验即可，无需付费）或者在线体验 点击产品文档，各种配置在里面查看配置即可；相比之下，腾讯云的基本使用方法则比阿里云简单的多，示例如下： 示例 1&lt;button id="TencentCaptcha" data-appid="2041127177" data-cbfn="callback" type="button"&gt;验证&lt;/button&gt; 1234567891011// 首先得先引入资源如下&lt;script src="https://ssl.captcha.qq.com/TCaptcha.js"&gt;&lt;/script&gt;// 基础使用window.callback = function (res) &#123; // 添加自己相应配置即可 console.log(res) if (res.ret === 0) &#123; alert(res.ticket) // 票据 &#125;&#125; 完成~]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>验证码</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[常用验证码之算数验证码]]></title>
-    <url>%2F2020%2F06%2F25%2F%E5%B8%B8%E7%94%A8%E9%AA%8C%E8%AF%81%E7%A0%81%E4%B9%8B%E7%AE%97%E6%95%B0%E9%AA%8C%E8%AF%81%E7%A0%81%2F</url>
+    <url>%2F2020%2F06%2F25%2F%E5%B8%B8%E7%94%A8%E9%AA%8C%E8%AF%81%E7%A0%81%E4%B9%8B%E7%AE%97%E6%9C%AF%E9%AA%8C%E8%AF%81%E7%A0%81%2F</url>
     <content type="text"><![CDATA[写在前面这里是常用验证码的第二篇——算术验证码。在上一篇已经实现了常用验证码之字符串验证码，感兴趣的可以去看一下~接下来要实现的就是字符串验证码了，先看下效果： 本篇记录纯前端写算术验证码。 实现：算术验证码一般来讲，字符串、算数、gif、短信语音等验证码放在后端实现，但本着技术无界限的原则，前端依然是能照葫芦画瓢给实现出来的。本次要实现的效果如下： 效果 分析验证码实现步骤： canvas画布 生成随机100以内的简单整数四则运算 随机颜色 背景色（可固定色） 噪音线设置 绘制验证码 其他一些基础内容也包含其中，如点击验证码刷新、点击下一步验证等操作。 步骤实现：注：本案例基于vue操作，UI使用element完成，原生js同样道理 1. canvas画布html123456&lt;!-- 输入框 --&gt;&lt;input v-model="inputCode" placeholder="请输入右侧图案的值" /&gt;&lt;!-- canvas画布：验证码 --&gt;&lt;canvas ref="checkCode" @click="getCode"&gt;&lt;/canvas&gt;&lt;!-- 按钮 --&gt;&lt;button @click="checkMe"&gt;下一步&lt;/button&gt; js12345678910111213141516// 需要的数据data() &#123; return &#123; inputCode: '', // 输入的值 checkCode: '', // 图片验证码的值 expressValue: '', // 表达式的值 // canvas各种设置 cvs: &#123; w: 100, // 给出默认宽度 宽度会在图片绘制时根据长度更改 h: 40, // 高 与input保持一致 fontSize: 24, // 字体大小 str: '+-*', // 符号生成范围 line: 3 // 噪音线个数 &#125; &#125;&#125; 2. 生成随机表达式 写一个随机整数生成器，在各个环节都会用到 生成随机字符串，长度是在data里面cvs中对应长度1234567891011121314151617// 随机整数生成器，范围[0, max)rInt(max) &#123; return Math.floor(Math.random() * 100000 % max);&#125;,// 生成随机表达式rCode() &#123; let a = this.rInt(100); let b = this.rInt(10); let op = this.cvs.str.charAt(this.rInt(this.cvs.str.length)); // 表达式 let code = `$&#123;a&#125;$&#123;op&#125;$&#123;b&#125;=`; this.checkCode = code; // 表达式的值 this.expressValue = eval(code.substr(0, code.length - 1)); return code;&#125;, 3. 生成随机颜色 rgba格式 a：透明度，取值为0.5-112345 // 生成随机颜色 rgba格式rColor() &#123; let a = ((Math.random()*5 + 5) / 10).toFixed(2); return `rgba($&#123;this.rInt(256)&#125;, $&#123;this.rInt(256)&#125;, $&#123;this.rInt(256)&#125;, $&#123;a&#125;)`&#125;, 4. 开始绘制 方法接收一个dom对象 判断浏览器对canvas支持程度 取随机字表达式 设置canvas宽高大小 绘制 具体过程如下：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647// 验证码图片绘制drawCode(domCvs) &#123; let _this = this; // 随机表达式 let checkCode = this.rCode(); // 宽设置 this.cvs.w = 10 + this.cvs.fontSize * this.checkCode.length; // 判断是否支持canvas if (domCvs !== null &amp;&amp; domCvs.getContext &amp;&amp; domCvs.getContext('2d')) &#123; // 设置显示区域大小 domCvs.style.width = _this.cvs.w; // 设置画板宽高 domCvs.setAttribute('width', _this.cvs.w); domCvs.setAttribute('height', _this.cvs.h); // 画笔 let pen = domCvs.getContext('2d'); // 背景: 颜色 区域 pen.fillStyle = '#eee'; pen.fillRect(0, 0, _this.cvs.w, _this.cvs.h); // 水平线位置 pen.textBaseline = 'middle'; // top middle bottom // 内容 for (let i = 0; i &lt; _this.checkCode.length; i++) &#123; pen.fillStyle = _this.rColor(); // 随机颜色 pen.font = `bold $&#123;_this.cvs.fontSize&#125;px 微软雅黑`; // 字体设置 // 字符绘制: (字符, X坐标, Y坐标) pen.fillText(checkCode.charAt(i), 10 + _this.cvs.fontSize * i, 17 + _this.rInt(10)); &#125; // 噪音线 for (let i = 0; i &lt; _this.cvs.line; i++) &#123; // 起点 pen.moveTo(_this.rInt(_this.cvs.w) / 2, _this.rInt(_this.cvs.h)); // 终点 pen.lineTo(_this.rInt(_this.cvs.w), _this.rInt(_this.cvs.h)); // 颜色 pen.strokeStyle = _this.rColor(); // 粗细 pen.lineWidth = '2'; // 绘制 pen.stroke(); &#125; &#125; else &#123; this.$message.error('不支持验证码格式，请升级或更换浏览器重试'); &#125;&#125;, 5. 绑定canvas的dom元素html1&lt;canvas class="codeCanvas" ref="checkCode" @click="getCode"&gt;&lt;/canvas&gt; js：getCode方法123// vue的话可直接用$refs取值，不用vue的话可绑定id然后通过document处理let domCvs = this.$refs.checkCode;this.drawCode(domCvs); 6. 完成~ 在页面初始化的时候，也来一个验证码 点击下一步， 验证data中inputCode和expressValue的值是否一样即可。注意，直接使用eval验证即可 页面初始化 12345// 初始化先搞一个验证码~点击canvas的时候重新执行getCode()mounted() &#123; // 获取验证码图 this.getCode();&#125; 验证 123456789101112131415checkMe() &#123; // 空、 错误、 正确 三个判断 if (this.inputCode) &#123; if (eval(this.inputCode) === eval(this.expressValue)) &#123; // 验证成功要做的事 this.$message.success('验证成功'); &#125; else &#123; // 验证码有误 this.$message.warning('错误，请重新输入'); &#125; &#125; else &#123; // 输入为空 this.$message.warning('请输入右侧结果'); &#125;&#125; 结语ok，常用的简单算术验证码大致就是这样子了~ 本篇案例源码可关注公众号【流眸】回复【20630】获取哟~]]></content>
       <categories>
         <category>前端笔记</category>
@@ -294,8 +306,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>随笔</tag>
         <tag>电影</tag>
+        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -490,8 +502,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>随笔</tag>
         <tag>电影</tag>
+        <tag>随笔</tag>
         <tag>读书笔记</tag>
       </tags>
   </entry>
@@ -629,9 +641,9 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>随笔</tag>
         <tag>电影</tag>
         <tag>复仇者联盟</tag>
+        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -771,8 +783,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>随笔</tag>
         <tag>电影</tag>
+        <tag>随笔</tag>
         <tag>读书笔记</tag>
       </tags>
   </entry>
