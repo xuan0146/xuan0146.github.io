@@ -109,13 +109,13 @@
 
 
 
-<meta name="description" content="写在前面最近学习了一些关于webpack的知识，在此做一些纪录。作为前端开发者，我们以前在浏览器中运行 JavaScript ，会引用一些脚本来存放每个功能；此解决方案很难扩展，因为加载太多脚本会导致网络瓶颈；亦或使用一个包含所有项目代码的大型 .js 文件，但是这会导致作用域、文件大小、可读性和可维护性方面的问题。后来，模块化诞生……随之而来的是一个新的时代，基于 node.js 的一系列解决方">
+<meta name="description" content="写在前面最近学习了一些关于webpack的知识，在此做一些纪录。作为前端开发者，我们以前在浏览器中运行 JavaScript ，会引用一些脚本来存放每个功能；此解决方案很难扩展，因为加载太多脚本会导致网络瓶颈；亦或使用一个包含所有项目代码的大型 .js 文件，但是这会导致作用域、文件大小、可读性和可维护性方面的问题。">
 <meta name="keywords" content="webpack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack实战——打包第一个应用">
 <meta property="og:url" content="https://www.zhuxingmin.com/2020/07/03/webpack实战——打包第一个应用/index.html">
 <meta property="og:site_name" content="Lomo | 朱幸民">
-<meta property="og:description" content="写在前面最近学习了一些关于webpack的知识，在此做一些纪录。作为前端开发者，我们以前在浏览器中运行 JavaScript ，会引用一些脚本来存放每个功能；此解决方案很难扩展，因为加载太多脚本会导致网络瓶颈；亦或使用一个包含所有项目代码的大型 .js 文件，但是这会导致作用域、文件大小、可读性和可维护性方面的问题。后来，模块化诞生……随之而来的是一个新的时代，基于 node.js 的一系列解决方">
+<meta property="og:description" content="写在前面最近学习了一些关于webpack的知识，在此做一些纪录。作为前端开发者，我们以前在浏览器中运行 JavaScript ，会引用一些脚本来存放每个功能；此解决方案很难扩展，因为加载太多脚本会导致网络瓶颈；亦或使用一个包含所有项目代码的大型 .js 文件，但是这会导致作用域、文件大小、可读性和可维护性方面的问题。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack1-1.png">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack1-2.png">
@@ -125,10 +125,10 @@
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack1-6.png">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack1-7.gif">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/qrcode.jpg">
-<meta property="og:updated_time" content="2020-07-03T11:40:37.862Z">
+<meta property="og:updated_time" content="2020-07-03T12:01:58.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack实战——打包第一个应用">
-<meta name="twitter:description" content="写在前面最近学习了一些关于webpack的知识，在此做一些纪录。作为前端开发者，我们以前在浏览器中运行 JavaScript ，会引用一些脚本来存放每个功能；此解决方案很难扩展，因为加载太多脚本会导致网络瓶颈；亦或使用一个包含所有项目代码的大型 .js 文件，但是这会导致作用域、文件大小、可读性和可维护性方面的问题。后来，模块化诞生……随之而来的是一个新的时代，基于 node.js 的一系列解决方">
+<meta name="twitter:description" content="写在前面最近学习了一些关于webpack的知识，在此做一些纪录。作为前端开发者，我们以前在浏览器中运行 JavaScript ，会引用一些脚本来存放每个功能；此解决方案很难扩展，因为加载太多脚本会导致网络瓶颈；亦或使用一个包含所有项目代码的大型 .js 文件，但是这会导致作用域、文件大小、可读性和可维护性方面的问题。">
 <meta name="twitter:image" content="https://www.zhuxingmin.com/images/posts/webpack1-1.png">
 
 
@@ -369,7 +369,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-07-03T19:40:37+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-07-03T20:01:58+08:00">
                 2020-07-03
               </time>
             
@@ -467,7 +467,9 @@
       
 
       
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近学习了一些关于webpack的知识，在此做一些纪录。<br>作为前端开发者，我们以前在浏览器中运行 JavaScript ，会引用一些脚本来存放每个功能；此解决方案很难扩展，因为加载太多脚本会导致网络瓶颈；亦或使用一个包含所有项目代码的大型 <code>.js</code> 文件，但是这会导致作用域、文件大小、可读性和可维护性方面的问题。<br>后来，模块化诞生……随之而来的是一个新的时代，基于 <code>node.js</code> 的一系列解决方案也是孕育而生，各种功能、方法都是用模块，对于开发、维护也是极大的瓶颈突破和效率提升，但是新的问题随之而来，各种模块不是浏览器支持不够友好，就是各依赖问题难以手动解决或者构建……而 <code>webpack</code> 此时也是破空而出，是用于现代 JavaScript 应用程序的静态模块打包工具。最核心的功能则是解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，最终合并为一个或多个 <code>.js</code> 文件。这个过程也被称为 <code>模块打包</code> 。<br>那么webpack到底神秘在何处？为何前端大框架都用它来配置？为何近年面试频频被问？上手难度几何？实际效果又如何？<br>本专题文章着手纪录webpack实战过程，从零开始着手webpack的配置过程及优化方案，例如<strong>模块打包</strong>、<strong>资源输入输出</strong>、<strong>预处理器</strong>、<strong>样式处理</strong>、<strong>代码切割</strong>、<strong>打包优化</strong>、<strong>开发环境调优</strong> 等等篇章。<br>本篇纪录关于webpack的简介以及环境配置、打包第一个应用~</p>
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近学习了一些关于webpack的知识，在此做一些纪录。<br>作为前端开发者，我们以前在浏览器中运行 JavaScript ，会引用一些脚本来存放每个功能；此解决方案很难扩展，因为加载太多脚本会导致网络瓶颈；亦或使用一个包含所有项目代码的大型 <code>.js</code> 文件，但是这会导致作用域、文件大小、可读性和可维护性方面的问题。</p>
+<a id="more"></a>
+<p>后来，模块化诞生……随之而来的是一个新的时代，基于 <code>node.js</code> 的一系列解决方案也是孕育而生，各种功能、方法都是用模块，对于开发、维护也是极大的瓶颈突破和效率提升，但是新的问题随之而来，各种模块不是浏览器支持不够友好，就是各依赖问题难以手动解决或者构建……而 <code>webpack</code> 此时也是破空而出，是用于现代 JavaScript 应用程序的静态模块打包工具。最核心的功能则是解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，最终合并为一个或多个 <code>.js</code> 文件。这个过程也被称为 <code>模块打包</code> 。<br>那么webpack到底神秘在何处？为何前端大框架都用它来配置？为何近年面试频频被问？上手难度几何？实际效果又如何？<br>本专题文章着手纪录webpack实战过程，从零开始着手webpack的配置过程及优化方案，例如<strong>模块打包</strong>、<strong>资源输入输出</strong>、<strong>预处理器</strong>、<strong>样式处理</strong>、<strong>代码切割</strong>、<strong>打包优化</strong>、<strong>开发环境调优</strong> 等等篇章。<br>本篇纪录关于webpack的简介以及环境配置、打包第一个应用~</p>
 <h2 id="webpack简介"><a href="#webpack简介" class="headerlink" title="webpack简介"></a>webpack简介</h2><p><img src="/images/posts/webpack1-1.png" alt="webpack"></p>
 <h3 id="1-什么是webpack"><a href="#1-什么是webpack" class="headerlink" title="1. 什么是webpack"></a>1. 什么是webpack</h3><blockquote>
 <p>webpack是一个开源的Javascript模块打包工具，最核心的功能是解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，最终合并为一个JS文件。</p>
@@ -588,7 +590,7 @@
   <p><span>本文标题:</span>webpack实战——打包第一个应用</p>
   <p><span>文章作者:</span>Lomo 朱幸民</p>
   <p><span>发布时间:</span>2020年07月03日 - 11:48:56</p>
-  <p><span>最后更新:</span>2020年07月03日 - 19:40:37</p>
+  <p><span>最后更新:</span>2020年07月03日 - 20:01:58</p>
   <p><span>原始链接:</span><a href="/2020/07/03/webpack实战——打包第一个应用/" title="webpack实战——打包第一个应用">https://www.zhuxingmin.com/2020/07/03/webpack实战——打包第一个应用/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2020/07/03/webpack实战——打包第一个应用/" aria-label="复制成功！"></i></span>
   </p>
