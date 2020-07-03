@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[webpack实战——打包第一个应用]]></title>
+    <url>%2F2020%2F07%2F03%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E6%89%93%E5%8C%85%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[写在前面最近学习了一些关于webpack的知识，在此做一些纪录。作为前端开发者，我们以前在浏览器中运行 JavaScript ，会引用一些脚本来存放每个功能；此解决方案很难扩展，因为加载太多脚本会导致网络瓶颈；亦或使用一个包含所有项目代码的大型 .js 文件，但是这会导致作用域、文件大小、可读性和可维护性方面的问题。后来，模块化诞生……随之而来的是一个新的时代，基于 node.js 的一系列解决方案也是孕育而生，各种功能、方法都是用模块，对于开发、维护也是极大的瓶颈突破和效率提升，但是新的问题随之而来，各种模块不是浏览器支持不够友好，就是各依赖问题难以手动解决或者构建……而 webpack 此时也是破空而出，是用于现代 JavaScript 应用程序的静态模块打包工具。最核心的功能则是解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，最终合并为一个或多个 .js 文件。这个过程也被称为 模块打包 。那么webpack到底神秘在何处？为何前端大框架都用它来配置？为何近年面试频频被问？上手难度几何？实际效果又如何？本专题文章着手纪录webpack实战过程，从零开始着手webpack的配置过程及优化方案，例如模块打包、资源输入输出、预处理器、样式处理、代码切割、打包优化、开发环境调优 等等篇章。本篇纪录关于webpack的简介以及环境配置、打包第一个应用~ webpack简介 1. 什么是webpack webpack是一个开源的Javascript模块打包工具，最核心的功能是解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，最终合并为一个JS文件。 2. 为什么选择webpack对比同类模块打包工具，具备以下优势： 支持多种模块标准，如AMD，CommonJS及ES6模块等 具有完备的代码分割功能，可以有效减小资源体积，提升首页渲染速度 可以处理各类型资源，如css、png等 拥有庞大的社区支持 安装1. 环境 操作系统： 无要求 环境： Node.js 此处使用macOS或者windows为例。 2. Node.js安装打开node.js中文网（http://nodejs.cn/），点击下载项安装对应系统的安装包即可。 3. webpack安装 新建一个目录作为工程目录 然后终端进入或者通过命令行工具执行npm初始化：npm init 依次输入所提示的的基本信息，完成后得到一个package.json文件 执行安装webpack和webpack-clinpm i webpack webpack-cli --save-dev 执行完成好就完成了安装过程 打包第一个应用hello world接着刚才的步骤继续： 项目根目录建入口文件： index.html 123456789101112&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt; &lt;meta charset="UTF-8"&gt; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt; &lt;title&gt;my first webpack app&lt;/title&gt;&lt;/head&gt;&lt;body&gt; &lt;script src="./dist/bundle.js"&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt; 项目根目录新建文件夹src，存放两个js文件：index.js和hello.js index.js 12345// index.jsimport hello from './hello.js';document.write('my first webpack app &lt;br/&gt;');hello(); hello.js 1234// hello.jsexport default function() &#123; document.write('hello world!');&#125; 命令行工具执行打包命令： 1npx webpack --entry=./src/index.js --output-filename=bundle.js --mode=development 执行结果（和工程目录）如下： 验证结果：浏览器打开index.html，查看页面结果： 命令优化在上述打包命令中，我们使用npx webpack --entry=./src/index.js --output-filename=bundle.js --mode=development来执行打包，但这一段命令冗长而又耗时，搞不好还容易出错。那么有没有简洁一些的方法呢？当然有！ 1. 使用 npm scripts 配置配置打开根目录的配置文件，编辑一条 scripts 命令： 12345678910111213&#123; "name": "w1", "version": "1.0.0", "description": "打包第一个应用", "main": "index.js", "author": "zxm", "license": "ISC", // 添加命令 "scripts": &#123; "build": "webpack --entry=./src/index.js --output-filename=bundle.js --mode=development" &#125;&#125; scripts 是 npm 提供的脚本命令功能，在这里可以直接使用模块所添加的指令。 验证我们修改hello.js中的输出： 1234// hello.jsexport default function() &#123; document.write('hello scripts');&#125; 然后执行打包命令：npm run build，观察结果： 2. 使用配置文件配置从上面命令可以看出，我们使用 scripts 命令一样可以代替执行 webpack 的打包命令，并且在命令行工具中使用则会更加简洁。但是存在一个问题，如果项目需要越来越多的配置，那么就需要往命令中塞入更多的参数，越来越多，到后期，项目的维护成本则正比的增加许多。为了解决此问题，可以将这些参数用对象的配置形式来统一存放到一个配置文件中，然后webpack每次打包都读取该配置文件即可。 根目录新建文件：webpack.config.js，并配置如下代码： 1234567891011// webpack.config.jsmodule.exports = &#123; // 入口文件指定 entry: './src/index.js', // 输出资源配置 output: &#123; filename: 'bundle.js' &#125;, // 打包模式：develop-开发，production-生产 mode: 'development'&#125; 修改package.json文件的scripts &gt; build配置： 12345678&#123; ...... // 修改后如下： "scripts": &#123; "build": "webpack" &#125;&#125; 校验：修改hello.js的输出： 1234// hello.jsexport default function() &#123; document.write(`this is webpack.config\'s result`);&#125; 执行npm run build，刷新浏览器，看结果： 至此，webpack的初始化环境配置及基础配置已经完毕。但是我们现在遇到一个麻烦事：我们没更改一些代码，则需要重新打包才能去测试，才能看到结果，那么有没有什么简洁的方案处理呢？有！继续操作~ 3. 开发优化——热更新webpack社区为我们提供了一个便捷的本地开发工具：webpack-dev-server， 安装执行安装命令：npm i webpack-dev-server --save-dev 新增 npm scripts 命令前面刚写了一个scripts命令，那么此时再添加一个dev来配置。编辑根目录的package.json文件： 12345678&#123; ...... "scripts": &#123; "build": "webpack --entry=./src/index.js --output-filename=bundle.js --mode=development", "dev": "webpack-dev-server" &#125;&#125; 还没结束，仍需在webpack中配置一下： webpack.config.js添加dev-server配置12345678module.exports = &#123; ...... // 新增： dev-server配置 devServer: &#123; publicPath: '/dist' &#125;&#125; 启动本地服务执行命令npm run dev 可以看到，在左侧代码块中修改内容后，只需要保存即可，右边浏览器则自动刷新了~~ 这个功能可以脱离dist文件，也就是没有通过实际的打包，为什么会这样呢？因为webpack-dev-serve其实不会写入实际的bundle.js文件，而是将打包结果运行于内存之中，然后每次webpack-dev-serve接收到请求的时候都将此时内存中的打包结果返回给浏览器端即可。 备注：如果npm run dev启动失败，有可能是webpack webpack-cli webpack-dev-server 的班班之间存在不兼容现象，将这三个卸载后(用 npm uninstall 卸载)，同时将这三个安装一下即可：npm install webpack webpack-cli webpack-dev-serve 小结本篇文章中，对webpack有了一个基本的介绍： 处理模块之间的依赖并将其打包然后进行了webpack环境的安装和配置：环境、nodeJs、webpack及webpack-cli等。之后，开始了第一个案例： hello world，然后通过webpack命令进行打包，打包到./dist/bundle.js。最后进行了一波优化，由于直接输入命令过于繁琐，因此借助 npm 脚本或者 webpack.config 来维护 webpack 命令。此时由于频繁的打包也不符合开发条件，因此使用本地服务 webpack-dev-server 来启用一个可热加载的本地服务来处理打包资源和静态文件的请求。 下一篇将会纪录如何编写和使用模块，以及模块打包。敬请期待~ 本篇代码demo存于公众号【流眸】，欢迎扫码关注公众号，可在公众号下回复【2073】获取]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[常用验证码之滑动验证码|图形验证码]]></title>
     <url>%2F2020%2F07%2F02%2F%E5%B8%B8%E7%94%A8%E9%AA%8C%E8%AF%81%E7%A0%81%E4%B9%8B%E6%BB%91%E5%8A%A8%E9%AA%8C%E8%AF%81%E7%A0%81-%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%2F</url>
     <content type="text"><![CDATA[写在前面这里是常用验证码的第三篇——滑动/图形验证码。在前两篇已经实现了随机验证码和算术验证码，感兴趣的可以去看一下~ 常用验证码之字符串验证码 常用验证码之算数验证码 除了这两种常用的验证码之外，现在最经常用到的还有几种，比如滑动验证，图片验证等，这一类的验证码一般借助于第三方来处理即可。比如图形验证码： 本篇纪录两种常用验证码的第三方调用方式： 滑动验证码 图形验证码 滑动验证码1. 示例 2. 应用场景人机验证服务适用于登录、注册、活动、论坛、短信等高风险业务场景。 3. 实际意义通过对用户的行为数据、设备特征与网络数据构建多维度数据分析，使用业界先进的风控引擎结合“规则+AI”模型，对风险设备使用、模拟行为、暴力重放等攻击进行综合实时风控判决。 4. 使用流程 接入平台： 阿里云搜索引擎搜索打开阿里云官网，注册并登录。 搜索栏搜索关键词：验证码然后在结果中点击进入【人机验证(验证码)】 点立即开通，即可获取自己的专属token,记录下即可~在代码配置中会用得到~ 点击产品文档，各种配置在里面查看配置即可； 示例 1&lt;div id="checkId" class="nc-container"&gt;&lt;/div&gt; &lt;!--No-Captcha渲染的位置，其中 class 中必须包含 nc-container--&gt; 12345678910111213141516171819202122232425262728293031323334// 首先得先引入资源如下&lt;script type="text/javascript" charset="utf-8" src="https://g.alicdn.com/sd/ncpc/nc.js?t=2015052012"&gt;&lt;/script&gt;// 配置即可var nc_token = ["[自己的key值]", (new Date()).getTime(), Math.random()].join(':');var NC_Opt = &#123; renderTo: "#checkId", appkey: "[自己的key值]", scene: "nc_login", token: nc_token, customWidth: 300, trans:&#123;"key1":"code0"&#125;, elementID: ["usernameID"], is_Opt: 0, language: "cn", isEnabled: true, timeout: 3000, times:5, callback: function (data) &#123; // 验证后续操作 window.console &amp;&amp; console.log(nc_token) window.console &amp;&amp; console.log(data.csessionid) window.console &amp;&amp; console.log(data.sig) &#125;&#125;var nc = new noCaptcha(NC_Opt)// 在此处配置相关文案信息nc.upLang('cn', &#123; _startTEXT: "请按住滑块，拖动到最右边", _yesTEXT: "验证通过", _error300: "哎呀，出错了，点击&lt;a href=\"javascript:__nc.reset()\"&gt;刷新&lt;/a&gt;再来一次", _errorNetwork: "网络不给力，请&lt;a href=\"javascript:__nc.reset()\"&gt;点击刷新&lt;/a&gt;",&#125;) 打开后如案例所示，完成~ 图形验证码1. 示例 2. 应用场景 注册登录 活动秒杀 点赞发帖 数据保护 3. 实际意义为网页、App、小程序开发者打造立体、全面的人机验证，最大程度地保护注册登录、活动秒杀、点赞发帖、数据保护等各大场景下的业务安全。 4. 使用流程 接入平台： 腾讯云搜索引擎搜索打开腾讯云官网，注册并登录。 搜索栏搜索关键词：验证码然后在结果中点击进入【验证码】 点立即选购（体验即可，无需付费）或者在线体验 点击产品文档，各种配置在里面查看配置即可；相比之下，腾讯云的基本使用方法则比阿里云简单的多，示例如下： 示例 1&lt;button id="TencentCaptcha" data-appid="2041127177" data-cbfn="callback" type="button"&gt;验证&lt;/button&gt; 1234567891011// 首先得先引入资源如下&lt;script src="https://ssl.captcha.qq.com/TCaptcha.js"&gt;&lt;/script&gt;// 基础使用window.callback = function (res) &#123; // 添加自己相应配置即可 console.log(res) if (res.ret === 0) &#123; alert(res.ticket) // 票据 &#125;&#125; 完成~]]></content>
@@ -145,8 +156,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -159,8 +170,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -173,8 +184,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -187,8 +198,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -306,8 +317,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>电影</tag>
         <tag>随笔</tag>
+        <tag>电影</tag>
       </tags>
   </entry>
   <entry>
@@ -502,8 +513,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>电影</tag>
         <tag>随笔</tag>
+        <tag>电影</tag>
         <tag>读书笔记</tag>
       </tags>
   </entry>
@@ -641,9 +652,9 @@
         <category>读书笔记</category>
       </categories>
       <tags>
+        <tag>随笔</tag>
         <tag>电影</tag>
         <tag>复仇者联盟</tag>
-        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -668,8 +679,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>es6</tag>
         <tag>Promise</tag>
+        <tag>es6</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
@@ -783,8 +794,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>电影</tag>
         <tag>随笔</tag>
+        <tag>电影</tag>
         <tag>读书笔记</tag>
       </tags>
   </entry>
