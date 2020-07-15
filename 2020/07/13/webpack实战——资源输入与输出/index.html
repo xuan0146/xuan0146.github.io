@@ -109,21 +109,21 @@
 
 
 
-<meta name="description" content="写在前面这是webpack实战系列笔记的第三篇记录：资源输入与输出。前两篇：  打包第一个应用 模块化与模块打包  1. 资源处理流程前两篇的博客中提及，webpack主要作用是对 解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，那么我们就要对资源处理的流程有一个了解。各个流程如下： 处理流程  指定入口(entry)： 告诉webpack从哪儿入手开始打包。 打包封装(chunk)">
+<meta name="description" content="写在前面这是webpack实战系列笔记的第三篇记录：资源输入与输出。前两篇：  打包第一个应用 模块化与模块打包  1. 资源处理流程前两篇的博客中提及，webpack主要作用是对 解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，那么我们就要对资源处理的流程有一个了解。各个流程如下：">
 <meta name="keywords" content="webpack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack实战——资源输入与输出">
 <meta property="og:url" content="https://www.zhuxingmin.com/2020/07/13/webpack实战——资源输入与输出/index.html">
 <meta property="og:site_name" content="Lomo | 朱幸民">
-<meta property="og:description" content="写在前面这是webpack实战系列笔记的第三篇记录：资源输入与输出。前两篇：  打包第一个应用 模块化与模块打包  1. 资源处理流程前两篇的博客中提及，webpack主要作用是对 解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，那么我们就要对资源处理的流程有一个了解。各个流程如下： 处理流程  指定入口(entry)： 告诉webpack从哪儿入手开始打包。 打包封装(chunk)">
+<meta property="og:description" content="写在前面这是webpack实战系列笔记的第三篇记录：资源输入与输出。前两篇：  打包第一个应用 模块化与模块打包  1. 资源处理流程前两篇的博客中提及，webpack主要作用是对 解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，那么我们就要对资源处理的流程有一个了解。各个流程如下：">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack3-1.png">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack3-2.png">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack3-3.png">
-<meta property="og:updated_time" content="2020-07-15T07:04:08.997Z">
+<meta property="og:updated_time" content="2020-07-15T07:07:22.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack实战——资源输入与输出">
-<meta name="twitter:description" content="写在前面这是webpack实战系列笔记的第三篇记录：资源输入与输出。前两篇：  打包第一个应用 模块化与模块打包  1. 资源处理流程前两篇的博客中提及，webpack主要作用是对 解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，那么我们就要对资源处理的流程有一个了解。各个流程如下： 处理流程  指定入口(entry)： 告诉webpack从哪儿入手开始打包。 打包封装(chunk)">
+<meta name="twitter:description" content="写在前面这是webpack实战系列笔记的第三篇记录：资源输入与输出。前两篇：  打包第一个应用 模块化与模块打包  1. 资源处理流程前两篇的博客中提及，webpack主要作用是对 解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，那么我们就要对资源处理的流程有一个了解。各个流程如下：">
 <meta name="twitter:image" content="https://www.zhuxingmin.com/images/posts/webpack3-1.png">
 
 
@@ -364,7 +364,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-07-15T15:04:08+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-07-15T15:07:22+08:00">
                 2020-07-15
               </time>
             
@@ -468,6 +468,7 @@
 <li>模块化与模块打包</li>
 </ul>
 <h2 id="1-资源处理流程"><a href="#1-资源处理流程" class="headerlink" title="1. 资源处理流程"></a>1. 资源处理流程</h2><p>前两篇的博客中提及，webpack主要作用是对 <strong>解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起</strong>，那么我们就要对资源处理的流程有一个了解。各个流程如下：</p>
+<a id="more"></a>
 <p><strong>处理流程</strong></p>
 <ol>
 <li><code>指定入口(entry)</code>： 告诉webpack从哪儿入手开始打包。</li>
@@ -608,7 +609,7 @@
   <p><span>本文标题:</span>webpack实战——资源输入与输出</p>
   <p><span>文章作者:</span>Lomo 朱幸民</p>
   <p><span>发布时间:</span>2020年07月13日 - 19:34:45</p>
-  <p><span>最后更新:</span>2020年07月15日 - 15:04:08</p>
+  <p><span>最后更新:</span>2020年07月15日 - 15:07:22</p>
   <p><span>原始链接:</span><a href="/2020/07/13/webpack实战——资源输入与输出/" title="webpack实战——资源输入与输出">https://www.zhuxingmin.com/2020/07/13/webpack实战——资源输入与输出/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2020/07/13/webpack实战——资源输入与输出/" aria-label="复制成功！"></i></span>
   </p>
