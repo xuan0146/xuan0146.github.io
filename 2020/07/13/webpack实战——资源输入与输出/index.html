@@ -120,7 +120,7 @@
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack3-1.png">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack3-2.png">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack3-3.png">
-<meta property="og:updated_time" content="2020-07-15T07:07:22.398Z">
+<meta property="og:updated_time" content="2020-07-15T07:57:39.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack实战——资源输入与输出">
 <meta name="twitter:description" content="写在前面这是webpack实战系列笔记的第三篇记录：资源输入与输出。前两篇：  打包第一个应用 模块化与模块打包  1. 资源处理流程前两篇的博客中提及，webpack主要作用是对 解决模块之间的依赖，把各个模块按照特定的规则和顺序组织在一起，那么我们就要对资源处理的流程有一个了解。各个流程如下：">
@@ -364,7 +364,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-07-15T15:07:22+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-07-15T15:57:39+08:00">
                 2020-07-15
               </time>
             
@@ -555,7 +555,7 @@
 <p>在这几个变量中，<code>[name]</code>、<code>[id]</code>和<code>[chunkhash]</code>在有多个chunk时可以使用，用来对chunk进行区分。另外一个比较好的效果<strong>控制缓存</strong>：<code>[hash]</code>和<code>[chunkhash]</code>都与chunk内容直接相关，当chunk内容改变时，可以同时引起资源文件名的改变，从而导致用户在下一次请求资源文件时会下载新版本的内容而不是用本地缓存。如果要控制客户端缓存，一般加上<code>[chunkhash]</code>，因为每个chunk所产生的chunkhash只与自身内容相关，不会影响到其他资源，可以精准的让客户端缓存得到更新。</p>
 </blockquote>
 <p>在生产环境中，我们可以如下配置filename：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        index: <span class="string">'./src/index.js'</span>,</span><br><span class="line">        app: <span class="string">'./src/app.js'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'[name]@[chunkhash].js'</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        index: <span class="string">'./src/index.js'</span>,</span><br><span class="line">        app: <span class="string">'./src/app.js'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'[name]@[chunkhash].js'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="3-2-path"><a href="#3-2-path" class="headerlink" title="3.2 path"></a>3.2 path</h3><p>path指定输出资源的位置，值<strong>必须是绝对路径</strong>，如：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        path: path.join(__dirname, <span class="string">'dist'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><em>注：在webpack4版本及之后版本，output.path的默认路径就是dist，如果我们需要更改则如上配置可修改，如无需修改则不需单独配置。</em></p>
@@ -609,7 +609,7 @@
   <p><span>本文标题:</span>webpack实战——资源输入与输出</p>
   <p><span>文章作者:</span>Lomo 朱幸民</p>
   <p><span>发布时间:</span>2020年07月13日 - 19:34:45</p>
-  <p><span>最后更新:</span>2020年07月15日 - 15:07:22</p>
+  <p><span>最后更新:</span>2020年07月15日 - 15:57:39</p>
   <p><span>原始链接:</span><a href="/2020/07/13/webpack实战——资源输入与输出/" title="webpack实战——资源输入与输出">https://www.zhuxingmin.com/2020/07/13/webpack实战——资源输入与输出/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2020/07/13/webpack实战——资源输入与输出/" aria-label="复制成功！"></i></span>
   </p>
@@ -694,6 +694,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/07/20/webpack实战——一切皆模块/" rel="prev" title="webpack实战——一切皆模块">
+                webpack实战——一切皆模块 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -777,7 +781,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -906,7 +910,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共83.8k字</span>
+  <span class="post-count">博客全站共84.7k字</span>
 </div>
 
         
