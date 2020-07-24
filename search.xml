@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[webpack实战——预处理器(loader)]]></title>
+    <url>%2F2020%2F07%2F23%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8-loader%2F</url>
+    <content type="text"><![CDATA[写在前面这是webpack实战系列笔记的第5篇记录，前几篇记录如下： 打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 上一篇简单描述了一切皆模块的思想，学以致用，来实践下~ 1. 关于 loader每个loader本质上都是一个函数，可用公式表达其本质： output = loader(input) input可能是工程源文件的字符串，也可能是上一个loader转化后的结果，包含： 字符串（转化后的结果） source map AST对象（抽象语法树） output同样包含上述几种信息。如果是最后一个loader，其结果直接被送到webpack中做后续处理；否则作为下一个loader的input向后传递。 举个例子 当使用 babel-loader 将 ES6+ 代码转化为 ES5 时，带入公式： ES5 = babel-loader(ES6+) 上述描述说过，loader本身是一个函数那么loader是如何工作的呢？ 12345678910module.exports = function loader (content, map, meta) &#123; var callback = this.async(); var result = handler(content, map, meta); callback( null, // error result.content, // 转换后的内容 result.map, // 转换source-map result.meta // 转换后的AST )&#125; 可以看出，该函数对接受到的内容进行转换，然后返回转换后的结果。 2. loader配置那在应用层面应该如何实施呢？ 在一切皆模块中说过静态资源的类型是各式各样的，比如静态HTML/CSS/JS、图片字体音视频等，webpack如何处理这各类资源呢？ok，loader的应用场景来了。 loader，字面意思是装载器，但在webpack中实际用途则是预处理器：webpack本身只认识JavaScript，对于其他类型的资源必须先定义一个或多个loader对其进行转译，输出为webpack能够接收的形式再继续进行，因此loader做的实际上是一个预处理的工作。 2.1 引入]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[webpack实战——一切皆模块]]></title>
     <url>%2F2020%2F07%2F20%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E4%B8%80%E5%88%87%E7%9A%86%E6%A8%A1%E5%9D%97%2F</url>
     <content type="text"><![CDATA[写在前面这是webpack实战系列笔记的第4篇记录，简单描述一个思想：模块化思想——一切皆模块。本系列前几篇： 打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块一个web工程通常会包含一系列的静态资源，并且这些资源一般会存在某种相互依赖的关系。一般静态资源包含： HTML/CSS/JS 图片/音视频x 字体 模板 。。。 而其中可能存在的联系也容易举例，比如JS之间相互导出引入、HTML中会引入CSS、JS，而CSS和JS中又可能会引入图片、音视频等媒体资源。 但是对于webpack来说，这些静态资源却都是模块，我们可以像加载一个JS模块一样去加载它们，如： 12// main.jsimport '@/reset.css' 如果经常使用vue\react等单页面框架去构建项目的一定会非常熟悉这种写法，但如果没接触过的也一定会感觉这种写法比较新奇，甚至迷惑不解：从JS中加载CSS的意义何在呢？ 其实从显示结果来看各种方法所呈现的页面都一样，但是实际上，上述语句却将reset.css打包生成在了输出资源目录下，并且描述了JS与CSS文件之间的依赖关系。 举例举个场景：某页面模块需要用到按钮，于是我们加载它： 12// src/page/index.js'imort Button from './ui/button/button.js' 但是加载了JS文件之后发现需要各类样式，因此仍需要引入按钮组件的样式文件： 12// src/page/style.scss 以SCSS为例@import './ui/button/style.scss' 当然，在webpack中实际构建时，可以采用更加简洁的写法来处理： 1234567// src/page/index.jsimport Button from './ui/button/index.js'import './style.scss' // 引用页面自身样式// ./ui/button/index.jsimport './style.scss' // 引用组件自身样式 从上例子可以看到，在button的JS中加载了组件自身的样式，但对于需要该组件的页面来说，只需要引入button的js模块即可，不需要再这里引入button的样式了。 可以画出依赖图便于理解： 先看一般情况下的流程： 接下来看使用webpack： 可以看到，在一般情况下，JS和Style样式是分开处理的，我们需要分别维护组件JS和SCSS，每当我们增删一个或多个组件的时候，都需要多次操作操作：引入 JS&amp;SCSS 或者删除 JS&amp;SCSS。但在使用 webpack 的情况下，可以看到，button 模块被作为一个整体被引入进来，这样不仅可以直观且请清晰的看到依赖关系（JS和SCSS被作为一个整体引入到page/index.js），而且在进行组件的引入与删除时，直接操作一次即可达成目的。 在项目具有一定规模的情况下，可以更加清晰明了的总结出webpack对我们项目工程优化之处： 工程结构更简洁 让依赖关系更直观 代码可维护性更强 小结在前面我们也说过模块化的一些特性：高内聚性和可复用性，而本篇旨在描述出一切皆模块的思想，在学习webpack过程中，可以将这一思想尽情发挥到每一种静态资源上，从而使得项目系统更加简洁且健壮！下一篇继续发挥一切皆模块思想——预处理器（loader）。]]></content>
@@ -521,8 +532,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>小王子</tag>
+        <tag>读书笔记</tag>
         <tag>读后感</tag>
       </tags>
   </entry>
@@ -573,8 +584,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>下划线跟随</tag>
         <tag>jquery</tag>
+        <tag>下划线跟随</tag>
       </tags>
   </entry>
   <entry>
@@ -598,8 +609,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>jquery</tag>
         <tag>电商放大镜</tag>
+        <tag>jquery</tag>
       </tags>
   </entry>
   <entry>
@@ -712,8 +723,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>Promise</tag>
         <tag>es6</tag>
+        <tag>Promise</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
