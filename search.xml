@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[webpack实战——预处理器(loader)【下篇】]]></title>
+    <url>%2F2020%2F08%2F03%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E5%B8%B8%E7%94%A8loader%2F</url>
+    <content type="text"><![CDATA[写在前面这是webpack实战系列笔记的第6篇记录，前几篇记录如下： 打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 预处理器【上篇】 在上一篇中根据一切皆模块的思想，学习了解了loader：概述、引入、配置及使用。本篇接着上篇的话题，讲述常用loader。 在我们项目开发中，尤其是目前流行的单页面应用，一些新手经常会在loader配置中有一些疑问，比如： 对于xx资源应该使用哪个loader？ 实现xx功能配置哪个loader？ … 常用loader介绍其实，在社区上每天都会有很多loader发布，开发者在选择loader的时候要多读一下loader文档，了解loader用法，优缺点，然后根据需求去挑选。接下来介绍几种常用loader。 1. babel-loader作用 babel-loader是用来处理ES6+并将其编译为ES5 安装1npm install babel-loader @babel/core @babel/preset-env 看这条安装指令，有几个参数，代表着什么呢？ babel-loader：它是使Babel与Webpack协同工作的模块 @babel/core：Babel编译器的核心模块 @babel/preset-env：Babel官方推荐的预置器，可根据用户设置的目标环境自动添加所需要的插件和补丁来编译ES6+代码 示例当然，知道了参数，也需要根据loader文档注意一些小细节，例如： 12345678910111213141516171819rules: [ &#123; test: /\.js$/, exclude: /node_modules/, use: &#123; loader: 'babel-loader', options: &#123; cacheDirectory: true, presets: [ [ 'env', &#123; modules: false &#125; ] ] &#125; &#125; &#125;] 说明 babel-loader一般对于js后缀文件生效， 而在node_modules中所有插件有大量的js后缀文件，因此需要使用exclude将其排除，避免打包时速度过慢； 可以看到上面配置中添加了cacheDirectory: true的配置，意味着会启用缓存机制，在多次打包时，如果没有做过改变的模块不会二次编译，打包时只重新编译更改的模块，以此来加快打包速度； 另外可以看到@babel/presets-env中配置为modules: false，原因是 @babel/presets-env会自动将ES6 Module转化为CommonJS形式，会导致Webpack中的tree-shaking特性失效，而将modules配置为false后悔禁用模块化语句的转化，将Module的语法交给Webpack本身去处理，来避免这一问题的发生。 babel-loader支持从.babelrc文件读取Babel配置，因此也可以将presets和plugins从Webpack配置文件中提取出来，也能达到相同效果。 2. ts-loader作用 用于连接Webpack与TypeScript的模块 安装1npm install ts-loader typescript 配置123456rules: [ &#123; test: /\.ts$/, use: 'ts-loader' &#125;] 说明学习或使用过typescript的开发者都知道，typescript的配置信息在工程目录下的tsconfig.jsson中，因此在ts-loader中不配置，直接对tsconfig.json进行配置即可。如： 123456&#123; "compilerOptions": &#123; "target": "es5", "sourceMap": true &#125;&#125; 3. html-loader作用 用于将HTML文件转化为字符串并进行格式化，这使得我们可以把一个HTML片段通过JS加载进来 安装1npm install html-loader 配置123456rules: [ &#123; test: /\.html$/, use: 'html-loader' &#125;] 使用示例1234&lt;!-- header.html --&gt;&lt;header&gt; &lt;h1&gt;This is a Header.&lt;/h1&gt;&lt;/header&gt; 123// index.jsimport Header from './header.html'document.write(Header) 4. vue-loader作用 vue-loader用于处理.vue组件，类似如下示例形式，常与vue-template-compiler、css-loader配合使用。 安装1npm install vue-loader vue vue-template-compiler css-loader 包含有： vue vue-loader vue-template-compiler css-loader vue组件示例123456789101112131415161718192021// App.vue&lt;template&gt; &lt;h1&gt;&#123;&#123; msg &#125;&#125;&lt;/h1&gt;&lt;/template&gt;&lt;script&gt;export default &#123; name: 'vue-loader', data() &#123; return &#123; msg: 'vue-loader' &#125; &#125;&#125;&lt;/script&gt;&lt;style lang="css"&gt;h1&#123; color: #f00;&#125;&lt;/style&gt; 配置123456rules: [ &#123; test: /\.vue$/, use: 'vue-loader' &#125;] 此处展示基础vue-loader示例，更多配置可以参考vue-loader官网文档 5. file-loader作用 用于打包文件类型的资源，并返回其PublicPath 安装1npm install file-loader 配置以对图片（png、jpg、jepg、gif）为例来配置file-loader： 123456789101112131415161718// webpack.config.jsconst path = require('path');module.exports = &#123; entry: './index.js', output" &#123; path: path.join(__dirname, 'dist'), filename: 'bundle.js' &#125;, module: &#123; rules: [ &#123; test: /\.(png|jpg|jepg|gif)$/, use: 'file-loader' &#125; ] &#125;&#125; 123// index.js 测试import testPng from './test.png'console.log(testPng); // caj15a1123d2asf132c123cx132.jpg 6. url-loader作用 与file-loader类似，不同之处在于用户可以设置一个文件大小的阈值，小于该阈值时，返回的文件以base64形式编码，大于该阈值时返回publicPath 安装1npm install url-loader 配置12345678910111213rules: [ &#123; test: /\.(png|jpg|jepg|gif)$/, use: &#123; loader: 'url-loader', options: &#123; limit: 10240, name: '[name].[ext]', publicPath: './assets-path/' &#125; &#125; &#125;] 如此，如果目标文件资源大小小于设置的阈值，那么目标资源将会转化为base64形式编码。 小结本篇着重接上一篇的loader配置，介绍了几种常用的loader及其作用和意义，如babel-loader、html-loader、vue-loader等，并配有简单地配置介绍，目的是对loader有基础的使用来促进更深的了解。回归本质，loader就是一个函数，能够处理相应功能的函数。第一个loader是源文件，之后所有loader是上一个loader的输出，最后一个loader则是输出给webpack。 除了JavaScript外，在打包方面另外一个重要工作就是样式处理。下一篇介绍webpack中对样式处理的模块。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+        <tag>loader</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[webpack实战——预处理器(loader)【上篇】]]></title>
     <url>%2F2020%2F07%2F23%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8-loader%2F</url>
-    <content type="text"><![CDATA[写在前面这是webpack实战系列笔记的第5篇记录，前几篇记录如下： 打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 上一篇简单描述了一切皆模块的思想，学以致用，来实践下~ 1. 关于 loader每个loader本质上都是一个函数，可用公式表达其本质： output = loader(input) input可能是工程源文件的字符串，也可能是上一个loader转化后的结果，包含： 字符串（转化后的结果） source map AST对象（抽象语法树） output同样包含上述几种信息。如果是最后一个loader，其结果直接被送到webpack中做后续处理；否则作为下一个loader的input向后传递。 举个例子 当使用 babel-loader 将 ES6+ 代码转化为 ES5 时，带入公式： ES5 = babel-loader(ES6+) 上述描述说过，loader本身是一个函数那么loader是如何工作的呢？ 12345678910module.exports = function loader (content, map, meta) &#123; var callback = this.async(); var result = handler(content, map, meta); callback( null, // error result.content, // 转换后的内容 result.map, // 转换source-map result.meta // 转换后的AST )&#125; 可以看出，该函数对接受到的内容进行转换，然后返回转换后的结果。 2. loader配置那在应用层面应该如何实施呢？ 在一切皆模块中说过静态资源的类型是各式各样的，比如静态HTML/CSS/JS、图片字体音视频等，webpack如何处理这各类资源呢？ok，loader的应用场景来了。 loader，字面意思是装载器，但在webpack中实际用途则是预处理器：webpack本身只认识JavaScript，对于其他类型的资源必须先定义一个或多个loader对其进行转译，输出为webpack能够接收的形式再继续进行，因此loader做的实际上是一个预处理的工作。 2.1 引入那loader到底应该如何使用呢？举例要在js中引入css文件： 12// index.jsimport './assets/common/css' 12345678/* common.css */body&#123; width: 100vw; height: 100vh; text-align: center; background: gray;&#125; ok,现在我们执行打包操作，build一下，会发现在终端报错： 为解决报错，我们需要用到的就是loader了~ 可以在上图报错内容除看到，提示我们没找到合适的loader来处理，并且给出css-loader提示，我们按提示安装： 12345// npmnpm install css-loader// 或者 yarn 与npm二选一即可yarn add css-loader 安装完成后，仍需在webpack.config.js中进行loader配置： 1234567891011121314151617181920212223const path = require('path')module.exports = &#123; entry: &#123; index: './src/index.js', &#125;, output: &#123; filename: '[name].js' &#125;, mode: 'development', // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: ['css-loader'] &#125; ] &#125;&#125; 可以看到，对loader进行配置，配置项都在module对象中的rules模块。rules模块是一个数组，代表了要对模块进行处理的规则。在此处，我们使用到的规则有test和use： test：接收一个正则表达式或者一个元素为正则表达式的数组，只有正则匹配上的模块才会使用本条规则； use：接收一个数组，代表该规则所使用的loader。 然后进行打包操作： 12345// npmnpm run build// 或者 yarn 与npm二选一即可yarn build 然后发现，打包错误解决。 但，新的问题出现了：此时我们在浏览器打开index.html，发现样式并没有生效。原因是css-loader 的作用是处理css的加载语法而不是做style的样式渲染，因此我们需要添加一个 style-loader 来进行样式渲染。 2.2 链式loader在上面我们说了需要在引入一个 style-loader 来进行样式渲染处理，先安装： 12345// npmnpm install style-loader// 或者 yarn 与npm二选一即可yarn add style-loader 接着搭配之前的webpack配置，做一些修改： 1234567891011121314module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css style &#123; test: /\.css$/, use: ['style-loader', 'css-loader'] &#125; ] &#125;&#125; 可以看到，我们将style-loader写在了use的数组中，并且细心的朋友可能发现写在了css-loader之前，这就是链式loader。 那么为什么要区分顺序呢？在前面描述关于loader的公式中我们介绍过: output = loader(input) ， 在链式webpack打包中，是按照数组从后往前的顺序将资源交给loader去处理，因此最后生效的应该放在前面。 此时，我们在执行打包操作，然后可以在浏览器中看到index.html页面加载了样式： 2.3 其他配置2.3.1 options配置有些loader会有专门的配置项，形式上可能会有一些不同，如： 1234567891011121314151617181920212223module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: [ 'style-loader', &#123; loader: 'css-loader', options: &#123; // css-loader相关配置 ... &#125; &#125; ] &#125; ] &#125;&#125; 当然，具体配置项参数和值则需要参考相应loader的文档来进行配置，用时参阅该loader文档即可。 2.3.2 exclude 和 include从字面意思理解，这两个分别是用来排除或者包含指定目录下模块的。 如： 123456789101112131415module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: ['style-loader', 'css-loader'], exclude: /node_modules/ &#125; ] &#125;&#125; 上面置顶了exclude: /node_modules/，则代表着该目录下的所有模块都不会被此条规则限制，也就是说node_modules中的模块不会执行该规则。 同样，include用途与此类似： 123456789101112131415module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: ['style-loader', 'css-loader'], include: /src/ &#125; ] &#125;&#125; 可以看到此处使用的是include，代表该规则只对正则匹配到的模块生效，也就是说只对src下的模块生效。 在exclude和include同时存在的情况下，exclude优先级更高！ 通常情况下，在使用loader时，需要配置它，以此来加速打包速度，不配置的话打包会将所有模块打包，可能拖慢整体的打包速度。 2.3.3 resource 与 issuer有时候，我们会在项目中看到关于resource和issuer的相关配置，那么这两个配置是做什么的呢？ 其实与exclude和include类似，都是用于规定模块作用范围的配置。但是区别是exclude和include对规则的作用范围更加的精确。如： 12// index.jsimport './src/common.css' 在webpack中，我们认为被加载模块是resource，加载者是issuer，在上述代码中，css作为被加载者，而index作为加载者。 那么具体如何使用呢？ 12345678910111213141516171819module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: ['style-loader', 'css-loader'], exclude: /node_modules/, issuer: &#123; test: /\.js$/, include: /src/pages/ &#125; &#125; ] &#125;&#125; 在上面我们看到配置了issuer对象，限制是让src/pages目录下js可以引用使用规则css-loader。 我们看完后会发现一个风格问题： 代码可读性较差。可以稍加改善： 123456789101112131415161718192021module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css &#123; use: ['style-loader', 'css-loader'], resource: &#123; test: /\.css$/, exclude: /node_modules/ &#125;, issuer: &#123; test: /\.js$/, exclude: /node_modules/ &#125; &#125; ] &#125;&#125; 通过添加resource对象来讲外层配置包裹起来，区分resource和issuer的规则，看上去即可一目了然，但实际本质一样。可选择一种风格进行配置。 小结本篇介绍了loader的作用和意义，以及在项目中实际使用时的一些配置，如引入、使用过程、链式loader、loader的配置等，从各大小方面均能做到对项目有优化或效率提升。下一篇介绍几个项目常用loader以及如何自定义loader。]]></content>
+    <content type="text"><![CDATA[写在前面这是webpack实战系列笔记的第5篇记录，前几篇记录如下： 打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 上一篇简单描述了一切皆模块的思想，学以致用，来实践下~ 1. 关于 loader每个loader本质上都是一个函数，可用公式表达其本质： output = loader(input) input可能是工程源文件的字符串，也可能是上一个loader转化后的结果，包含： 字符串（转化后的结果） source map AST对象（抽象语法树） output同样包含上述几种信息。如果是最后一个loader，其结果直接被送到webpack中做后续处理；否则作为下一个loader的input向后传递。 举个例子 当使用 babel-loader 将 ES6+ 代码转化为 ES5 时，带入公式： ES5 = babel-loader(ES6+) 上述描述说过，loader本身是一个函数那么loader是如何工作的呢？ 12345678910module.exports = function loader (content, map, meta) &#123; var callback = this.async(); var result = handler(content, map, meta); callback( null, // error result.content, // 转换后的内容 result.map, // 转换source-map result.meta // 转换后的AST )&#125; 可以看出，该函数对接受到的内容进行转换，然后返回转换后的结果。 2. loader配置那在应用层面应该如何实施呢？ 在一切皆模块中说过静态资源的类型是各式各样的，比如静态HTML/CSS/JS、图片字体音视频等，webpack如何处理这各类资源呢？ok，loader的应用场景来了。 loader，字面意思是装载器，但在webpack中实际用途则是预处理器：webpack本身只认识JavaScript，对于其他类型的资源必须先定义一个或多个loader对其进行转译，输出为webpack能够接收的形式再继续进行，因此loader做的实际上是一个预处理的工作。 2.1 引入那loader到底应该如何使用呢？举例要在js中引入css文件： 12// index.jsimport './assets/common/css' 12345678/* common.css */body&#123; width: 100vw; height: 100vh; text-align: center; background: gray;&#125; ok,现在我们执行打包操作，build一下，会发现在终端报错： 为解决报错，我们需要用到的就是loader了~ 可以在上图报错内容除看到，提示我们没找到合适的loader来处理，并且给出css-loader提示，我们按提示安装： 12345// npmnpm install css-loader// 或者 yarn 与npm二选一即可yarn add css-loader 安装完成后，仍需在webpack.config.js中进行loader配置： 1234567891011121314151617181920212223const path = require('path')module.exports = &#123; entry: &#123; index: './src/index.js', &#125;, output: &#123; filename: '[name].js' &#125;, mode: 'development', // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: ['css-loader'] &#125; ] &#125;&#125; 可以看到，对loader进行配置，配置项都在module对象中的rules模块。rules模块是一个数组，代表了要对模块进行处理的规则。在此处，我们使用到的规则有test和use： test：接收一个正则表达式或者一个元素为正则表达式的数组，只有正则匹配上的模块才会使用本条规则； use：接收一个数组，代表该规则所使用的loader。 然后进行打包操作： 12345// npmnpm run build// 或者 yarn 与npm二选一即可yarn build 然后发现，打包错误解决。 但，新的问题出现了：此时我们在浏览器打开index.html，发现样式并没有生效。原因是css-loader 的作用是处理css的加载语法而不是做style的样式渲染，因此我们需要添加一个 style-loader 来进行样式渲染。 2.2 链式loader在上面我们说了需要在引入一个 style-loader 来进行样式渲染处理，先安装： 12345// npmnpm install style-loader// 或者 yarn 与npm二选一即可yarn add style-loader 接着搭配之前的webpack配置，做一些修改： 1234567891011121314module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css style &#123; test: /\.css$/, use: ['style-loader', 'css-loader'] &#125; ] &#125;&#125; 可以看到，我们将style-loader写在了use的数组中，并且细心的朋友可能发现写在了css-loader之前，这就是链式loader。 那么为什么要区分顺序呢？在前面描述关于loader的公式中我们介绍过: output = loader(input) ， 在链式webpack打包中，是按照数组从后往前的顺序将资源交给loader去处理，因此最后生效的应该放在前面。 此时，我们在执行打包操作，然后可以在浏览器中看到index.html页面加载了样式： 2.3 其他配置2.3.1 options配置有些loader会有专门的配置项，形式上可能会有一些不同，如： 1234567891011121314151617181920212223module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: [ 'style-loader', &#123; loader: 'css-loader', options: &#123; // css-loader相关配置 ... &#125; &#125; ] &#125; ] &#125;&#125; 当然，具体配置项参数和值则需要参考相应loader的文档来进行配置，用时参阅该loader文档即可。 2.3.2 exclude 和 include从字面意思理解，这两个分别是用来排除或者包含指定目录下模块的。 如： 123456789101112131415module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: ['style-loader', 'css-loader'], exclude: /node_modules/ &#125; ] &#125;&#125; 上面配置了exclude: /node_modules/，则代表着该目录下的所有模块都不会被此条规则限制，也就是说node_modules中的模块不会执行该规则。 同样，include用途与此类似： 123456789101112131415module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: ['style-loader', 'css-loader'], include: /src/ &#125; ] &#125;&#125; 可以看到此处使用的是include，代表该规则只对正则匹配到的模块生效，也就是说只对src下的模块生效。 在exclude和include同时存在的情况下，exclude优先级更高！ 通常情况下，在使用loader时，需要配置它，以此来加速打包速度，不配置的话打包会将所有模块打包，可能拖慢整体的打包速度。 2.3.3 resource 与 issuer有时候，我们会在项目中看到关于resource和issuer的相关配置，那么这两个配置是做什么的呢？ 其实与exclude和include类似，都是用于规定模块作用范围的配置。但是区别是exclude和include对规则的作用范围更加的精确。如： 12// index.jsimport './src/common.css' 在webpack中，我们认为被加载模块是resource，加载者是issuer，在上述代码中，css作为被加载者，而index作为加载者。 那么具体如何使用呢？ 12345678910111213141516171819module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: ['style-loader', 'css-loader'], exclude: /node_modules/, issuer: &#123; test: /\.js$/, include: /src/pages/ &#125; &#125; ] &#125;&#125; 在上面我们看到配置了issuer对象，限制是让src/pages目录下js可以引用使用规则css-loader。 我们看完后会发现一个风格问题： 代码可读性较差。可以稍加改善： 123456789101112131415161718192021module.exports = &#123; ... // loader配置 module: &#123; rules: [ // css &#123; use: ['style-loader', 'css-loader'], resource: &#123; test: /\.css$/, exclude: /node_modules/ &#125;, issuer: &#123; test: /\.js$/, exclude: /node_modules/ &#125; &#125; ] &#125;&#125; 通过添加resource对象来讲外层配置包裹起来，区分resource和issuer的规则，看上去即可一目了然，但实际本质一样。可选择一种风格进行配置。 小结本篇介绍了loader的作用和意义，以及在项目中实际使用时的一些配置，如引入、使用过程、链式loader、loader的配置等，从各大小方面均能做到对项目有优化或效率提升。下一篇介绍几个项目常用loader以及如何自定义loader。]]></content>
       <categories>
         <category>前端笔记</category>
       </categories>
@@ -200,8 +212,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -214,8 +226,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -228,8 +240,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -242,8 +254,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -584,8 +596,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>jquery</tag>
         <tag>下划线跟随</tag>
+        <tag>jquery</tag>
       </tags>
   </entry>
   <entry>
@@ -609,8 +621,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>电商放大镜</tag>
         <tag>jquery</tag>
+        <tag>电商放大镜</tag>
       </tags>
   </entry>
   <entry>
@@ -723,8 +735,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>es6</tag>
         <tag>Promise</tag>
+        <tag>es6</tag>
         <tag>定时器</tag>
       </tags>
   </entry>

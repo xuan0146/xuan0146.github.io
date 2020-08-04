@@ -119,7 +119,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack5-1.png">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack5-2.png">
-<meta property="og:updated_time" content="2020-07-27T09:59:52.721Z">
+<meta property="og:updated_time" content="2020-07-28T01:49:07.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack实战——预处理器(loader)【上篇】">
 <meta name="twitter:description" content="写在前面这是webpack实战系列笔记的第5篇记录，前几篇记录如下：  打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块  上一篇简单描述了一切皆模块的思想，学以致用，来实践下~">
@@ -363,8 +363,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-07-27T17:59:52+08:00">
-                2020-07-27
+              <time title="更新于" itemprop="dateModified" datetime="2020-07-28T09:49:07+08:00">
+                2020-07-28
               </time>
             
           </span>
@@ -531,7 +531,7 @@
 <h4 id="2-3-2-exclude-和-include"><a href="#2-3-2-exclude-和-include" class="headerlink" title="2.3.2 exclude 和 include"></a>2.3.2 exclude 和 include</h4><p>从字面意思理解，这两个分别是用来<code>排除或者包含</code>指定目录下模块的。</p>
 <p>如：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// loader配置</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            <span class="comment">// css</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [<span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>],</span><br><span class="line">                exclude: <span class="regexp">/node_modules/</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面置顶了<code>exclude: /node_modules/</code>，则代表着该目录下的所有模块都不会被此条规则限制，也就是说<code>node_modules</code>中的模块不会执行该规则。</p>
+<p>上面配置了<code>exclude: /node_modules/</code>，则代表着该目录下的所有模块都不会被此条规则限制，也就是说<code>node_modules</code>中的模块不会执行该规则。</p>
 <p>同样，include用途与此类似：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// loader配置</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            <span class="comment">// css</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [<span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>],</span><br><span class="line">                include: <span class="regexp">/src/</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可以看到此处使用的是<code>include</code>，代表<strong>该规则只对正则匹配到的模块生效</strong>，也就是说只对src下的模块生效。</p>
@@ -578,7 +578,7 @@
   <p><span>本文标题:</span>webpack实战——预处理器(loader)【上篇】</p>
   <p><span>文章作者:</span>Lomo 朱幸民</p>
   <p><span>发布时间:</span>2020年07月23日 - 15:22:35</p>
-  <p><span>最后更新:</span>2020年07月27日 - 17:59:52</p>
+  <p><span>最后更新:</span>2020年07月28日 - 09:49:07</p>
   <p><span>原始链接:</span><a href="/2020/07/23/webpack实战——预处理器-loader/" title="webpack实战——预处理器(loader)【上篇】">https://www.zhuxingmin.com/2020/07/23/webpack实战——预处理器-loader/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2020/07/23/webpack实战——预处理器-loader/" aria-label="复制成功！"></i></span>
   </p>
@@ -663,6 +663,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/08/03/webpack实战——常用loader/" rel="prev" title="webpack实战——预处理器(loader)【下篇】">
+                webpack实战——预处理器(loader)【下篇】 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -746,7 +750,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -768,7 +772,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -875,7 +879,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共86.6k字</span>
+  <span class="post-count">博客全站共87.9k字</span>
 </div>
 
         
