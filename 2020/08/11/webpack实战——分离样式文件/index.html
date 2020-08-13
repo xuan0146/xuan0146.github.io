@@ -119,7 +119,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack7-1.png">
 <meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack7-2.png">
-<meta property="og:updated_time" content="2020-08-13T02:53:58.559Z">
+<meta property="og:updated_time" content="2020-08-13T04:05:23.678Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack实战——分离样式文件">
 <meta name="twitter:description" content="前言这是webpack实战系列笔记的第7篇记录——分离样式，前几篇记录如下：  打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 预处理器【上篇】 预处理器——常用loader【下篇】  在之前篇章里面主要是对js的打包应用和处理，而打包方面另外一个重要工作就是样式处理。">
@@ -363,7 +363,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-08-13T10:53:58+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-08-13T12:05:23+08:00">
                 2020-08-13
               </time>
             
@@ -424,7 +424,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  758字
+                  757字
                 </span>
               
 
@@ -473,7 +473,7 @@
 <p>在之前篇章里面主要是对js的打包应用和处理，而打包方面另外一个重要工作就是<code>样式处理</code>。</p>
 <a id="more"></a>
 <p>在实际工程中，如果项目具有一定规模，那么CSS的维护成本则会比较高昂，这个时候就需要更友好且更低价的方式来处理样式问题。本篇介绍webpack结合样式编辑器、转换器及相关插件来提升样式方面的开发效率。</p>
-<h2 id="分离样式"><a href="#分离样式" class="headerlink" title="分离样式"></a>分离样式</h2><h3 id="1-分离样式文件概念"><a href="#1-分离样式文件概念" class="headerlink" title="1. 分离样式文件概念"></a>1. 分离样式文件概念</h3><p>在之前写的简单demo中，处理过关于CSS，并且在预处理器篇介绍过关于CSS的预处理器：style-loader和css-loader。通过JS音容CSS样式去打包，在编写阶段可以直观的描述出来模块之间的依赖关系。</p>
+<h2 id="分离样式"><a href="#分离样式" class="headerlink" title="分离样式"></a>分离样式</h2><h3 id="1-分离样式文件概念"><a href="#1-分离样式文件概念" class="headerlink" title="1. 分离样式文件概念"></a>1. 分离样式文件概念</h3><p>在之前写的简单demo中，处理过关于CSS，并且在预处理器篇介绍过关于CSS的预处理器：style-loader和css-loader。通过JS引入CSS样式去打包，在编写阶段可以直观的描述出来模块之间的依赖关系。</p>
 <p>但是问题随之而来：在打包后，我们对css样式的添加，是通过标签<code>&lt;style&gt;</code>来引入的，可<code>生产环境下，一般我们希望样式存在于CSS文件中而不是style标签中，因为文件更有利于客户端进行缓存</code>。那么我们怎么输出单独的CSS文件呢？</p>
 <h3 id="2-mini-css-extract-plugin"><a href="#2-mini-css-extract-plugin" class="headerlink" title="2. mini-css-extract-plugin"></a>2. mini-css-extract-plugin</h3><blockquote>
 <p>该插件主要是用于提取样式到CSS文件的。</p>
@@ -497,7 +497,7 @@
 <h4 id="HTML引入"><a href="#HTML引入" class="headerlink" title="HTML引入"></a>HTML引入</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./dist/index.css"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>style<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./dist/index.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><p>运行引入了脚本和样式的HTML文件，查看结果：</p>
 <p><img src="/images/posts/webpack7-2.png" alt="结果" title="结果"> </p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>其实本篇就是单独拎出来了一个loader预处理器来介绍：<code>mini-css-extract-plugin</code>。目的就是生产环境下，通过link一人怒样式存在于CSS文件中而不是style标签中，这样更有利于客户端进行缓存。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>其实本篇就是单独拎出来了一个loader预处理器来介绍：<code>mini-css-extract-plugin</code>。目的就是生产环境下，通过link引入样式存在于CSS文件中而不是style标签中，这样更有利于客户端进行缓存。</p>
 <p>下一篇介绍<strong>样式预处理</strong>。</p>
 
       
@@ -529,7 +529,7 @@
   <p><span>本文标题:</span>webpack实战——分离样式文件</p>
   <p><span>文章作者:</span>Lomo 朱幸民</p>
   <p><span>发布时间:</span>2020年08月11日 - 09:31:21</p>
-  <p><span>最后更新:</span>2020年08月13日 - 10:53:58</p>
+  <p><span>最后更新:</span>2020年08月13日 - 12:05:23</p>
   <p><span>原始链接:</span><a href="/2020/08/11/webpack实战——分离样式文件/" title="webpack实战——分离样式文件">https://www.zhuxingmin.com/2020/08/11/webpack实战——分离样式文件/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2020/08/11/webpack实战——分离样式文件/" aria-label="复制成功！"></i></span>
   </p>
