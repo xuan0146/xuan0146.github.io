@@ -98,7 +98,7 @@
 
 
 
-  <meta name="keywords" content="css,布局,">
+  <meta name="keywords" content="webpack,">
 
 
 
@@ -109,20 +109,20 @@
 
 
 
-<meta name="description" content="一、 效果图先来看一下效果图：">
-<meta name="keywords" content="css,布局">
+<meta name="description" content="前言这是webpack实战系列笔记的第8篇记录——样式与处理，前几篇记录如下：  打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 预处理器【上篇】 预处理器——常用loader【下篇】 样式文件分离  在目前的前端项目中，经常可以看到使用SASS和LESS来对CSS进行处理，那么在webpack中如何配置？">
+<meta name="keywords" content="webpack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="css布局之道——内凹圆角设计">
-<meta property="og:url" content="https://www.zhuxingmin.com/2020/04/29/css布局之道——内凹圆角设计/index.html">
+<meta property="og:title" content="webpack实战——样式预处理">
+<meta property="og:url" content="https://www.zhuxingmin.com/2020/08/22/webpack实战——样式预处理/index.html">
 <meta property="og:site_name" content="Lomo | 朱幸民">
-<meta property="og:description" content="一、 效果图先来看一下效果图：">
+<meta property="og:description" content="前言这是webpack实战系列笔记的第8篇记录——样式与处理，前几篇记录如下：  打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 预处理器【上篇】 预处理器——常用loader【下篇】 样式文件分离  在目前的前端项目中，经常可以看到使用SASS和LESS来对CSS进行处理，那么在webpack中如何配置？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.zhuxingmin.com/images/posts/内凹圆角.gif">
-<meta property="og:updated_time" content="2020-05-07T01:50:34.503Z">
+<meta property="og:image" content="https://www.zhuxingmin.com/images/posts/webpack8-1.png">
+<meta property="og:updated_time" content="2020-08-24T04:08:22.782Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="css布局之道——内凹圆角设计">
-<meta name="twitter:description" content="一、 效果图先来看一下效果图：">
-<meta name="twitter:image" content="https://www.zhuxingmin.com/images/posts/内凹圆角.gif">
+<meta name="twitter:title" content="webpack实战——样式预处理">
+<meta name="twitter:description" content="前言这是webpack实战系列笔记的第8篇记录——样式与处理，前几篇记录如下：  打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 预处理器【上篇】 预处理器——常用loader【下篇】 样式文件分离  在目前的前端项目中，经常可以看到使用SASS和LESS来对CSS进行处理，那么在webpack中如何配置？">
+<meta name="twitter:image" content="https://www.zhuxingmin.com/images/posts/webpack8-1.png">
 
 
 
@@ -152,13 +152,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zhuxingmin.com/2020/04/29/css布局之道——内凹圆角设计/">
+  <link rel="canonical" href="https://www.zhuxingmin.com/2020/08/22/webpack实战——样式预处理/">
 
 
 
 
 
-  <title>css布局之道——内凹圆角设计 | Lomo | 朱幸民</title>
+  <title>webpack实战——样式预处理 | Lomo | 朱幸民</title>
   
 
 
@@ -317,7 +317,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2020/04/29/css布局之道——内凹圆角设计/">
+    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2020/08/22/webpack实战——样式预处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lomo 朱幸民">
@@ -334,7 +334,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">css布局之道——内凹圆角设计</h2>
+          <h2 class="post-title" itemprop="name headline">webpack实战——样式预处理</h2>
         
 
         <div class="post-meta">
@@ -346,8 +346,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-29T11:51:37+08:00">
-                2020-04-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-22T11:28:36+08:00">
+                2020-08-22
               </time>
             
 
@@ -362,8 +362,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-05-07T09:50:34+08:00">
-                2020-05-07
+              <time title="更新于" itemprop="dateModified" datetime="2020-08-24T12:08:22+08:00">
+                2020-08-24
               </time>
             
           </span>
@@ -398,7 +398,7 @@
 
           
           
-             <span id="/2020/04/29/css布局之道——内凹圆角设计/" class="leancloud_visitors" data-flag-title="css布局之道——内凹圆角设计">
+             <span id="/2020/08/22/webpack实战——样式预处理/" class="leancloud_visitors" data-flag-title="webpack实战——样式预处理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -423,7 +423,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  475字
+                  809字
                 </span>
               
 
@@ -439,7 +439,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1分钟
+                  3分钟
                 </span>
               
             </div>
@@ -460,25 +460,54 @@
       
 
       
-        <h2 id="一、-效果图"><a href="#一、-效果图" class="headerlink" title="一、 效果图"></a>一、 效果图</h2><p>先来看一下效果图：<br><img src="/images/posts/内凹圆角.gif" alt="内凹圆角" title="内凹圆角"></p>
-<a id="more"></a>
-<h2 id="二、-实现"><a href="#二、-实现" class="headerlink" title="二、 实现"></a>二、 实现</h2><h3 id="1-场景"><a href="#1-场景" class="headerlink" title="1. 场景"></a>1. 场景</h3><p>看上图，此类场景应该很是常用吧，比如账单、卡片、列表等。</p>
-<h3 id="2-实现思路"><a href="#2-实现思路" class="headerlink" title="2. 实现思路"></a>2. 实现思路</h3><p>看到效果图，能想到的实现方法则是</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是<code>webpack实战</code>系列笔记的第8篇记录——<code>样式与处理</code>，前几篇记录如下：</p>
 <ul>
-<li>planA：border-radius直接搞起来</li>
-<li>planB：定位</li>
+<li>打包第一个应用</li>
+<li>模块化与模块打包</li>
+<li>资源输入与输出</li>
+<li>一切皆模块</li>
+<li>预处理器【上篇】</li>
+<li>预处理器——常用loader【下篇】</li>
+<li>样式文件分离</li>
 </ul>
-<p>但是细想之后发现两者皆不可用，border-radius处理的话是凸角，舍弃；定位需要独立出来两个模块，复杂度高了，舍弃。<br>可是舍弃后，需要怎么做呢？切背景图吗？显然不合理，如果内容不固定，则模块的长度也不一样，背景图也会拉伸；思来想去，还是得从<code>定位</code>上做文章：既然元素多比较复杂，那就直接在伪类上动手。<br>可能大家猜到了，就是直接在<code>::before</code>、<code>::after</code>上模拟出来。</p>
-<h2 id="三、-代码"><a href="#三、-代码" class="headerlink" title="三、 代码"></a>三、 代码</h2><h3 id="1-基础布局"><a href="#1-基础布局" class="headerlink" title="1. 基础布局"></a>1. 基础布局</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- html：随便一些div --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">80vw</span>;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">15vh</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#666</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">6px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">border-top</span>: <span class="number">1px</span> dashed <span class="number">#333</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:first-child</span>&#123;</span><br><span class="line">    <span class="attribute">border</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-伪类"><a href="#2-伪类" class="headerlink" title="2. 伪类"></a>2. 伪类</h3><p>基础布局出来后，怎么利用伪类处理呢？思路是这样的：</p>
-<ol>
-<li>利用伪类画出来一个与主题背景色一样的圆；</li>
-<li>定位，向左(右)偏移圆自身的一半，视觉效果就是半个圆在上面；</li>
-<li>继续定位，向上继续偏移小球的一半，视觉效果则是每个模块有个四分之一内凹圆角一样。</li>
-</ol>
-<p>知道思路后，就继续实现吧：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">::before</span>,<span class="selector-tag">div</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">999</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">::before</span>&#123;</span><br><span class="line">    <span class="attribute">left</span>: -<span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">top</span>: -<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">right</span>: -<span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">top</span>: -<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">::before</span>,<span class="selector-tag">div</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样就完成了~</p>
+<p>在目前的前端项目中，经常可以看到使用<code>SASS</code>和<code>LESS</code>来对CSS进行处理，那么在webpack中如何配置？</p>
+<a id="more"></a>
+<h2 id="样式预处理"><a href="#样式预处理" class="headerlink" title="样式预处理"></a>样式预处理</h2><blockquote>
+<p>样式预处理，指的是在开发中使用到的一些预编译语言，如<strong>SCSS</strong>. <strong>LESS</strong>等，在项目打包过程中再将这些预编译语言<strong>转换为CSS</strong>。</p>
+</blockquote>
+<p>借助这些语言强大和便捷的特性，可以降低项目的开发及维护成本。</p>
+<h3 id="1-Sass-与-SCSS"><a href="#1-Sass-与-SCSS" class="headerlink" title="1. Sass 与 SCSS"></a>1. Sass 与 SCSS</h3><h4 id="1-1-关系"><a href="#1-1-关系" class="headerlink" title="1.1 关系"></a>1.1 关系</h4><p>我们经常看到Sass与SCSS，但是有什么关系呢？我们怎么选择呢？</p>
+<p>Sass是对CSS的语法增强，它有两种语法，现在使用的更多的是SCSS。如果你两者都使用过，那么可以发现无论是安装还是配置，都是使用 <strong>sass-loader</strong>，而编写保存的文件后缀却是：<strong>.scss</strong>。</p>
+<p>一般而言，我们使用它需要配置以下几个loader搭配使用：</p>
+<ul>
+<li>sass-loader</li>
+<li>css-loader</li>
+<li>style-loader</li>
+<li>node-sass</li>
+</ul>
+<p>如上，样式预处理器的安装好理解，那么为什么要安装<strong>node-loader</strong>呢？因为loader本身只是编译核心库与Webpack的连接器，因此这里我们除了Sass-loader以外还需安装node-sass，node-sass才是真正用来编译SCSS的，而sass-loader只是起到黏合作用。</p>
+<h4 id="1-2-安装"><a href="#1-2-安装" class="headerlink" title="1.2 安装"></a>1.2 安装</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下两种方式任选其一</span></span><br><span class="line">npm install sass-loader node-sass css-loader style-loader</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">yarn add sass-loader node-sass css-loader style-loader</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-webpack配置"><a href="#1-3-webpack配置" class="headerlink" title="1.3 webpack配置"></a>1.3 webpack配置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">        &#123;</span><br><span class="line">            test: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">            use: [<span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>, <span class="string">'sass-loader'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-测试"><a href="#1-4-测试" class="headerlink" title="1.4 测试"></a>1.4 测试</h4><p>写一段scss测试一下：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// style.scss</span></span><br><span class="line"><span class="variable">$default-color</span>: <span class="number">#f00</span>;</span><br><span class="line"><span class="selector-class">.main</span>&#123;</span><br><span class="line">    &amp;_banner&#123;</span><br><span class="line">        <span class="attribute">color</span>: <span class="variable">$default-color</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./style.scss'</span></span><br></pre></td></tr></table></figure>
+<h4 id="1-5-查看结果"><a href="#1-5-查看结果" class="headerlink" title="1.5 查看结果"></a>1.5 查看结果</h4><p>从html中引入打包后的js，查看结果：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.main_banner</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#f00</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/posts/webpack8-1.png" alt="结果" title="结果"></p>
+<h4 id="1-6-其他配置"><a href="#1-6-其他配置" class="headerlink" title="1.6 其他配置"></a>1.6 其他配置</h4><p>如果希望在浏览器的firebug里面查看及调试源码，则需要<strong>打开sourceMap</strong>配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        index: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'[name].js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    mode: <span class="string">'development'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// loader配置</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            <span class="comment">// scss</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    <span class="string">'style-loader'</span>,</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'css-loader'</span>,</span><br><span class="line">                        options: &#123;</span><br><span class="line">                            sourceMap: <span class="literal">true</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'sass-loader'</span>,</span><br><span class="line">                        options: &#123;</span><br><span class="line">                            sourceMap: <span class="literal">true</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-Less"><a href="#2-Less" class="headerlink" title="2. Less"></a>2. Less</h3><blockquote>
+<p>Less也是对CSS的扩展。</p>
+</blockquote>
+<h4 id="2-1-安装"><a href="#2-1-安装" class="headerlink" title="2.1 安装"></a>2.1 安装</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下两种方式任选其一</span></span><br><span class="line">npm install less-loader less css-loader style-loader</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">yarn add less-loader less css-loader style-loader</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-webpack配置"><a href="#2-2-webpack配置" class="headerlink" title="2.2 webpack配置"></a>2.2 webpack配置</h4><p>与SCSS配置比较类似：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">modules: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">        &#123;</span><br><span class="line">            test: <span class="regexp">/\.less/</span>,</span><br><span class="line">            use: [</span><br><span class="line">                <span class="string">'style-loader'</span>,</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'css-loader'</span>,</span><br><span class="line">                        options: &#123;</span><br><span class="line">                            sourceMap: <span class="literal">true</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'sass-loader'</span>,</span><br><span class="line">                        options: &#123;</span><br><span class="line">                            sourceMap: <span class="literal">true</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-3-测试"><a href="#2-3-测试" class="headerlink" title="2.3 测试"></a>2.3 测试</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// style.less</span><br><span class="line">@default-color: red;</span><br><span class="line"><span class="selector-class">.main</span>&#123;</span><br><span class="line">    .title&#123;</span><br><span class="line">        <span class="selector-tag">color</span>: @<span class="keyword">default</span>-<span class="keyword">color</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./style.less'</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-4-编译结果"><a href="#2-4-编译结果" class="headerlink" title="2.4 编译结果"></a>2.4 编译结果</h4><p>与SCSS一样，打包，引入，浏览器中查看结果：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.main</span> <span class="selector-class">.title</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本篇介绍了处理样式的预处理器工具以及相关配置，通过SCSS、less等编译语言来提高CSS的开发效率且降低代码复杂度。</p>
+<p>下一篇开始接触与性能相关的问题——代码分片。</p>
 
       
     </div>
@@ -506,12 +535,12 @@
   <script src="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.main.js"></script>
   <link rel="stylesheet" type="text/css" href="https://ituac-blog-1252741530.cos.ap-beijing.myqcloud.com/zxm/github/sweetalert.css">
 
-  <p><span>本文标题:</span>css布局之道——内凹圆角设计</p>
+  <p><span>本文标题:</span>webpack实战——样式预处理</p>
   <p><span>文章作者:</span>Lomo 朱幸民</p>
-  <p><span>发布时间:</span>2020年04月29日 - 11:51:37</p>
-  <p><span>最后更新:</span>2020年05月07日 - 09:50:34</p>
-  <p><span>原始链接:</span><a href="/2020/04/29/css布局之道——内凹圆角设计/" title="css布局之道——内凹圆角设计">https://www.zhuxingmin.com/2020/04/29/css布局之道——内凹圆角设计/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2020/04/29/css布局之道——内凹圆角设计/" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2020年08月22日 - 11:28:36</p>
+  <p><span>最后更新:</span>2020年08月24日 - 12:08:22</p>
+  <p><span>原始链接:</span><a href="/2020/08/22/webpack实战——样式预处理/" title="webpack实战——样式预处理">https://www.zhuxingmin.com/2020/08/22/webpack实战——样式预处理/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2020/08/22/webpack实战——样式预处理/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -571,9 +600,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/css/" rel="tag"><i class="fa fa-tag"></i> css</a>
-          
-            <a href="/tags/布局/" rel="tag"><i class="fa fa-tag"></i> 布局</a>
+            <a href="/tags/webpack/" rel="tag"><i class="fa fa-tag"></i> webpack</a>
           
         </div>
       
@@ -586,8 +613,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/01/《活好》随笔/" rel="next" title="《活好》记录">
-                <i class="fa fa-chevron-left"></i> 《活好》记录
+              <a href="/2020/08/11/webpack实战——分离样式文件/" rel="next" title="webpack实战——分离样式文件">
+                <i class="fa fa-chevron-left"></i> webpack实战——分离样式文件
               </a>
             
           </div>
@@ -595,10 +622,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/05/12/axios进阶之路——基础篇/" rel="prev" title="axios进阶之路——基础篇">
-                axios进阶之路——基础篇 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -773,7 +796,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、-效果图"><span class="nav-text">一、 效果图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、-实现"><span class="nav-text">二、 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-场景"><span class="nav-text">1. 场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-实现思路"><span class="nav-text">2. 实现思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-代码"><span class="nav-text">三、 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基础布局"><span class="nav-text">1. 基础布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-伪类"><span class="nav-text">2. 伪类</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样式预处理"><span class="nav-text">样式预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Sass-与-SCSS"><span class="nav-text">1. Sass 与 SCSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-关系"><span class="nav-text">1.1 关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-安装"><span class="nav-text">1.2 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-webpack配置"><span class="nav-text">1.3 webpack配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-测试"><span class="nav-text">1.4 测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-查看结果"><span class="nav-text">1.5 查看结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-其他配置"><span class="nav-text">1.6 其他配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Less"><span class="nav-text">2. Less</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-安装"><span class="nav-text">2.1 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-webpack配置"><span class="nav-text">2.2 webpack配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-测试"><span class="nav-text">2.3 测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-编译结果"><span class="nav-text">2.4 编译结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>

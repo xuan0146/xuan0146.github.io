@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[webpack实战——样式预处理]]></title>
+    <url>%2F2020%2F08%2F22%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E6%A0%B7%E5%BC%8F%E9%A2%84%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[前言这是webpack实战系列笔记的第8篇记录——样式与处理，前几篇记录如下： 打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 预处理器【上篇】 预处理器——常用loader【下篇】 样式文件分离 在目前的前端项目中，经常可以看到使用SASS和LESS来对CSS进行处理，那么在webpack中如何配置？ 样式预处理 样式预处理，指的是在开发中使用到的一些预编译语言，如SCSS. LESS等，在项目打包过程中再将这些预编译语言转换为CSS。 借助这些语言强大和便捷的特性，可以降低项目的开发及维护成本。 1. Sass 与 SCSS1.1 关系我们经常看到Sass与SCSS，但是有什么关系呢？我们怎么选择呢？ Sass是对CSS的语法增强，它有两种语法，现在使用的更多的是SCSS。如果你两者都使用过，那么可以发现无论是安装还是配置，都是使用 sass-loader，而编写保存的文件后缀却是：.scss。 一般而言，我们使用它需要配置以下几个loader搭配使用： sass-loader css-loader style-loader node-sass 如上，样式预处理器的安装好理解，那么为什么要安装node-loader呢？因为loader本身只是编译核心库与Webpack的连接器，因此这里我们除了Sass-loader以外还需安装node-sass，node-sass才是真正用来编译SCSS的，而sass-loader只是起到黏合作用。 1.2 安装1234// 以下两种方式任选其一npm install sass-loader node-sass css-loader style-loader// 或yarn add sass-loader node-sass css-loader style-loader 1.3 webpack配置123456789// webpack.config.jsmodule: &#123; rules: [ &#123; test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] &#125; ]&#125; 1.4 测试写一段scss测试一下： 1234567// style.scss$default-color: #f00;.main&#123; &amp;_banner&#123; color: $default-color; &#125;&#125; 12// index.jsimport './style.scss' 1.5 查看结果从html中引入打包后的js，查看结果： 123.main_banner &#123; color: #f00; &#125; 1.6 其他配置如果希望在浏览器的firebug里面查看及调试源码，则需要打开sourceMap配置： 1234567891011121314151617181920212223242526272829303132333435module.exports = &#123; entry: &#123; index: './src/index.js', &#125;, output: &#123; filename: '[name].js' &#125;, mode: 'development', // loader配置 module: &#123; rules: [ // scss &#123; test: /\.scss$/, use: [ 'style-loader', &#123; loader: 'css-loader', options: &#123; sourceMap: true &#125; &#125;, &#123; loader: 'sass-loader', options: &#123; sourceMap: true &#125; &#125; ] &#125; ], &#125;,&#125; 2. Less Less也是对CSS的扩展。 2.1 安装1234// 以下两种方式任选其一npm install less-loader less css-loader style-loader// 或yarn add less-loader less css-loader style-loader 2.2 webpack配置与SCSS配置比较类似： 12345678910111213141516171819202122modules: &#123; rules: [ &#123; test: /\.less/, use: [ 'style-loader', &#123; loader: 'css-loader', options: &#123; sourceMap: true &#125; &#125;, &#123; loader: 'sass-loader', options: &#123; sourceMap: true &#125; &#125; ] &#125; ]&#125; 2.3 测试1234567// style.less@default-color: red;.main&#123; .title&#123; color: @default-color; &#125;&#125; 12// index.jsimport './style.less' 2.4 编译结果与SCSS一样，打包，引入，浏览器中查看结果： 123.main .title&#123; color: red;&#125; 小结本篇介绍了处理样式的预处理器工具以及相关配置，通过SCSS、less等编译语言来提高CSS的开发效率且降低代码复杂度。 下一篇开始接触与性能相关的问题——代码分片。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[webpack实战——分离样式文件]]></title>
     <url>%2F2020%2F08%2F11%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E5%88%86%E7%A6%BB%E6%A0%B7%E5%BC%8F%E6%96%87%E4%BB%B6%2F</url>
     <content type="text"><![CDATA[前言这是webpack实战系列笔记的第7篇记录——分离样式，前几篇记录如下： 打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 预处理器【上篇】 预处理器——常用loader【下篇】 在之前篇章里面主要是对js的打包应用和处理，而打包方面另外一个重要工作就是样式处理。 在实际工程中，如果项目具有一定规模，那么CSS的维护成本则会比较高昂，这个时候就需要更友好且更低价的方式来处理样式问题。本篇介绍webpack结合样式编辑器、转换器及相关插件来提升样式方面的开发效率。 分离样式1. 分离样式文件概念在之前写的简单demo中，处理过关于CSS，并且在预处理器篇介绍过关于CSS的预处理器：style-loader和css-loader。通过JS引入CSS样式去打包，在编写阶段可以直观的描述出来模块之间的依赖关系。 但是问题随之而来：在打包后，我们对css样式的添加，是通过标签&lt;style&gt;来引入的，可生产环境下，一般我们希望样式存在于CSS文件中而不是style标签中，因为文件更有利于客户端进行缓存。那么我们怎么输出单独的CSS文件呢？ 2. mini-css-extract-plugin 该插件主要是用于提取样式到CSS文件的。 特性： 可处理多样式文件 支持按需加载 3 安装两种方式 选择一种即可 123yarn add mini-css-extract-plugin// 或npm install mini-css-extract-plugin 4. 举例举个例子： a.js引入自身a.css样式，并引入b.js，而b.js也有自身相应的b.css样式，那么最终样式会被同步加载，通过index.html的link标签加载进来。 a.js1234import './a.css'import './b.js'document.write('A.JS&lt;br/&gt;'); a.css123body&#123; background: deepskyblue;&#125; b.js123import './b.css'document.write('B.JS&lt;br/&gt;'); b.css123body&#123; background: thistle;&#125; webpack.config.js1234567891011121314151617181920212223242526272829303132333435363738const MiniCssExtractPlugin = require('mini-css-extract-plugin')module.exports = &#123; entry: &#123; index: './src/a.js', &#125;, output: &#123; filename: '[name].js' &#125;, mode: 'development', // loader配置 module: &#123; rules: [ // css &#123; test: /\.css$/, use: [ &#123; loader: MiniCssExtractPlugin.loader, options: &#123; publicPath: '../' &#125; &#125;, 'css-loader' ] &#125; ], &#125;, plugins: [ new MiniCssExtractPlugin(&#123; filename: '[name].css', chunkFilename: '[id].css' &#125;) ]&#125; 打包123yarn build// 或npm run build HTML引入123456789101112&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt; &lt;meta charset="UTF-8"&gt; &lt;link rel="stylesheet" href="./dist/index.css"&gt; &lt;title&gt;style&lt;/title&gt;&lt;/head&gt;&lt;body&gt; &lt;script src="./dist/index.js"&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt; 运行结果运行引入了脚本和样式的HTML文件，查看结果： 小结其实本篇就是单独拎出来了一个loader预处理器来介绍：mini-css-extract-plugin。目的就是生产环境下，通过link引入样式存在于CSS文件中而不是style标签中，这样更有利于客户端进行缓存。 下一篇介绍样式预处理。]]></content>
@@ -556,8 +567,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>小王子</tag>
+        <tag>读书笔记</tag>
         <tag>读后感</tag>
       </tags>
   </entry>
@@ -747,8 +758,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>Promise</tag>
         <tag>es6</tag>
+        <tag>Promise</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
