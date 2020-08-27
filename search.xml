@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[webpack实战——代码分片]]></title>
+    <url>%2F2020%2F08%2F27%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E4%BB%A3%E7%A0%81%E5%88%86%E7%89%87%2F</url>
+    <content type="text"><![CDATA[前言这是webpack实战系列笔记的第9篇记录——代码分片，前几篇记录如下： 打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 预处理器【上篇】 预处理器——常用loader【下篇】 样式文件分离 样式预处理 代码分片 实现高性能应用其中重要的一点就是尽可能的让用户每次只加载必要的资源，优先级不太高的资源则采用延迟加载（懒加载）等技术渐进式的获取，这样可以保证首屏页面加载的速度。代码分片是Webpack作为打包工具所特有的一项技术，通过这项技术我们可以把代码按照特定的形式进行拆分，使用户按需加载。 通过入口划分代码通过入口配置进行一些简单有效的代码拆分。 对于web应用来说通常会有一些库和工具是不常变动的，可以将它们放在一个单独的入口中，由该入口产生的资源不会经常更新，因此可以有效地利用客户端缓存，让用户不必在每次请求页面时都让资源重新加载。 1234567// webpack.config.js...entry:&#123; app: './src/app.js', lib: ['lib-a', 'lib-b', 'lib-c']&#125; 12345&lt;!--index.html--&gt;...&lt;script src="./dist/lib.js"&gt;&lt;/script&gt;&lt;script src="./dist/app.js"&gt;&lt;/script&gt; 这种拆分方法主要适用于那些将接口绑定在全局对象上的库，因为业务代码中的模块无法直接引用库中的模块，而这属于不同的依赖树。 但这样仍会带来新的问题：公共模块与业务模块处于不同依赖树的问题以及很多页面并不需要公共模块的问题。 optimization在webpack4之前，做代码切片使用的是CommonsChunkPlugin，而在4及之后，取而代之的是optimization。 optimization.SplitChunks简称optimization，是Webpack4为了改进CommonChunkPlugin而重新设计和实现的代码分片特性。 举例1. 安装1234// 两种方式二选一yarn add optimization react// 或npm install optimization react 2. a.js &amp; b.js1234// a.jsimport React from 'react'import('./b.js');document.write('a.js', React.version) 123// b.jsimport React from 'react'console.log('b.js', React.version) 3. webpack配置1234567891011121314// webpack.config.jsmodule.exports = &#123; entry: './src/a.js', output: &#123; filename: 'a.js', publicPath: '/dist/' &#125;, mode: 'development', optimization: &#123; splitChunks: &#123; chunks: 'all' &#125; &#125;&#125; 4. 打包123yarn build// 或npm run build 结果如图所示： 特性首先观察上面的配置，从上面的配置项中可以看到： 指定了chunks的值是all，含义是：SplitChunks将会对所有的chunks生效； mode：之前也一直在用，其实是Webpack4中新增的配置项，可以针对当前是开发环境还是生产环境自动添加一些对应的Webpack配置。 而从上图打包结果中看，可以看到三个文件包：0.a.js、a.js和vendors~main.a.js。其中，vendors~main.a.js则是将react提取到了里面。 提取条件 提取后的chunk可悲共享或者来自node_modules目录。 提取后的JS chunk体积大于30kB（压缩和gzip前），CSS chunk体积大于50kB。 按需加载过程中，并行请求的资源最大值小于等于5。 首次加载时，并行请求的资源数最大值小于等于3。 需要注意的是，默认提取方式为异步提取。 配置分为四类： 匹配模式通过chunks可以配置Splitchunks的工作模式：async（默认），initial和all。async即只提取异步chunk，initial只对入口chunk生效，all则两种模式同时开启。 匹配条件minSize、minChunks、maxAsyncRequests、maxInitialRequests都属于匹配条件。 命名配置项name默认为true，意味着SplitChunks可以根据CacheGroups和作用范围自动为新生成的chunk命名，并且以automaticNameDelimiter分割。 CacheGroups可以理解为分离chunks时的规则。 默认配置1234567891011121314151617181920212223242526272829module.exports = &#123; ... splitChunks: &#123; chunks: 'async', miSize: &#123; javascript: 30000, style: 50000, &#125;, maxSize: 0, minChunks: 1, maxAsyncRequests: 5, maxInitialRequests: 3, automaticNameDelimiter: '~', name: true, cacheGroups: &#123; vendors: &#123; test: /[\\/]node_modules[\\/]/, priority: -10 &#125;, default: &#123; minChunks: 2, priority: -20, reuseExistingChunk: true &#125; &#125; &#125;&#125; 小结本篇了解了两种代码分片方式： 入口规划 SplitChunks 而借助这些方法，我们可以有效的缩小资源体积，更好的利用缓存，从而给用户更有好的体验度。 下一篇介绍生产环境优化中的一些配置，如环境配置封装、sourceMap等。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[webpack实战——样式预处理]]></title>
     <url>%2F2020%2F08%2F22%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E6%A0%B7%E5%BC%8F%E9%A2%84%E5%A4%84%E7%90%86%2F</url>
     <content type="text"><![CDATA[前言这是webpack实战系列笔记的第8篇记录——样式与处理，前几篇记录如下： 打包第一个应用 模块化与模块打包 资源输入与输出 一切皆模块 预处理器【上篇】 预处理器——常用loader【下篇】 样式文件分离 在目前的前端项目中，经常可以看到使用SASS和LESS来对CSS进行处理，那么在webpack中如何配置？ 样式预处理 样式预处理，指的是在开发中使用到的一些预编译语言，如SCSS. LESS等，在项目打包过程中再将这些预编译语言转换为CSS。 借助这些语言强大和便捷的特性，可以降低项目的开发及维护成本。 1. Sass 与 SCSS1.1 关系我们经常看到Sass与SCSS，但是有什么关系呢？我们怎么选择呢？ Sass是对CSS的语法增强，它有两种语法，现在使用的更多的是SCSS。如果你两者都使用过，那么可以发现无论是安装还是配置，都是使用 sass-loader，而编写保存的文件后缀却是：.scss。 一般而言，我们使用它需要配置以下几个loader搭配使用： sass-loader css-loader style-loader node-sass 如上，样式预处理器的安装好理解，那么为什么要安装node-loader呢？因为loader本身只是编译核心库与Webpack的连接器，因此这里我们除了Sass-loader以外还需安装node-sass，node-sass才是真正用来编译SCSS的，而sass-loader只是起到黏合作用。 1.2 安装1234// 以下两种方式任选其一npm install sass-loader node-sass css-loader style-loader// 或yarn add sass-loader node-sass css-loader style-loader 1.3 webpack配置123456789// webpack.config.jsmodule: &#123; rules: [ &#123; test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] &#125; ]&#125; 1.4 测试写一段scss测试一下： 1234567// style.scss$default-color: #f00;.main&#123; &amp;_banner&#123; color: $default-color; &#125;&#125; 12// index.jsimport './style.scss' 1.5 查看结果从html中引入打包后的js，查看结果： 123.main_banner &#123; color: #f00; &#125; 1.6 其他配置如果希望在浏览器的firebug里面查看及调试源码，则需要打开sourceMap配置： 1234567891011121314151617181920212223242526272829303132333435module.exports = &#123; entry: &#123; index: './src/index.js', &#125;, output: &#123; filename: '[name].js' &#125;, mode: 'development', // loader配置 module: &#123; rules: [ // scss &#123; test: /\.scss$/, use: [ 'style-loader', &#123; loader: 'css-loader', options: &#123; sourceMap: true &#125; &#125;, &#123; loader: 'sass-loader', options: &#123; sourceMap: true &#125; &#125; ] &#125; ], &#125;,&#125; 2. Less Less也是对CSS的扩展。 2.1 安装1234// 以下两种方式任选其一npm install less-loader less css-loader style-loader// 或yarn add less-loader less css-loader style-loader 2.2 webpack配置与SCSS配置比较类似： 12345678910111213141516171819202122modules: &#123; rules: [ &#123; test: /\.less/, use: [ 'style-loader', &#123; loader: 'css-loader', options: &#123; sourceMap: true &#125; &#125;, &#123; loader: 'sass-loader', options: &#123; sourceMap: true &#125; &#125; ] &#125; ]&#125; 2.3 测试1234567// style.less@default-color: red;.main&#123; .title&#123; color: @default-color; &#125;&#125; 12// index.jsimport './style.less' 2.4 编译结果与SCSS一样，打包，引入，浏览器中查看结果： 123.main .title&#123; color: red;&#125; 小结本篇介绍了处理样式的预处理器工具以及相关配置，通过SCSS、less等编译语言来提高CSS的开发效率且降低代码复杂度。 下一篇开始接触与性能相关的问题——代码分片。]]></content>
@@ -235,8 +246,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -249,8 +260,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -263,8 +274,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -277,8 +288,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -567,8 +578,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>小王子</tag>
         <tag>读书笔记</tag>
+        <tag>小王子</tag>
         <tag>读后感</tag>
       </tags>
   </entry>
