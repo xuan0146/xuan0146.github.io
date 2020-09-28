@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[webpack实战——生产环境配置【下】]]></title>
+    <url>%2F2020%2F09%2F18%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%90%E4%B8%8B%E3%80%91%2F</url>
+    <content type="text"><![CDATA[前言这是webpack实战系列第12篇。 上两篇中，描述了一些关于生产环境的配置：环境变量的使用、配置文件描述、source-map配置、资源压缩等，从这几个方面入手来对生产环境进行一定的配置。 本篇将从缓存和资源bundle体积开始，来对生产环境进行进一步的处理。 1. 缓存 缓存是指重复利用浏览器已经获取过的资源。 合理的使用缓存是提升客户端性能的一个关键因素。具体的缓存策略（如指定缓存时间）由服务器来决定，浏览器会在资源过期前一直使用本地缓存进行响应。但同时也带来一个新的问题，比如我们想要对代码进行一个bug fix（故障修正程序），并且立即更新到用户的浏览器中，而不要让他们使用旧的缓存资源应该怎么处理呢？那此时最好的办法便是更改资源的URL，这样可迫使所有客户端资源都去下载最新的资源。 1.1 资源hash一个常用的方法是在每次打包的过程中对资源的内容计算一次hash，并作为版本号存放在文件名中，如*bundle@0sd5fd6fh8hf4g4d.js*。其中，bundle是文件本身的名字，而@后则跟随文件内容hash值，每当代码发生变化时，hash也会发生相应变化。 我们通常使用chunkhash来作为文件版本号，因为它会为每一个chunk单独计算一个hash值。如： 12345678// webpack.config.jsmodule.exports = &#123; entry: './src/index.js', output: &#123; filename: '[name]@[chunkhash].js' &#125;, mode: 'production'&#125; 打包结果： 1.2 输出动态HTML既然资源名字使用hash动态，那么也就意味着在HTML文件中引入的路径也会随之改变，而如果选择手动处理，不光是维护成本大，而且复杂程度相当高：如果有几十个文件变动……因此最理想的情况是打包结束后自动将最新的资源名字同步过去。此时，我们使用html-webpack-plugin来做到这一点： 1234567891011121314151617// webpack.config.jsconst HtmlWebpackPlugin = require('html-webpack-plugin');module.exports = &#123; entry: &#123; index: './src/index.js', &#125;, output: &#123; filename: '[name]@[chunkhash].js' &#125;, mode: 'development', plugins: [ new HtmlWebpackPlugin() ],&#125; 打包结果： 打包后，可以看到除了js文件之外还多出来了一个HTML文件： index.html 内容 1234567891011&lt;!DOCTYPE html&gt;&lt;html&gt; &lt;head&gt; &lt;meta charset="utf-8"&gt; &lt;title&gt;Webpack App&lt;/title&gt; &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt; &lt;/head&gt; &lt;body&gt; &lt;script src="index%4061b65a6278687c007c6c.js"&gt;&lt;/script&gt; &lt;/body&gt;&lt;/html&gt; 从html内容可以看出，html-webpack-plugin会自动将我们打包出来的资源名放入index.html中，如上述的src=&quot;index%4061b65a6278687c007c6c.js(其中 %40是@的编码 )，这样我们便不再需要手动的去更新资源url了。 HTML模板 虽然是我们通过html-webpack-plugin创建出来一个index.html文件，但是在大多数情况下，此种条件并不符合我们项目工程中的常规操作，因为我们需要在HTML中引入一些个性化的内容，这这是，我们可以传入一个已有的HTML模板，如： 1234567891011121314&lt;!-- index.html --&gt;&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt; &lt;meta charset="UTF-8"&gt; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt; &lt;title&gt;自定义配置模板&lt;/title&gt;&lt;/head&gt;&lt;body&gt; &lt;div id="app"&gt;&lt;/div&gt; &lt;p&gt;随便一些内容...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt; webpack配置 12345678910const HtmlWebpackPlugin = require('html-webpack-plugin');module.exports = &#123; ... plugins: [ new HtmlWebpackPlugin(&#123; template: './index.html' &#125;) ]&#125; 然后再次打包，结果如下： 2. 体积监控和分析为保证良好的用户体验，我们可以对打包输出的bundle体积进行持续的监控，以防止不必要的冗余模块被添加进来。 介绍两个工具来协助我们对体积进行监控和分析。 2.1 Import Cost在VS Code中，安装插件Import Cost，这个插件可以帮助我们对引入的模块大小进行实时监测。每在我们代码中引入一个新的模块后，它会为我们计算该模块压缩后及gzip后将占用体积的大小。 当我们检测到引入的某些模块包过大时，我们可以想办法处理它，比如寻找一些更小的包或模块作为替代方案，或者引入其子模块而不是全局引入。 2.2 webpack-bundle-analyzer 作用：分析一个bundle的构成。 安装123yarn add webpack-bundle-analyzer// ornpm install webpack-bundle-analyzer --save-dev 配置1234567891011121314151617// webpack.config.jsconst WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;module.exports = &#123; entry: &#123; index: './src/index.js', &#125;, output: &#123; filename: '[name]@[chunkhash].js' &#125;, mode: 'development', plugins: [ new WebpackBundleAnalyzer() ],&#125; 打包执行打包命令，然后会从本地浏览器自动打开一个包体积监测的页面，如下： 从上图我们可以直观的看到生成的 index@hash.js 文件中包含的各个模块及其占体积占比，这样我们也能直观的看出需要从某个模块进行优化。 2.3 bundlesize 自动化监测那刚才所描述的只是打包后查看，如果希望自动化的对资源体积进行监控呢？bundlesize 这个工具则可以协助我们做到。 同样，先安装： 123yarn add bundlesize// ornpm install bundlesize 然后在 package.json 中配置： 123456789101112131415&#123; "name": "w1", "version": "1.0.0", "main": "index.js", "bundlesize": [ &#123; "path": "./src/index.js", "maxSize": "10 kB" &#125; ], "scripts": &#123; "test:size": "bundlesize" &#125; ...&#125; 可以看到，我设置了 bundlesize 的路径及最大体积限制，然后在 scripts 中添加了一条脚本命令。然后在终端执行该脚本，如图： 小结对生产环境配置做个小结。 在开发环境中，我们注重打包速度，而生产环境中我们则关注资源输出体积大小及如何优化客户端缓存来缩短页面渲染时间，通过一系列配置可以优化，如：设置环境变量、代码压缩、资源体积检测监控等方法。我们也对缓存的控制有一定的了解，缓存的控制主要依赖于chunk内容生成hash作为版本号，并添加到资源文件名中，使得资源更新后客户端可以及时更新最新资源。 此外，source map主要用于线上问题的追溯，不过存在安全隐患，可以通过一些特殊的配置来兼顾追溯及安全问题。 描述完了生产环境配置，那么下一阶段来到打包优化问题。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[webpack实战——生产环境配置【中】]]></title>
     <url>%2F2020%2F09%2F07%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%90%E4%B8%AD%E3%80%91%2F</url>
-    <content type="text"><![CDATA[前言上一篇中，描述了一些关于生产环境的配置：环境变量的使用、配置文件描述、开启生产模式、环境变量自定义配置等，从这几个方面入手都可以对生产环境产生一些有利影响。 那么本篇，从source map和资源压缩方面入手，继续深入探究。 1. source map source map 指的是将编译、打包、压缩后的代码映射回源代码的过程。 经过webpack打包压缩后的代码基本上已经不具备可读性，此时若是代码抛出错误，想要回溯它的调用栈是非常困难的，而有了source map，加上浏览器调试工具（dev tools），要做到这一点就会变得很容易。同时，它对于线上问题的追查也有一定帮助。 1.1 原理工作原理：webpack对于工程源代码的每一步处理都有可能会改变代码的位置、结构、甚至是所处文件，因此每一步都需要生成对应的source map。如果我们启用了devtool配置，那么source map救护跟随源代码一步步被传递，直到生成最后的map文件。这个文件默认就是打包后的文件名字上加上后缀[.map]，例如bundle.js.map。 在生成map文件的同时，bundle文件中会追加一句注释来标识map文件的位置，例如： 123456// bundle.js(function() &#123; // bundle的内容 ...&#125;)()// # sourceMappingURL=bundle.js.map 而当我们打开浏览器开发者工具后，其实map文件同时也会被加载进来，这时浏览器会使用它来对打包后的bundle文件来进行解析，分析出源代码的目录结构和内容。 亲自尝试过的朋友可能会发现，打包后，map文件会比较大，甚至超出源文件几倍的体积大小，不过不用担心，不打开开发者工具是不会加载这些map文件的，因此对于普通用户来讲没有什么影响。但是要注意的是，虽然普通用户看不到，不过有经验的“特殊人群”还是可以通过dev tools看到工程源码的。因此建议如果是生产环境，还是要解决一下。如何解决呢？下面会提到。 1.2 配置在webpack.config.js中添加devtool即可完成对source map的配置。 12345// webpack.config.jsmodule.exports = &#123; // ... devtool: 'source-map'&#125; 而对于CSS、SCSS及Less来说，则需要添加额外的source map配置项。如： 12345678910111213141516171819202122232425262728const path = require('path');module.exports = &#123; // ... devtool: 'source-map', module: &#123; rules: [ // scss &#123; test: /\.scss$/, use: [ 'style-loader', &#123; loader: 'css-loader', options: &#123; sourceMap: true, &#125; &#125;, &#123; loader: 'sass-loader', options: &#123; sourceMap: true &#125; &#125; ] &#125; ] &#125;&#125; webpack支出多种source map形式： source-map cheap-source-map eval-source-map … 在开发环境中，通常使用module-eval-source-map，因为在打包速度和源码信息还原程度都属于良好程度。 而在生产环境中，通常我们会对代码进行压缩，而最常见的压缩插件UglifyjsWebpackPlugin目前只支持source-map形式。 1.3 安全在1.1中我们抛出一个安全问题，就是在开启source-map的时候任何人都可以通过浏览器的开发者工具devtool来看到工程源码，因此对于安全性来讲是一个极大的隐患。那么如何能在保持其功能的同时又能防止暴漏源码呢？ webpack提供了两种安全策略： hidden-source-map nosources-source-map hidden-source-map hidden-source-map意味着Webpack仍然会产出完整的map文件，但是不会再bundle文件中添加对于map文件的引用。这样当打开浏览器开发者工具时，是无法看到map文件的，自然也就无法解析。如果我们自己想要追溯源码，可使用一些第三方服务，将map文件上传到第三方服务中。目前比较流行的是Sentry（错误跟踪平台），有兴趣的可以自行搜索了解一下。 nosources-source-map 它对于安全性保护不如hidden-source-map，但是使用方式相对简单。当打包部署后，我们可以在浏览器开发者工具的sources选项卡中看到源码的目录结构，但是文件内容会被隐藏起来。这样，对于错误来讲，我们仍然可以在console控制台中查看源代码的错误栈，或者console日志的准确行数。对于追溯错误来说基本上够使用。 另外的方案则是服务端配合处理，例如正常打包出source map，服务端通过服务器的nginx配置，将.map文件只对固定的白名单（如公司内网）开放，这样其余用户就无法获取到它们了，也不失为一个小妙招。 2. 资源压缩 资源在发布到生产环境之前，通常会进行代码压缩，也叫uglify，意思是移除多余的空格、换行、执行不到的代码块等，同时缩短变量名，在执行结果不变的前提下替换为更短的形式。 一般工程代码在被压缩后整个体积会显著缩小。 但同时，uglify之后的代码基本上不具有可读性，从另一个层面讲，一定程度上提高了代码的安全性。 2.1 压缩JavaScript压缩JS（JavaScript）的工具terser(optomization)在webpack中已集成（webpack4），并且支持ES6+的代码压缩，偏面向未来。 示例： 1234567891011// webpack.config.jsmodule.exports = &#123; entry: './src/index.js', output: &#123; filename: 'bundle.js' &#125;, // 压缩配置 optomization: &#123; minimize: true &#125;&#125; 2.2 压缩CSSCSS文件的压缩前提是使用相关插件处理，先将样式提取出来，然后进行压缩。例如常使用extract-text-webpack-plugin或mini-css-extract-plugin将样式提取，然后使用optimize-css-assets-webpack-plugin来进行压缩。这个插件本质上使用的是压缩器cssnano，当然我们可以对其进行配置： 12345678910111213141516171819202122232425262728293031323334353637// webpack.config.jsconst ExtractTextPlugin = require('extract-text-webpack-plugin');const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')module.exports = &#123; // ... module: &#123; rules: [ &#123; test: /\.css$/, use: ExtractTextPlugin.extract(&#123; fallback: 'style-loader', use: 'css-loader' &#125;) &#125; ] &#125;, // css 压缩 plugins: [new ExtractTextPlugin('style.css')]; optimization: &#123; minimizer: [new OptimizeCssAssetsPlugin(&#123; // 生效范围，只压缩匹配到的资源 assetNameRegExp: /\.optimize\.css$/g, // 压缩处理器指定，默认为 cssnano cssProcessor: require('cssnano'), // 压缩处理器配置 cssProcessorOptions: &#123; discardComments: &#123; removeAll: true &#125; &#125;, // 是否打印log canPrint: true &#125;)] &#125;&#125; 小结本篇介绍了关于生产环境配置中比较重量级的两种配置：source-map和资源压缩。 开发环境中我们关注打包速度，而在生产环境中我们关心的则是线上错误处理、输出资源的体积以及资源渲染等问题，而比较好的利用source-map和资源压缩都可以帮助我们处理处理或优化生产环境中的一些问题，因此比较重要，但同时也要注意解决所存在的安全隐患问题。 下一篇则从缓存和bundle体积监控入手继续描述生产环境配置的其他方面优化问题。]]></content>
+    <content type="text"><![CDATA[前言上一篇中，描述了一些关于生产环境的配置：环境变量的使用、配置文件描述、开启生产模式、环境变量自定义配置等，从这几个方面入手都可以对生产环境产生一些有利影响。 那么本篇，从source map和资源压缩方面入手，继续深入探究。 1. source map source map 指的是将编译、打包、压缩后的代码映射回源代码的过程。 经过webpack打包压缩后的代码基本上已经不具备可读性，此时若是代码抛出错误，想要回溯它的调用栈是非常困难的，而有了source map，加上浏览器调试工具（dev tools），要做到这一点就会变得很容易。同时，它对于线上问题的追查也有一定帮助。 1.1 原理工作原理：webpack对于工程源代码的每一步处理都有可能会改变代码的位置、结构、甚至是所处文件，因此每一步都需要生成对应的source map。如果我们启用了devtool配置，那么source map就会跟随源代码一步步被传递，直到生成最后的map文件。这个文件默认就是打包后的文件名字上加上后缀[.map]，例如bundle.js.map。 在生成map文件的同时，bundle文件中会追加一句注释来标识map文件的位置，例如： 123456// bundle.js(function() &#123; // bundle的内容 ...&#125;)()// # sourceMappingURL=bundle.js.map 而当我们打开浏览器开发者工具后，其实map文件同时也会被加载进来，这时浏览器会使用它来对打包后的bundle文件来进行解析，分析出源代码的目录结构和内容。 亲自尝试过的朋友可能会发现，打包后，map文件会比较大，甚至超出源文件几倍的体积大小，不过不用担心，不打开开发者工具是不会加载这些map文件的，因此对于普通用户来讲没有什么影响。但是要注意的是，虽然普通用户看不到，不过有经验的“特殊人群”还是可以通过dev tools看到工程源码的。因此建议如果是生产环境，还是要解决一下。如何解决呢？下面会提到。 1.2 配置在webpack.config.js中添加devtool即可完成对source map的配置。 12345// webpack.config.jsmodule.exports = &#123; // ... devtool: 'source-map'&#125; 而对于CSS、SCSS及Less来说，则需要添加额外的source map配置项。如： 12345678910111213141516171819202122232425262728const path = require('path');module.exports = &#123; // ... devtool: 'source-map', module: &#123; rules: [ // scss &#123; test: /\.scss$/, use: [ 'style-loader', &#123; loader: 'css-loader', options: &#123; sourceMap: true, &#125; &#125;, &#123; loader: 'sass-loader', options: &#123; sourceMap: true &#125; &#125; ] &#125; ] &#125;&#125; webpack给出多种source map形式： source-map cheap-source-map eval-source-map … 在开发环境中，通常使用module-eval-source-map，因为在打包速度和源码信息还原程度都属于良好程度。 而在生产环境中，通常我们会对代码进行压缩，而最常见的压缩插件UglifyjsWebpackPlugin目前只支持source-map形式。 1.3 安全在1.1中我们抛出一个安全问题，就是在开启source-map的时候任何人都可以通过浏览器的开发者工具devtool来看到工程源码，因此对于安全性来讲是一个极大的隐患。那么如何能在保持其功能的同时又能防止暴漏源码呢？ webpack提供了两种安全策略： hidden-source-map nosources-source-map hidden-source-map hidden-source-map意味着Webpack仍然会产出完整的map文件，但是不会在bundle文件中添加对于map文件的引用。这样当打开浏览器开发者工具时，是无法看到map文件的，自然也就无法解析。如果我们自己想要追溯源码，可使用一些第三方服务，将map文件上传到第三方服务中。目前比较流行的是Sentry（错误跟踪平台），有兴趣的可以自行搜索了解一下。 nosources-source-map 它对于安全性保护不如hidden-source-map，但是使用方式相对简单。当打包部署后，我们可以在浏览器开发者工具的sources选项卡中看到源码的目录结构，但是文件内容会被隐藏起来。这样，对于错误来讲，我们仍然可以在console控制台中查看源代码的错误栈，或者console日志的准确行数。对于追溯错误来说基本上够使用。 另外的方案则是服务端配合处理，例如正常打包出source map，服务端通过服务器的nginx配置，将.map文件只对固定的白名单（如公司内网）开放，这样其余用户就无法获取到它们了，也不失为一个小妙招。 2. 资源压缩 资源在发布到生产环境之前，通常会进行代码压缩，也叫uglify，意思是移除多余的空格、换行、执行不到的代码块等，同时缩短变量名，在执行结果不变的前提下替换为更短的形式。 一般工程代码在被压缩后整个体积会显著缩小。 但同时，uglify之后的代码基本上不具有可读性，从另一个层面讲，一定程度上提高了代码的安全性。 2.1 压缩JavaScript压缩JS（JavaScript）的工具terser(optomization)在webpack中已集成（webpack4），并且支持ES6+的代码压缩，偏面向未来。 示例： 1234567891011// webpack.config.jsmodule.exports = &#123; entry: './src/index.js', output: &#123; filename: 'bundle.js' &#125;, // 压缩配置 optomization: &#123; minimize: true &#125;&#125; 2.2 压缩CSSCSS文件的压缩前提是使用相关插件处理，先将样式提取出来，然后进行压缩。例如常使用extract-text-webpack-plugin或mini-css-extract-plugin将样式提取，然后使用optimize-css-assets-webpack-plugin来进行压缩。这个插件本质上使用的是压缩器cssnano，当然我们可以对其进行配置： 12345678910111213141516171819202122232425262728293031323334353637// webpack.config.jsconst ExtractTextPlugin = require('extract-text-webpack-plugin');const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')module.exports = &#123; // ... module: &#123; rules: [ &#123; test: /\.css$/, use: ExtractTextPlugin.extract(&#123; fallback: 'style-loader', use: 'css-loader' &#125;) &#125; ] &#125;, // css 压缩 plugins: [new ExtractTextPlugin('style.css')]; optimization: &#123; minimizer: [new OptimizeCssAssetsPlugin(&#123; // 生效范围，只压缩匹配到的资源 assetNameRegExp: /\.optimize\.css$/g, // 压缩处理器指定，默认为 cssnano cssProcessor: require('cssnano'), // 压缩处理器配置 cssProcessorOptions: &#123; discardComments: &#123; removeAll: true &#125; &#125;, // 是否打印log canPrint: true &#125;)] &#125;&#125; 小结本篇介绍了关于生产环境配置中比较重量级的两种配置：source-map和资源压缩。 开发环境中我们关注打包速度，而在生产环境中我们关心的则是线上错误处理、输出资源的体积以及资源渲染等问题，而比较好的利用source-map和资源压缩都可以帮助我们处理处理或优化生产环境中的一些问题，因此比较重要，但同时也要注意解决所存在的安全隐患问题。 下一篇则从缓存和bundle体积监控入手继续描述生产环境配置的其他方面优化问题。]]></content>
       <categories>
         <category>前端笔记</category>
       </categories>
@@ -268,8 +279,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -282,8 +293,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -296,8 +307,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -310,8 +321,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -600,8 +611,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>小王子</tag>
+        <tag>读书笔记</tag>
         <tag>读后感</tag>
       </tags>
   </entry>
