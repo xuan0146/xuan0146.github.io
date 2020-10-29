@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[webpack实战——JS打包工具]]></title>
+    <url>%2F2020%2F10%2F28%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94JS%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%2F</url>
+    <content type="text"><![CDATA[前言前面篇章叙述了关于webpack的许多内容，从入门，打包第一个模块，到进阶，最后到本地、生产及打包的优化。本篇则提及一下在JavaScript社区中另外的一些类似的打包工具，它们有的更加轻量、简洁，有的则更专注于某类特定场景等。通过了解这些，希望会有助于我们开发时从更多的角度和方向来认识打包工具及其发展，进而选用更加适合我们项目的打包工具。 1. Rollup Rollup专注于JavaScript的打包。 它当然也支持其他类型的模块，但是总体而言在通用性是不及webpack，但讨论专注性，Rollup则更像一把手术刀，能精准的瞄准于JavaScript。如果有项目需求仅仅是打包JavaScript，那么Rollup则更可能是我们的第一选择。 1.1 配置简单示例下Rollup是如何工作的。 首先全局安装Rollup 1npm install rollup -g 然后创建Rollup配置文件rollup.config.js以及需要打包的项目文件app.js： 12345678// rollup.config.jsmodule exports = &#123; input: 'src/app.js', output: &#123; file: 'dist/bundle.js', format: 'cjs' &#125;&#125; 12// src/app.jsconsole.log('This is a App with Rollup ~'); 接下来执行指令进行打包： 1rollup -c rollup.config.js 其中，-c参数是告诉Rollup使用该配置文件。 打包结果如下： 12'use strict';console.log('This is a App with Rollup ~'); 从上可以看出，打包出来的资源文件非常干净，Rollup没有添加额外代码，甚至连第一行的use strict都可以通过配置去掉。而如果我们使用webpack去打包处理，则会多出许多冗余产物，即使我们将上述的一行js进行打包，打包后资源文件也至少会有几十行代码存在。 显然，如果针对于JavaScript进行打包处理，Rollup更为符合我们的预期。 1.2 tree shaking上一篇也描述过关于tree shaking，用来检测和去除死代码。而实际上最初tree shaking这个特性是由Roolup实现的，然后被Webpack借鉴。 Rollup的tree shaking也是基于ES6 Modules的静态分析，找出没有被引用的模块，将其从最后生成的bundle中排除。 例： 123// app.jsimport &#123; add &#125; from './util.js';console.log(`1 + 2 = $&#123;add(1, 2)&#125;`); 12345678// util.jsexport function add(a, b) &#123; return a + b;&#125;export function sub(a, b) &#123; return a - b;&#125; 可以看到，在这个简单工程中，sub方法没有被引用。 执行命令对其打包后，发现： 1234567'use strict';function add(a, b) &#123; return a + b;&#125;console.log(`1 + 2 = $&#123;add(1, 2)&#125;`); 从打包结果看，bundle也如我们所期望，输出的内容简洁，无任何附加代码，且sub函数也没有被打包进来。 1.3 可选的输出格式在webpack中，无法选择输出资源的模块形式，例如amd、esm、umd、system等，而在Rollup中可以通过配置output.format开发者选择输出资源的模块形式。 这个特性对于打包JavaScript库很有用，因为一个库往往需要支持多种不同的模块形式，而通过Rollup几个命令就可以将一份源代码打包为多份支持不同模式的资源文件。 例： 1234567'use strict';export function add(a, b) &#123; return a + b;&#125;export function sub(a, b) &#123; return a - b;&#125; 当output.format是cjs时（cjs:CommonJs），则输出是： 123456789Object.defineProperty(exports, '__esModule', &#123;value: true&#125;);function add(a, b) &#123; return a + b;&#125;function sub(a, b) &#123; return a - b;&#125;exports.add = add;exports.sub = sub; 当时esm时（ES6 Modules），输出则是： 1234567function add(a, b) &#123; return a + b;&#125;function sub(a, b) &#123; return a - b;&#125;export &#123; add, sub &#125; 1.4 使用Rollup构建JavaScript库在实际使用中，Rollup经常被用于打包一些库或框架（例如Vue、React等）。在React团队的一篇文章中曾提到使用Rollup的获益： 最低限度的附加代码 对ES6 Modules的良好支持 通过tree shaking去除开发环境代码 通过自定义插件来实现React的一些特殊的打包逻辑 Rollup在设计之初就是主要偏向于JavaScript库的构建，以至于它并没有像Webpack那样对于应用开发有很大的支持，所以我们使用Rollup之前要斟酌下是否偏向自己的项目需求。 2. ParcelParcel在前端打包工具中属于后起之秀：2017年8月才在npm上有版本记录。而其出名的则是打包速度：“Parcel官网中宣称自己是零配置的，在有缓存的情况下其打包速度比webpack快近8倍。”它的出现，则是正好契合了当时开发者对于Webpack打包速度慢和配置复杂的抱怨，从而吸引许多用户转用Parcel。 2.1 打包速度Parcel在打包速度的优化上主要做了3件事： 利用worker来并行执行任务 文件系统缓存 资源编译处理流程优化 这三点的前两点其实Webpack已经在做，在此不再详细分析。重点看第三点。 例如对于babel-loader的工作流程进行分析，大体为以下几步： 将ES6形式的字符串内容解析为AST（抽象语法树）； 对AST进行语法转换； 生成ES5代码，并作为字符串返回。 这是一个很正常的资源处理过程，但假设是多个loader一次对资源进行处理呢？ 对此，Parcel的处理流程很简单，它并没有loader的概念，而是自己的一套体系处理：它在不同的编译处理流程之间可以用AST作为输入和输出，不需要转换为字符串处理。对于单个的每一步来说，如果前面已经解析过AST，那么直接使用上一步解析和转换好的AST就可以，只需要在最后一步输出的时候再将AST转回字符串即可。如此说来，中间的流程处理由多次变为了一次，能够节省的时间可不是一星半点！ 2.2 零配置请看例子： 123456&lt;!-- index.html --&gt;&lt;html&gt;&lt;body&gt; &lt;script src="./bundle.js"&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt; 12// index.jsdocument.write('Hello Parcel!'); 先全局安装parcel： 1npm install parcel -g 然后执行打包命令： 123parcel index.html// 如果要打包为文件，则执行如下：parcel build index.html 如果不加build，则是开发模式，使用浏览器则可以观察：localhost:1234。 如果打包为文件，则会创建一个dist文件目录，资源会添加到该目录下。 其实对于一个正常的前端项目来说，一般都会有一些配置的，不然也就失去了定制性。虽然parcel并没有配置文件，但是本质上它还是把配置进行了切分，交给babel、postHTML、postCSS等一些特定的工具进行了管理。 与Webpack相比，Parcel优势在于快速和灵巧，如果针对于不需要深度定制并且要求短时间搭建，那么Parcel则也可以作为一个比较好的选择来作为备选。 小结本篇介绍了JavaScript社区中两个除了webpack之外比较主流的两个打包工具：Rollup和Parcel。 Rollup更专注于JavaScript的打包，本身附加的代码更少，具备tree shaking，可以输出多种形式的模块。 Parcel则在资源处理流程方面做了改进优化，以追求更快的打包速度。同时零配置的特性可以减少很多项目开发中花费在环境维护上的成本。 在进行技术选型的时候，我们不仅要结合目前工具特性，更是要选择出针对我们项目进行特定考察，以及对项目之后的扩展也要考虑在内，从而结合多方面选择对项目最有利的工具来使用。同时我们也要看此工具在社区中的生态，是否能保持良好的社区生态以及维护状况，亦是我们需要考虑在内的因素之一。 webpack实战系列内容到此结束~]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[webpack实战——打包优化【下】]]></title>
     <url>%2F2020%2F10%2F27%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96%E3%80%90%E4%B8%8B%E3%80%91%2F</url>
     <content type="text"><![CDATA[前言这是webpack打包优化【下】篇。前几篇针对性能要求高的项目从加快打包速度、减小资源体积方面入手，提出了一些优化政策，然后测试都可起到一定优化效果。本篇描述死代码的检测与去除。 tree shaking1 死代码检测去除首先抛出问题，什么是死代码？ 工程中没有被引用过的模块，这部分代码将永远无法被执行，称为“死代码”。 那知道了什么是死代码，如何检测去除呢？ 在前面我们介绍过，ES6 module 依赖关系的构建是在代码编译时而非运行时。基于这项特性webpack提供了tree shaking功能。这个功能便可以在打包过程中帮助我们检测没有被引用的模块，然后对这部分代码进行标记，并在资源压缩时将它们从最终的bundle中去掉。 例： 123// index.jsimport &#123; foo &#125; from './util';foo(); 1234567// util.jsexport function foo() &#123; console.log('this is foo');&#125;export function bar() &#123; // 没有被任何其他模块引用，因此属于死代码 console.log('this is bar');&#125; 那么在webpack打包时就会对bar()添加一个标记，在正常本地开发环境下它依然会存在，但是在生产环境压缩资源那一环节则会被移除掉。 tree shaking有时可以使得bundle资源体积显著减小，但需要一些前提条件。 2 ES6 Moduletree shaking 只对ES6 Module生效。 有时候我们发现算只引用了某个库中的一个接口，却把整个库都加载了进来，使得bundle体积并没有什么变化，可能原因是该库是用CommonJS导出的，而不是ES6 Module。当然，为了更好地向下兼容，自然是使用CommonJS形式是库依然很多。而排开第三方库，在我们自己书写模块或者库时，可以尽可能的选择ES6 Module形式导出，这样tree shaking的效率会更高。 3 使用webpack进行依赖关系构建一般我们都会在工程中使用到babel-loader，如果我们有使用到，那么一定要通过禁止它的模块依赖解析。原因是如果我们使用babel-loader来做依赖解析，那么webpack接收到的一般都是转化过的CommonJS形式的模块，那就无法对其进行tree shaking。 禁用babel-loader模块依赖解析配置如下： 1234567891011121314151617181920212223// webpack.config.jsmodule.exports = &#123; ... module: &#123; ryles: [ &#123; test: /\.js$/, exclude: /node_modules/, use: [ &#123; loader: 'babel-loader', options: &#123; presets: [ // 在这里加上modules: false [@babel/preset-env, &#123; modules: false &#125;] ] &#125; &#125; ] &#125; ] &#125;&#125; 4. 使用压缩工具去除死代码tree shaking本身只是为死代码添加上标记，而真正意义上去除死代码则是通过压缩工具来进行的，而此工具之前介绍过：terser-webpack-plugin。在此不再赘述。 小结通过【上】【中】【下】三篇描述，介绍的一些打包优化的方案均可以对项目有不同程度的优化，无论是打包速度还是减小资源体积，都有涉及。然而我们更需要清楚地了解到每一种优化策略都有其使用场景，并不是任何一个点放在一切项目中都有效。 当然，我们更需要不断培养自己的能力，当发现性能问题时，根据现有情况自己多加思考，分析出原因，然后对症下药。 下一篇介绍更多的JavaScript打包工具。]]></content>
@@ -312,8 +323,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -326,8 +337,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -340,8 +351,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -354,8 +365,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>微信</tag>
         <tag>js</tag>
+        <tag>微信</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -835,8 +846,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>es6</tag>
         <tag>Promise</tag>
+        <tag>es6</tag>
         <tag>定时器</tag>
       </tags>
   </entry>

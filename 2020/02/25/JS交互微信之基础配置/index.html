@@ -98,7 +98,7 @@
 
 
 
-  <meta name="keywords" content="vue,微信,js,jssdk,">
+  <meta name="keywords" content="vue,js,微信,jssdk,">
 
 
 
@@ -110,7 +110,7 @@
 
 
 <meta name="description" content="前言最近公司需求，需要在APP中分享出去的web页面中加入商品购买功能，目前需要使用微信支付。由于微信支付基础为0，因此不得不扒文档抄作业，加上度娘的支持，得以完成了一些功能，因此开一小模块记录下关于此项目中前端用到的东西。不过不得不说，复杂的东西都在后端执行，需要前端完成的真的是少之又少，都是一些基础配置以及调取微信文档中写的接口而已，不要想得过于复杂。">
-<meta name="keywords" content="vue,微信,js,jssdk">
+<meta name="keywords" content="vue,js,微信,jssdk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS交互微信之基础配置">
 <meta property="og:url" content="https://www.zhuxingmin.com/2020/02/25/JS交互微信之基础配置/index.html">
@@ -478,7 +478,7 @@
 <h2 id="一、-基础配置-JSSDK"><a href="#一、-基础配置-JSSDK" class="headerlink" title="一、 基础配置(JSSDK)"></a>一、 基础配置(JSSDK)</h2><p><strong><em>本块儿内容基本上是微信开放文档中配置，可忽略</em></strong></p>
 <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>微信JS-SDK是微信公众平台面向网页开发者提供的基于微信内的网页开发工具包。<br>通过使用微信JS-SDK，网页开发者可借助微信高效地使用拍照、选图、语音、位置等手机系统的能力，同时可以直接使用微信分享、扫一扫、卡券、支付等微信特有的能力，为微信用户提供更优质的网页体验。</p>
 <h3 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h3><h4 id="1-绑定域名"><a href="#1-绑定域名" class="headerlink" title="1. 绑定域名"></a>1. 绑定域名</h4><p>先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。<br><em>备注：登录后可在“开发者中心”查看对应的接口权限</em></p>
-<h4 id="2-引入JS"><a href="#2-引入JS" class="headerlink" title="2. 引入JS"></a>2. 引入JS</h4><p>在需要调用JS接口的页面引入如下JS文件，（支持https）：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://res.wx.qq.com/open/js/jweixin-1.6.0.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="2-引入JS"><a href="#2-引入JS" class="headerlink" title="2. 引入JS"></a>2. 引入JS</h4><p>在需要调用JS接口的页面引入如下JS文件，（支持https）：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://res.wx.qq.com/open/js/jweixin-1.6.0.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
 <p><em>备注：支持使用 AMD/CMD 标准模块加载方法加载</em></p>
 <h4 id="3-通过config接口注入权限验证配置"><a href="#3-通过config接口注入权限验证配置" class="headerlink" title="3. 通过config接口注入权限验证配置"></a>3. 通过config接口注入权限验证配置</h4><p>所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用（<strong><em>同一个url仅需调用一次，对于变化url的SPA的web app可在每次url变化时进行调用,目前Android微信客户端不支持pushState的H5新特性，所以使用pushState来实现web app的页面会导致签名失败，此问题会在Android6.2中修复</em></strong>）。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wx.config(&#123;</span><br><span class="line">  debug: <span class="literal">false</span>, <span class="comment">// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span></span><br><span class="line">  appId: <span class="string">''</span>, <span class="comment">// 必填，公众号的唯一标识</span></span><br><span class="line">  timestamp: , <span class="comment">// 必填，生成签名的时间戳</span></span><br><span class="line">  nonceStr: <span class="string">''</span>, <span class="comment">// 必填，生成签名的随机串</span></span><br><span class="line">  signature: <span class="string">''</span>,<span class="comment">// 必填，签名</span></span><br><span class="line">  jsApiList: [] <span class="comment">// 必填，需要使用的JS接口列表</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <h4 id="4-接口验证"><a href="#4-接口验证" class="headerlink" title="4. 接口验证"></a>4. 接口验证</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 成功</span></span><br><span class="line">wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">// config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 失败</span></span><br><span class="line">wx.error(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
@@ -748,9 +748,9 @@
           
             <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
           
-            <a href="/tags/微信/" rel="tag"><i class="fa fa-tag"></i> 微信</a>
-          
             <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/微信/" rel="tag"><i class="fa fa-tag"></i> 微信</a>
           
             <a href="/tags/jssdk/" rel="tag"><i class="fa fa-tag"></i> jssdk</a>
           
@@ -862,7 +862,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -991,7 +991,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共99.4k字</span>
+  <span class="post-count">博客全站共101.4k字</span>
 </div>
 
         
