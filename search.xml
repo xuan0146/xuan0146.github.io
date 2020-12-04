@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[vue首页白屏清除缓存解决方案]]></title>
+    <url>%2F2020%2F12%2F03%2Fvue%E9%A6%96%E9%A1%B5%E7%99%BD%E5%B1%8F%E6%B8%85%E9%99%A4%E7%BC%93%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[发现问题近期vue项目在构建完成上线之后，每次往线上更新版本，总会收到一部分反馈——web页面白屏，需要清除缓存数据重新加载才能正常访问。 问题分析首先排除掉了publicPath设置问题，因为大部分用户能正常访问到页面，无报错。其次排除首页加载过慢问题，因为白屏无论多久都不会渲染页面。最终定位到缓存问题，产生原因如下： 在首次上线项目时，build生成的资源文件直接放到服务端上线即可。但是当第n（n&gt;1）次上线后，由于在用户端会默认缓存index.html入口文件，而由于vue打包生成的css/js都是哈希值，跟上次的文件名都不同，因此会出现找不到css/js的情况，导致白屏的产生。 优化方案1. meta标签1234&lt;meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /&gt;&lt;meta http-equiv="Pragma" content="no-cache" /&gt;&lt;meta http-equiv="Expires" content="0" /&gt;&lt;meta http-equiv="Cache" content="no-cache"&gt; 2. 时间戳区分在项目的配置页面添加打包配置，根据vue脚手架不同分以下两种情况： vue-cli@2.x 123456789// webpack.prod.conf.jsconst Timestamp = new Date().getTime();...output: &#123; path: config.build.assetsRoot, filename: utils.assetsPath('js/[name].[chunkhash].' + Timestamp + 'js'), chunkFilename: utils.assetsPath('js/[id].[chunkhash].' + Timestamp + 'js')&#125; vue-cli@3.x 12345678910111213141516171819// vue.config.jsconst Timestamp = new Date().getTime();...module.exports = &#123; configureWebpack: config =&gt; &#123; config.output.filename = `js/[name].$&#123;Timestamp&#125;.js?t=[hash]`; config.output.chunkFilename = `js/[id].$&#123;Timestamp&#125;.js?t=[hash]`; &#125;, chainWebpack: config =&gt; &#123; if (process.env.NODE_ENV === 'production') &#123; // 为生产环境修改配置... config.plugin('extract-css').tap(args =&gt; [&#123; filename: `css/[name].$&#123;Timestamp&#125;.css`, chunkFilename: `css/[name].$&#123;Timestamp&#125;.css` &#125;]) &#125; &#125;,&#125; 3. 服务端配置(nginx)这个有非常重要，需要跟服务端同事沟通，请他们在服务端配合配置nginx服务。服务端配置主要解决： 设置index.html在用户端不缓存，这样每次拉取的都是线上最新资源； 设置css和js文件一定的缓存期，合理利用缓存。 这样配置的好处是，如果线上资源没有更新，我们合理的利用缓存对大体积资源（样式脚本等）缓存，如果更新了资源，那么index.html文件则实时更新，用户端所得到的html文件也是最新资源，样式及脚本资源都会重新获取服务器最新资源缓存到本地。 12345678910111213141516171819202122232425262728293031323334353637383940server &#123; listen 90; server_name 22782.s1.natapp.cc; location / &#123; root /apps/laikePay/; try_files $uri $uri/ /index.html; &#125; location ^~ /beauty/&#123; alias /apps/laikeBeauty/; #以下配置解决html不缓存，css和js分别缓存7天和30天 if ($request_filename ~* .*\.(?:htm|html)$) &#123; add_header Cache-Control "private, no-store, no-cache"; &#125; if ($request_filename ~* .*\.(?:js|css)$) &#123; add_header Cache-Control max-age=604800; &#125; if ($request_filename ~* .*\.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm)$) &#123; add_header Cache-Control max-age=2592000; &#125; try_files $uri $uri/ /beauty/index.html; &#125; location ^~ /beautyThemeChange/&#123; alias /apps/laikeBeautyThemeChange/; try_files $uri $uri/ /beautyThemeChange/index.html; &#125; location ^~ /retail/&#123; # alias /apps/laikeRetail/; # try_files $uri $uri/ /retail/index.html; proxy_pass http://22782.s1.natapp.cc/beauty/; &#125; #location ^~ /merchantPhoneApp/ &#123; #alias /apps/merchantPhoneApp/; #try_files $uri $uri/ /merchantPhoneApp/index.html; #&#125;&#125;]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[webpack实战——JS打包工具]]></title>
     <url>%2F2020%2F10%2F28%2Fwebpack%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94JS%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%2F</url>
     <content type="text"><![CDATA[前言前面篇章叙述了关于webpack的许多内容，从入门，打包第一个模块，到进阶，最后到本地、生产及打包的优化。本篇则提及一下在JavaScript社区中另外的一些类似的打包工具，它们有的更加轻量、简洁，有的则更专注于某类特定场景等。通过了解这些，希望会有助于我们开发时从更多的角度和方向来认识打包工具及其发展，进而选用更加适合我们项目的打包工具。 1. Rollup Rollup专注于JavaScript的打包。 它当然也支持其他类型的模块，但是总体而言在通用性是不及webpack，但讨论专注性，Rollup则更像一把手术刀，能精准的瞄准于JavaScript。如果有项目需求仅仅是打包JavaScript，那么Rollup则更可能是我们的第一选择。 1.1 配置简单示例下Rollup是如何工作的。 首先全局安装Rollup 1npm install rollup -g 然后创建Rollup配置文件rollup.config.js以及需要打包的项目文件app.js： 12345678// rollup.config.jsmodule exports = &#123; input: 'src/app.js', output: &#123; file: 'dist/bundle.js', format: 'cjs' &#125;&#125; 12// src/app.jsconsole.log('This is a App with Rollup ~'); 接下来执行指令进行打包： 1rollup -c rollup.config.js 其中，-c参数是告诉Rollup使用该配置文件。 打包结果如下： 12'use strict';console.log('This is a App with Rollup ~'); 从上可以看出，打包出来的资源文件非常干净，Rollup没有添加额外代码，甚至连第一行的use strict都可以通过配置去掉。而如果我们使用webpack去打包处理，则会多出许多冗余产物，即使我们将上述的一行js进行打包，打包后资源文件也至少会有几十行代码存在。 显然，如果针对于JavaScript进行打包处理，Rollup更为符合我们的预期。 1.2 tree shaking上一篇也描述过关于tree shaking，用来检测和去除死代码。而实际上最初tree shaking这个特性是由Roolup实现的，然后被Webpack借鉴。 Rollup的tree shaking也是基于ES6 Modules的静态分析，找出没有被引用的模块，将其从最后生成的bundle中排除。 例： 123// app.jsimport &#123; add &#125; from './util.js';console.log(`1 + 2 = $&#123;add(1, 2)&#125;`); 12345678// util.jsexport function add(a, b) &#123; return a + b;&#125;export function sub(a, b) &#123; return a - b;&#125; 可以看到，在这个简单工程中，sub方法没有被引用。 执行命令对其打包后，发现： 1234567'use strict';function add(a, b) &#123; return a + b;&#125;console.log(`1 + 2 = $&#123;add(1, 2)&#125;`); 从打包结果看，bundle也如我们所期望，输出的内容简洁，无任何附加代码，且sub函数也没有被打包进来。 1.3 可选的输出格式在webpack中，无法选择输出资源的模块形式，例如amd、esm、umd、system等，而在Rollup中可以通过配置output.format开发者选择输出资源的模块形式。 这个特性对于打包JavaScript库很有用，因为一个库往往需要支持多种不同的模块形式，而通过Rollup几个命令就可以将一份源代码打包为多份支持不同模式的资源文件。 例： 1234567'use strict';export function add(a, b) &#123; return a + b;&#125;export function sub(a, b) &#123; return a - b;&#125; 当output.format是cjs时（cjs:CommonJs），则输出是： 123456789Object.defineProperty(exports, '__esModule', &#123;value: true&#125;);function add(a, b) &#123; return a + b;&#125;function sub(a, b) &#123; return a - b;&#125;exports.add = add;exports.sub = sub; 当时esm时（ES6 Modules），输出则是： 1234567function add(a, b) &#123; return a + b;&#125;function sub(a, b) &#123; return a - b;&#125;export &#123; add, sub &#125; 1.4 使用Rollup构建JavaScript库在实际使用中，Rollup经常被用于打包一些库或框架（例如Vue、React等）。在React团队的一篇文章中曾提到使用Rollup的获益： 最低限度的附加代码 对ES6 Modules的良好支持 通过tree shaking去除开发环境代码 通过自定义插件来实现React的一些特殊的打包逻辑 Rollup在设计之初就是主要偏向于JavaScript库的构建，以至于它并没有像Webpack那样对于应用开发有很大的支持，所以我们使用Rollup之前要斟酌下是否偏向自己的项目需求。 2. ParcelParcel在前端打包工具中属于后起之秀：2017年8月才在npm上有版本记录。而其出名的则是打包速度：“Parcel官网中宣称自己是零配置的，在有缓存的情况下其打包速度比webpack快近8倍。”它的出现，则是正好契合了当时开发者对于Webpack打包速度慢和配置复杂的抱怨，从而吸引许多用户转用Parcel。 2.1 打包速度Parcel在打包速度的优化上主要做了3件事： 利用worker来并行执行任务 文件系统缓存 资源编译处理流程优化 这三点的前两点其实Webpack已经在做，在此不再详细分析。重点看第三点。 例如对于babel-loader的工作流程进行分析，大体为以下几步： 将ES6形式的字符串内容解析为AST（抽象语法树）； 对AST进行语法转换； 生成ES5代码，并作为字符串返回。 这是一个很正常的资源处理过程，但假设是多个loader一次对资源进行处理呢？ 对此，Parcel的处理流程很简单，它并没有loader的概念，而是自己的一套体系处理：它在不同的编译处理流程之间可以用AST作为输入和输出，不需要转换为字符串处理。对于单个的每一步来说，如果前面已经解析过AST，那么直接使用上一步解析和转换好的AST就可以，只需要在最后一步输出的时候再将AST转回字符串即可。如此说来，中间的流程处理由多次变为了一次，能够节省的时间可不是一星半点！ 2.2 零配置请看例子： 123456&lt;!-- index.html --&gt;&lt;html&gt;&lt;body&gt; &lt;script src="./bundle.js"&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt; 12// index.jsdocument.write('Hello Parcel!'); 先全局安装parcel： 1npm install parcel -g 然后执行打包命令： 123parcel index.html// 如果要打包为文件，则执行如下：parcel build index.html 如果不加build，则是开发模式，使用浏览器则可以观察：localhost:1234。 如果打包为文件，则会创建一个dist文件目录，资源会添加到该目录下。 其实对于一个正常的前端项目来说，一般都会有一些配置的，不然也就失去了定制性。虽然parcel并没有配置文件，但是本质上它还是把配置进行了切分，交给babel、postHTML、postCSS等一些特定的工具进行了管理。 与Webpack相比，Parcel优势在于快速和灵巧，如果针对于不需要深度定制并且要求短时间搭建，那么Parcel则也可以作为一个比较好的选择来作为备选。 小结本篇介绍了JavaScript社区中两个除了webpack之外比较主流的两个打包工具：Rollup和Parcel。 Rollup更专注于JavaScript的打包，本身附加的代码更少，具备tree shaking，可以输出多种形式的模块。 Parcel则在资源处理流程方面做了改进优化，以追求更快的打包速度。同时零配置的特性可以减少很多项目开发中花费在环境维护上的成本。 在进行技术选型的时候，我们不仅要结合目前工具特性，更是要选择出针对我们项目进行特定考察，以及对项目之后的扩展也要考虑在内，从而结合多方面选择对项目最有利的工具来使用。同时我们也要看此工具在社区中的生态，是否能保持良好的社区生态以及维护状况，亦是我们需要考虑在内的因素之一。 webpack实战系列内容到此结束~]]></content>
@@ -655,8 +666,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>小王子</tag>
         <tag>读书笔记</tag>
+        <tag>小王子</tag>
         <tag>读后感</tag>
       </tags>
   </entry>
@@ -681,8 +692,8 @@
       </categories>
       <tags>
         <tag>随笔</tag>
-        <tag>电影</tag>
         <tag>读书笔记</tag>
+        <tag>电影</tag>
       </tags>
   </entry>
   <entry>
@@ -846,8 +857,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>Promise</tag>
         <tag>es6</tag>
+        <tag>Promise</tag>
         <tag>定时器</tag>
       </tags>
   </entry>
@@ -962,8 +973,8 @@
       </categories>
       <tags>
         <tag>随笔</tag>
-        <tag>电影</tag>
         <tag>读书笔记</tag>
+        <tag>电影</tag>
       </tags>
   </entry>
   <entry>
