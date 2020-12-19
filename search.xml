@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[JS来一个极简的每日毒鸡汤]]></title>
+    <url>%2F2020%2F12%2F14%2FJS%E6%9D%A5%E4%B8%80%E4%B8%AA%E6%9E%81%E7%AE%80%E7%9A%84%E6%AF%8F%E6%97%A5%E6%AF%92%E9%B8%A1%E6%B1%A4%2F</url>
+    <content type="text"><![CDATA[前言最近发现了基于node的一个发送邮件的小插件，逛论坛看别人用它做了一些有意思的东西，也模仿着搞一个分享下~重在分享，重在分享！ 期望1. 目标使用基于nodeJs的nodemailer定时发送随机文案给指定人。 2. 场景 定时发送情话给对象 每日发送给自己朋友圈文案内容 … 实现1. 所需技术 基础js即可 2. 所需环境/插件 nodeJs (环境) nodemailer(发送邮件插件) axios(获取邮件内容，如朋友圈文案、毒鸡汤等) schedule(定时任务插件) 3. 其他除上述内容，我们需要有邮件相关信息:自己邮箱和对方邮箱、邮箱服务器地址及端口号、自己邮箱的授权码等。下面会有比较详细的介绍。 实现过程1. node环境安装首先安装及配置node环境，官网下载安装即可。node中文网 2. 插件安装自己按照需求安装即可： 12345678// nodemailer：必须npm i nodemailer// axios：获取随机鸡汤（毒鸡汤）作为邮件内容；非必须npm i axios// schedule：定时任务；非必须npm i schedule 3. 项目配置 新建个空目录作为项目目录 在终端（或者cmd模式）—— npm init 项目目录下新建index.js 4. index详细配置1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556const nodemailer = require('nodemailer');const &#123; default: Axios &#125; = require('axios');const schedule = require('node-schedule')// 获取文案const getMsg = () =&gt; &#123; // 提供几个文案获取接口,随便选即可。 // 毒鸡汤： https://du.shadiao.app/api.php // 朋友圈： https://pyq.shadiao.app/api.php // 彩虹屁： https://chp.shadiao.app/api.php // 骂人宝典： https://nmsl.shadiao.app/api.php let url = 'https://du.shadiao.app/api.php'; return Axios.get(url);&#125;// 发送邮件函数const sendEmail = async msg =&gt; &#123; let myEmail = "xxxxxx@163.com"; // 用户(自己)邮箱 let passCode = "xxxxxx"; // 用户(自己)邮箱授权码 let mailTo = "xxxxxx@xxx.xxx"; // 对方邮箱 // 用户账号信息,以163邮箱为例 let transporter = nodemailer.createTransport(&#123; host: 'smtp.163.com', // 服务器地址 port: 25, // 协议端口号 auth: &#123; user: myEmail, // 用户邮箱 pass: passCode // 授权码 &#125; &#125;); // 发送内容编辑 let mailMsg = await transporter.sendMail(&#123; from: myEmail, // 发件人(自己) to: mailTo, // 收件人 subject: 'mailer测试：毒鸡汤文案', // 标题 text: msg &#125;) // 成功后打印下~ console.log(`发送成功，发送内容为：$&#123;msg&#125;`);&#125;// 定时发送 每天中午12:30（自己随便改） 发送自己“喜欢”的内容给指定人schedule.scheduleJob(&#123; hour: 12, minute: 30&#125;, () =&gt; &#123; console.log(`启动任务：$&#123;new Date()&#125;`); getMsg().then(res =&gt; &#123; sendEmail(res.data); // 发送邮件 &#125;)&#125;)// 测试// console.log(`启动任务：$&#123;new Date()&#125;`);// getMsg().then(res =&gt; &#123;// sendEmail(res.data); // 发送邮件// &#125;) 小结通过上述代码，完成简易的每日毒鸡汤发送给相应邮箱。但我们可以看出，这只是基于node的一些个小插件的使用而已。虽然简单，但是发挥一下，在合适的时间用在合适的地方还是会有一些效果出现的~ 喜欢的可以关注公众号【流眸】回复【201219】获取该项目代码~]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>axios</tag>
+        <tag>node</tag>
+        <tag>nodemailer</tag>
+        <tag>schedule</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vue首页白屏清除缓存解决方案]]></title>
     <url>%2F2020%2F12%2F03%2Fvue%E9%A6%96%E9%A1%B5%E7%99%BD%E5%B1%8F%E6%B8%85%E9%99%A4%E7%BC%93%E5%AD%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
     <content type="text"><![CDATA[发现问题近期vue项目在构建完成上线之后，每次往线上更新版本，总会收到一部分反馈——web页面白屏，需要清除缓存数据重新加载才能正常访问。 问题分析首先排除掉了publicPath设置问题，因为大部分用户能正常访问到页面，无报错。其次排除首页加载过慢问题，因为白屏无论多久都不会渲染页面。最终定位到缓存问题，产生原因如下： 在首次上线项目时，build生成的资源文件直接放到服务端上线即可。但是当第n（n&gt;1）次上线后，由于在用户端会默认缓存index.html入口文件，而由于vue打包生成的css/js都是哈希值，跟上次的文件名都不同，因此会出现找不到css/js的情况，导致白屏的产生。 优化方案1. meta标签1234&lt;meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /&gt;&lt;meta http-equiv="Pragma" content="no-cache" /&gt;&lt;meta http-equiv="Expires" content="0" /&gt;&lt;meta http-equiv="Cache" content="no-cache"&gt; 2. 时间戳区分在项目的配置页面添加打包配置，根据vue脚手架不同分以下两种情况： vue-cli@2.x 123456789// webpack.prod.conf.jsconst Timestamp = new Date().getTime();...output: &#123; path: config.build.assetsRoot, filename: utils.assetsPath('js/[name].[chunkhash].' + Timestamp + 'js'), chunkFilename: utils.assetsPath('js/[id].[chunkhash].' + Timestamp + 'js')&#125; vue-cli@3.x 12345678910111213141516171819// vue.config.jsconst Timestamp = new Date().getTime();...module.exports = &#123; configureWebpack: config =&gt; &#123; config.output.filename = `js/[name].$&#123;Timestamp&#125;.js?t=[hash]`; config.output.chunkFilename = `js/[id].$&#123;Timestamp&#125;.js?t=[hash]`; &#125;, chainWebpack: config =&gt; &#123; if (process.env.NODE_ENV === 'production') &#123; // 为生产环境修改配置... config.plugin('extract-css').tap(args =&gt; [&#123; filename: `css/[name].$&#123;Timestamp&#125;.css`, chunkFilename: `css/[name].$&#123;Timestamp&#125;.css` &#125;]) &#125; &#125;,&#125; 3. 服务端配置(nginx)这个有非常重要，需要跟服务端同事沟通，请他们在服务端配合配置nginx服务。服务端配置主要解决： 设置index.html在用户端不缓存，这样每次拉取的都是线上最新资源； 设置css和js文件一定的缓存期，合理利用缓存。 这样配置的好处是，如果线上资源没有更新，我们合理的利用缓存对大体积资源（样式脚本等）缓存，如果更新了资源，那么index.html文件则实时更新，用户端所得到的html文件也是最新资源，样式及脚本资源都会重新获取服务器最新资源缓存到本地。 12345678910111213141516171819202122232425262728293031323334353637383940server &#123; listen 90; server_name 22782.s1.natapp.cc; location / &#123; root /apps/laikePay/; try_files $uri $uri/ /index.html; &#125; location ^~ /beauty/&#123; alias /apps/laikeBeauty/; #以下配置解决html不缓存，css和js分别缓存7天和30天 if ($request_filename ~* .*\.(?:htm|html)$) &#123; add_header Cache-Control "private, no-store, no-cache"; &#125; if ($request_filename ~* .*\.(?:js|css)$) &#123; add_header Cache-Control max-age=604800; &#125; if ($request_filename ~* .*\.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm)$) &#123; add_header Cache-Control max-age=2592000; &#125; try_files $uri $uri/ /beauty/index.html; &#125; location ^~ /beautyThemeChange/&#123; alias /apps/laikeBeautyThemeChange/; try_files $uri $uri/ /beautyThemeChange/index.html; &#125; location ^~ /retail/&#123; # alias /apps/laikeRetail/; # try_files $uri $uri/ /retail/index.html; proxy_pass http://22782.s1.natapp.cc/beauty/; &#125; #location ^~ /merchantPhoneApp/ &#123; #alias /apps/merchantPhoneApp/; #try_files $uri $uri/ /merchantPhoneApp/index.html; #&#125;&#125;]]></content>
@@ -334,8 +348,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -348,8 +362,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -362,8 +376,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -376,8 +390,8 @@
       </categories>
       <tags>
         <tag>vue</tag>
-        <tag>js</tag>
         <tag>微信</tag>
+        <tag>js</tag>
         <tag>jssdk</tag>
       </tags>
   </entry>
@@ -666,8 +680,8 @@
         <category>读书笔记</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>小王子</tag>
+        <tag>读书笔记</tag>
         <tag>读后感</tag>
       </tags>
   </entry>
@@ -692,8 +706,8 @@
       </categories>
       <tags>
         <tag>随笔</tag>
-        <tag>读书笔记</tag>
         <tag>电影</tag>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -973,8 +987,8 @@
       </categories>
       <tags>
         <tag>随笔</tag>
-        <tag>读书笔记</tag>
         <tag>电影</tag>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
