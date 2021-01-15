@@ -314,6 +314,509 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2021/01/12/css书写规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lomo 朱幸民">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/headImg.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lomo | 朱幸民">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/01/12/css书写规范/" itemprop="url">css书写规范</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-12T16:22:37+08:00">
+                2021-01-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-01-15T11:37:11+08:00">
+                2021-01-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">前端笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/01/12/css书写规范/" class="leancloud_visitors" data-flag-title="css书写规范">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  852字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>在前端领域，<code>CSS</code>(层叠样式表:Cascading Style Sheets)是绕不过的话题。</p>
+<blockquote>
+<p>样式表定义如何显示 HTML 元素，就像 HTML 中的字体标签和颜色属性所起的作用那样。样式通常保存在外部的 <code>.css</code> 文件中。我们只需要编辑一个简单的 CSS 文档就可以改变所有页面的布局和外观。</p>
+</blockquote>
+<p>虽然CSS初学者易于上手，且趣味性十足，但是作为一项工程而言，还是需要有一定规范约束的。这里简单介绍下关于css的一些规范。</p>
+<h2 id="1-书写顺序"><a href="#1-书写顺序" class="headerlink" title="1. 书写顺序"></a>1. 书写顺序</h2><p>一般而言css都有一定的书写顺序，而不是想起来什么属性写说明属性。一般css的书写顺序为：</p>
+<ol>
+<li>位置（z-index position top display float …）</li>
+<li>大小边距（width padding margin …）</li>
+<li>文字（font line-height letter-spacing color …）</li>
+<li>背景（background border …）</li>
+<li>其他（animation transtion …）</li>
+</ol>
+<p>例如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 错误示例 */</span></span><br><span class="line"><span class="selector-class">.test</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">24px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#f6f6f6</span>;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">5px</span> <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">999</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 规范示例 */</span></span><br><span class="line"><span class="selector-class">.test</span> &#123;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">999</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">5px</span> <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">24px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#f6f6f6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-注意缩写"><a href="#2-注意缩写" class="headerlink" title="2. 注意缩写"></a>2. 注意缩写</h2><p>缩写，就是属性名及属性值，能缩写则缩写。例如属性名、属性值、颜色、去掉小数点前的0等：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 错误示例 */</span></span><br><span class="line"><span class="selector-class">.test</span>&#123;</span><br><span class="line">    <span class="attribute">padding-top</span>: <span class="number">0.9rem</span>;</span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">1.2rem</span>;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">0.8rem</span>;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">1.2rem</span>;</span><br><span class="line">    <span class="attribute">font-family</span>: serif;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.2</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#ff0000</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 规范示例 */</span></span><br><span class="line"><span class="selector-class">.test</span>&#123;</span><br><span class="line">    <span class="attribute">padding</span>: .<span class="number">9rem</span> <span class="number">1.2rem</span> .<span class="number">8rem</span>;</span><br><span class="line">    <span class="attribute">font</span>: <span class="number">100%</span>/<span class="number">1.2</span> serif;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f00</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-命名规范"><a href="#3-命名规范" class="headerlink" title="3. 命名规范"></a>3. 命名规范</h2><p>命名规范两个注意点：</p>
+<ol>
+<li>不要乱使用“<code>id</code>”<br> 这是因为id在js中具有唯一性，防止多次使用而对脚本编写带来影响。而class类则可重复使用。另外id与class权重不同，优先级不同，id得按需使用。</li>
+<li>长命名尽量使用中横线“<code>-</code>”来做短词分割，如<code>main-cont</code><br> 用短横线而不用下划线分割有两点：1. 对浏览器解析更加兼容；2. js变量一般使用下划线命名，为做出良好区分，所以使用短横线。</li>
+</ol>
+<h2 id="4-常见css命名规则表"><a href="#4-常见css命名规则表" class="headerlink" title="4 常见css命名规则表"></a>4 常见css命名规则表</h2><p><strong><em>一般可用id来命名</em></strong></p>
+<h3 id="4-1-页面结构"><a href="#4-1-页面结构" class="headerlink" title="4.1 页面结构"></a>4.1 页面结构</h3><table>
+<thead>
+<tr>
+<th>css名</th>
+<th>表示规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>main</td>
+<td>主体</td>
+</tr>
+<tr>
+<td>container</td>
+<td>容器</td>
+</tr>
+<tr>
+<td>header</td>
+<td>头</td>
+</tr>
+<tr>
+<td>content</td>
+<td>内容</td>
+</tr>
+<tr>
+<td>footer</td>
+<td>尾</td>
+</tr>
+<tr>
+<td>sidebar</td>
+<td>侧边栏</td>
+</tr>
+<tr>
+<td>nav</td>
+<td>导航</td>
+</tr>
+<tr>
+<td>column</td>
+<td>栏</td>
+</tr>
+<tr>
+<td>wrapper</td>
+<td>页面外围控制整体布局容器</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-2-导航"><a href="#4-2-导航" class="headerlink" title="4.2 导航"></a>4.2 导航</h3><table>
+<thead>
+<tr>
+<th>css名</th>
+<th>表示规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nav</td>
+<td>导航</td>
+</tr>
+<tr>
+<td>subnav</td>
+<td>子导航</td>
+</tr>
+<tr>
+<td>topnav</td>
+<td>顶部导航</td>
+</tr>
+<tr>
+<td>sidebar</td>
+<td>侧边导航</td>
+</tr>
+<tr>
+<td>menu</td>
+<td>菜单</td>
+</tr>
+<tr>
+<td>submenu</td>
+<td>子菜单</td>
+</tr>
+<tr>
+<td>title</td>
+<td>一般指栏目标题</td>
+</tr>
+<tr>
+<td>summary</td>
+<td>摘要</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-3-功能"><a href="#4-3-功能" class="headerlink" title="4.3 功能"></a>4.3 功能</h3><table>
+<thead>
+<tr>
+<th>css名</th>
+<th>表示规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>shop</td>
+<td>功能区</td>
+</tr>
+<tr>
+<td>loginbar</td>
+<td>登录条</td>
+</tr>
+<tr>
+<td>logo</td>
+<td>标志</td>
+</tr>
+<tr>
+<td>banner</td>
+<td>广告位</td>
+</tr>
+<tr>
+<td>hot</td>
+<td>热点</td>
+</tr>
+<tr>
+<td>news</td>
+<td>新闻</td>
+</tr>
+<tr>
+<td>like</td>
+<td>赞</td>
+</tr>
+<tr>
+<td>download</td>
+<td>下载</td>
+</tr>
+<tr>
+<td>search</td>
+<td>搜索</td>
+</tr>
+<tr>
+<td>menu</td>
+<td>菜单</td>
+</tr>
+<tr>
+<td>submenu</td>
+<td>子菜单</td>
+</tr>
+<tr>
+<td>friendlink</td>
+<td>友情链接</td>
+</tr>
+<tr>
+<td>scroll</td>
+<td>滚动</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>标签</td>
+</tr>
+<tr>
+<td>article</td>
+<td>文章</td>
+</tr>
+<tr>
+<td>list</td>
+<td>列表</td>
+</tr>
+<tr>
+<td>msg</td>
+<td>指需要传达的信息</td>
+</tr>
+<tr>
+<td>info</td>
+<td>承载信息的简讯</td>
+</tr>
+<tr>
+<td>copyright</td>
+<td>版权</td>
+</tr>
+<tr>
+<td>tips</td>
+<td>提示</td>
+</tr>
+<tr>
+<td>title</td>
+<td>标题</td>
+</tr>
+<tr>
+<td>joinus</td>
+<td>加入我们</td>
+</tr>
+<tr>
+<td>guide</td>
+<td>指南</td>
+</tr>
+<tr>
+<td>service</td>
+<td>服务</td>
+</tr>
+<tr>
+<td>register</td>
+<td>注册</td>
+</tr>
+<tr>
+<td>status</td>
+<td>状态</td>
+</tr>
+<tr>
+<td>vote</td>
+<td>投票</td>
+</tr>
+<tr>
+<td>partner</td>
+<td>合作</td>
+</tr>
+<tr>
+<td>btn</td>
+<td>按钮</td>
+</tr>
+<tr>
+<td>current</td>
+<td>当前</td>
+</tr>
+<tr>
+<td>icon</td>
+<td>图标</td>
+</tr>
+<tr>
+<td>note</td>
+<td>注释</td>
+</tr>
+</tbody>
+</table>
+<p><em>注意，用id选择器命名时，需要注意以下几点：</em></p>
+<ul>
+<li>使用英文</li>
+<li>小写</li>
+<li>不添加连接符，如<code>-</code>或<code>_</code></li>
+<li>除大众广知的（如：msg、btn）尽量不缩写</li>
+</ul>
+<h2 id="5-常见css文件命名表"><a href="#5-常见css文件命名表" class="headerlink" title="5. 常见css文件命名表"></a>5. 常见css文件命名表</h2><table>
+<thead>
+<tr>
+<th>css名</th>
+<th>表示规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base.css</td>
+<td>基础样式表</td>
+</tr>
+<tr>
+<td>common.css</td>
+<td>公用</td>
+</tr>
+<tr>
+<td>themes.css</td>
+<td>主题</td>
+</tr>
+<tr>
+<td>reset.css</td>
+<td>重设</td>
+</tr>
+<tr>
+<td>font.css</td>
+<td>文字</td>
+</tr>
+<tr>
+<td>layout.css</td>
+<td>版面</td>
+</tr>
+<tr>
+<td>module.css</td>
+<td>模块</td>
+</tr>
+<tr>
+<td>column.css</td>
+<td>专栏</td>
+</tr>
+<tr>
+<td>…</td>
+<td>等等</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	<div>
+	  
+	</div>
+	<div>
+		  
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+	
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2020/12/14/JS来一个极简的每日毒鸡汤/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -361,8 +864,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-12-19T16:28:52+08:00">
-                2020-12-19
+              <time title="更新于" itemprop="dateModified" datetime="2020-12-21T08:41:32+08:00">
+                2020-12-21
               </time>
             
           </span>
@@ -2204,226 +2707,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zhuxingmin.com/2020/08/27/webpack实战——代码分片/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lomo 朱幸民">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/headImg.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lomo | 朱幸民">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/08/27/webpack实战——代码分片/" itemprop="url">webpack实战——代码分片</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-27T15:51:39+08:00">
-                2020-08-27
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-08-27T21:09:59+08:00">
-                2020-08-27
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">前端笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2020/08/27/webpack实战——代码分片/" class="leancloud_visitors" data-flag-title="webpack实战——代码分片">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是<code>webpack实战</code>系列笔记的第9篇记录——<code>代码分片</code>，前几篇记录如下：</p>
-<ul>
-<li>打包第一个应用</li>
-<li>模块化与模块打包</li>
-<li>资源输入与输出</li>
-<li>一切皆模块</li>
-<li>预处理器【上篇】</li>
-<li>预处理器——常用loader【下篇】</li>
-<li>样式文件分离</li>
-<li>样式预处理</li>
-</ul>
-<h2 id="代码分片"><a href="#代码分片" class="headerlink" title="代码分片"></a>代码分片</h2><blockquote>
-<p>实现高性能应用其中重要的一点就是尽可能的让用户每次只加载必要的资源，优先级不太高的资源则采用延迟加载（懒加载）等技术渐进式的获取，这样可以保证首屏页面加载的速度。<br>代码分片是Webpack作为打包工具所特有的一项技术，通过这项技术我们可以把代码按照特定的形式进行拆分，使用户按需加载。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/08/27/webpack实战——代码分片/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	<div>
-	  
-	</div>
-	<div>
-		  
-	</div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-	
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2478,7 +2761,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2500,7 +2783,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2573,7 +2856,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -2591,7 +2874,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共103k字</span>
+  <span class="post-count">博客全站共103.8k字</span>
 </div>
 
         

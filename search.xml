@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[css书写规范]]></title>
+    <url>%2F2021%2F01%2F12%2Fcss%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83%2F</url>
+    <content type="text"><![CDATA[序在前端领域，CSS(层叠样式表:Cascading Style Sheets)是绕不过的话题。 样式表定义如何显示 HTML 元素，就像 HTML 中的字体标签和颜色属性所起的作用那样。样式通常保存在外部的 .css 文件中。我们只需要编辑一个简单的 CSS 文档就可以改变所有页面的布局和外观。 虽然CSS初学者易于上手，且趣味性十足，但是作为一项工程而言，还是需要有一定规范约束的。这里简单介绍下关于css的一些规范。 1. 书写顺序一般而言css都有一定的书写顺序，而不是想起来什么属性写说明属性。一般css的书写顺序为： 位置（z-index position top display float …） 大小边距（width padding margin …） 文字（font line-height letter-spacing color …） 背景（background border …） 其他（animation transtion …） 例如：12345678910111213141516171819/* 错误示例 */.test &#123; font-size: 24px; background: #f6f6f6; color: red; padding: 10px 5px 12px; display: flex; z-index: 999;&#125;/* 规范示例 */.test &#123; z-index: 999; display: flex; padding: 10px 5px 12px; color: red; font-size: 24px; background: #f6f6f6;&#125; 2. 注意缩写缩写，就是属性名及属性值，能缩写则缩写。例如属性名、属性值、颜色、去掉小数点前的0等： 123456789101112131415161718/* 错误示例 */.test&#123; padding-top: 0.9rem; padding-left: 1.2rem; padding-bottom: 0.8rem; padding-right: 1.2rem; font-family: serif; font-size: 100%; line-height: 1.2; background-color: #ff0000;&#125;/* 规范示例 */.test&#123; padding: .9rem 1.2rem .8rem; font: 100%/1.2 serif; background-color: #f00;&#125; 3. 命名规范命名规范两个注意点： 不要乱使用“id” 这是因为id在js中具有唯一性，防止多次使用而对脚本编写带来影响。而class类则可重复使用。另外id与class权重不同，优先级不同，id得按需使用。 长命名尽量使用中横线“-”来做短词分割，如main-cont 用短横线而不用下划线分割有两点：1. 对浏览器解析更加兼容；2. js变量一般使用下划线命名，为做出良好区分，所以使用短横线。 4 常见css命名规则表一般可用id来命名 4.1 页面结构 css名 表示规则 main 主体 container 容器 header 头 content 内容 footer 尾 sidebar 侧边栏 nav 导航 column 栏 wrapper 页面外围控制整体布局容器 4.2 导航 css名 表示规则 nav 导航 subnav 子导航 topnav 顶部导航 sidebar 侧边导航 menu 菜单 submenu 子菜单 title 一般指栏目标题 summary 摘要 4.3 功能 css名 表示规则 shop 功能区 loginbar 登录条 logo 标志 banner 广告位 hot 热点 news 新闻 like 赞 download 下载 search 搜索 menu 菜单 submenu 子菜单 friendlink 友情链接 scroll 滚动 tags 标签 article 文章 list 列表 msg 指需要传达的信息 info 承载信息的简讯 copyright 版权 tips 提示 title 标题 joinus 加入我们 guide 指南 service 服务 register 注册 status 状态 vote 投票 partner 合作 btn 按钮 current 当前 icon 图标 note 注释 注意，用id选择器命名时，需要注意以下几点： 使用英文 小写 不添加连接符，如-或_ 除大众广知的（如：msg、btn）尽量不缩写 5. 常见css文件命名表 css名 表示规则 base.css 基础样式表 common.css 公用 themes.css 主题 reset.css 重设 font.css 文字 layout.css 版面 module.css 模块 column.css 专栏 … 等等]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+        <tag>规范</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS来一个极简的每日毒鸡汤]]></title>
     <url>%2F2020%2F12%2F14%2FJS%E6%9D%A5%E4%B8%80%E4%B8%AA%E6%9E%81%E7%AE%80%E7%9A%84%E6%AF%8F%E6%97%A5%E6%AF%92%E9%B8%A1%E6%B1%A4%2F</url>
     <content type="text"><![CDATA[前言最近发现了基于node的一个发送邮件的小插件，逛论坛看别人用它做了一些有意思的东西，也模仿着搞一个分享下~重在分享，重在分享！ 期望1. 目标使用基于nodeJs的nodemailer定时发送随机文案给指定人。 2. 场景 定时发送情话给对象 每日发送给自己朋友圈文案内容 … 实现1. 所需技术 基础js即可 2. 所需环境/插件 nodeJs (环境) nodemailer(发送邮件插件) axios(获取邮件内容，如朋友圈文案、毒鸡汤等) schedule(定时任务插件) 3. 其他除上述内容，我们需要有邮件相关信息:自己邮箱和对方邮箱、邮箱服务器地址及端口号、自己邮箱的授权码等。下面会有比较详细的介绍。 实现过程1. node环境安装首先安装及配置node环境，官网下载安装即可。node中文网 2. 插件安装自己按照需求安装即可： 12345678// nodemailer：必须npm i nodemailer// axios：获取随机鸡汤（毒鸡汤）作为邮件内容；非必须npm i axios// schedule：定时任务；非必须npm i schedule 3. 项目配置 新建个空目录作为项目目录 在终端（或者cmd模式）—— npm init 项目目录下新建index.js 4. index详细配置1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556const nodemailer = require('nodemailer');const &#123; default: Axios &#125; = require('axios');const schedule = require('node-schedule')// 获取文案const getMsg = () =&gt; &#123; // 提供几个文案获取接口,随便选即可。 // 毒鸡汤： https://du.shadiao.app/api.php // 朋友圈： https://pyq.shadiao.app/api.php // 彩虹屁： https://chp.shadiao.app/api.php // 骂人宝典： https://nmsl.shadiao.app/api.php let url = 'https://du.shadiao.app/api.php'; return Axios.get(url);&#125;// 发送邮件函数const sendEmail = async msg =&gt; &#123; let myEmail = "xxxxxx@163.com"; // 用户(自己)邮箱 let passCode = "xxxxxx"; // 用户(自己)邮箱授权码 let mailTo = "xxxxxx@xxx.xxx"; // 对方邮箱 // 用户账号信息,以163邮箱为例 let transporter = nodemailer.createTransport(&#123; host: 'smtp.163.com', // 服务器地址 port: 25, // 协议端口号 auth: &#123; user: myEmail, // 用户邮箱 pass: passCode // 授权码 &#125; &#125;); // 发送内容编辑 let mailMsg = await transporter.sendMail(&#123; from: myEmail, // 发件人(自己) to: mailTo, // 收件人 subject: 'mailer测试：毒鸡汤文案', // 标题 text: msg &#125;) // 成功后打印下~ console.log(`发送成功，发送内容为：$&#123;msg&#125;`);&#125;// 定时发送 每天中午12:30（自己随便改） 发送自己“喜欢”的内容给指定人schedule.scheduleJob(&#123; hour: 12, minute: 30&#125;, () =&gt; &#123; console.log(`启动任务：$&#123;new Date()&#125;`); getMsg().then(res =&gt; &#123; sendEmail(res.data); // 发送邮件 &#125;)&#125;)// 测试// console.log(`启动任务：$&#123;new Date()&#125;`);// getMsg().then(res =&gt; &#123;// sendEmail(res.data); // 发送邮件// &#125;) 小结通过上述代码，完成简易的每日毒鸡汤发送给相应邮箱。但我们可以看出，这只是基于node的一些个小插件的使用而已。虽然简单，但是发挥一下，在合适的时间用在合适的地方还是会有一些效果出现的~ 喜欢的可以关注公众号【流眸】回复【201219】获取该项目代码~]]></content>
@@ -8,9 +20,9 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>axios</tag>
         <tag>node</tag>
         <tag>nodemailer</tag>
+        <tag>axios</tag>
         <tag>schedule</tag>
       </tags>
   </entry>
