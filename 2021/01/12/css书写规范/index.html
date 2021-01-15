@@ -117,7 +117,7 @@
 <meta property="og:site_name" content="Lomo | 朱幸民">
 <meta property="og:description" content="序在前端领域，CSS(层叠样式表:Cascading Style Sheets)是绕不过的话题。  样式表定义如何显示 HTML 元素，就像 HTML 中的字体标签和颜色属性所起的作用那样。样式通常保存在外部的 .css 文件中。我们只需要编辑一个简单的 CSS 文档就可以改变所有页面的布局和外观。  虽然CSS初学者易于上手，且趣味性十足，但是作为一项工程而言，还是需要有一定规范约束的。这里简单">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-01-15T03:37:11.977Z">
+<meta property="og:updated_time" content="2021-01-15T04:06:07.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="css书写规范">
 <meta name="twitter:description" content="序在前端领域，CSS(层叠样式表:Cascading Style Sheets)是绕不过的话题。  样式表定义如何显示 HTML 元素，就像 HTML 中的字体标签和颜色属性所起的作用那样。样式通常保存在外部的 .css 文件中。我们只需要编辑一个简单的 CSS 文档就可以改变所有页面的布局和外观。  虽然CSS初学者易于上手，且趣味性十足，但是作为一项工程而言，还是需要有一定规范约束的。这里简单">
@@ -360,7 +360,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-01-15T11:37:11+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-01-15T12:06:07+08:00">
                 2021-01-15
               </time>
             
@@ -471,6 +471,7 @@
 <li>背景（background border …）</li>
 <li>其他（animation transtion …）</li>
 </ol>
+<a id="more"></a>
 <p>例如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 错误示例 */</span></span><br><span class="line"><span class="selector-class">.test</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">24px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#f6f6f6</span>;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">5px</span> <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">999</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 规范示例 */</span></span><br><span class="line"><span class="selector-class">.test</span> &#123;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">999</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">5px</span> <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">24px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#f6f6f6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="2-注意缩写"><a href="#2-注意缩写" class="headerlink" title="2. 注意缩写"></a>2. 注意缩写</h2><p>缩写，就是属性名及属性值，能缩写则缩写。例如属性名、属性值、颜色、去掉小数点前的0等：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 错误示例 */</span></span><br><span class="line"><span class="selector-class">.test</span>&#123;</span><br><span class="line">    <span class="attribute">padding-top</span>: <span class="number">0.9rem</span>;</span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">1.2rem</span>;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">0.8rem</span>;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">1.2rem</span>;</span><br><span class="line">    <span class="attribute">font-family</span>: serif;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.2</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#ff0000</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 规范示例 */</span></span><br><span class="line"><span class="selector-class">.test</span>&#123;</span><br><span class="line">    <span class="attribute">padding</span>: .<span class="number">9rem</span> <span class="number">1.2rem</span> .<span class="number">8rem</span>;</span><br><span class="line">    <span class="attribute">font</span>: <span class="number">100%</span>/<span class="number">1.2</span> serif;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f00</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -789,7 +790,7 @@
   <p><span>本文标题:</span>css书写规范</p>
   <p><span>文章作者:</span>Lomo 朱幸民</p>
   <p><span>发布时间:</span>2021年01月12日 - 16:22:37</p>
-  <p><span>最后更新:</span>2021年01月15日 - 11:37:11</p>
+  <p><span>最后更新:</span>2021年01月15日 - 12:06:07</p>
   <p><span>原始链接:</span><a href="/2021/01/12/css书写规范/" title="css书写规范">https://www.zhuxingmin.com/2021/01/12/css书写规范/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://www.zhuxingmin.com/2021/01/12/css书写规范/" aria-label="复制成功！"></i></span>
   </p>
