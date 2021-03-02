@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[git 基础操作]]></title>
+    <url>%2F2021%2F03%2F02%2Fgit-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[为什么学习git 工作必备 提升团队协作效率 面试加分项 学习目标 安装、使用 对文件的基础操作 对分支的基础操作 git相关插件使用（chrome插件） 注意 学习常见使用场景 学习基础操作，不深究原理 配置用户名和邮箱 git config --global user.name &#39;name&#39; // 配置用户名 git config --global user.email &#39;email&#39; // 配置email git config --global --list // 查看配置 基础命令 git add . // 把本地所有untrack的文件都加入暂存区，并且会根据.gitignore做过滤 git commit -m &quot;说明&quot; // 提交暂存区的文件 git log // 查看所有记录 git log --author=&quot;name&quot; // 查看某个人提交记录 git status // 查看状态 git rm [filename] // 删除文件 git mv [oldname] [newname] // 重命名 git checkout -- [file/filename] // 还原到上次修改(还为提交) git reset HEAD [file/filename] // 撤销提交(已提交到暂存区) git reset --hard HEAD ^^ // 回退两个版本，一个^代表一个版本 git reset --hard [id] // 回退到指定版本，id随便几位或者全部位数都可以 git checkout [id] -- [filename] // 指定文件回退到指定版本。id:指定版本；filename：指定文件 git push origin master // 推送代码到远程仓库主分支 git tag [v1.1.0] // 添加标签，标签默认添加在最新一次提交上 git tag [v1.1.0] [id] // 添加标签，标签添加在指定版本id上 git tag -d [v1.1.0] // 删除指定标签 git push origin [v1.1.0] // 推送标签版本 git fetch // 拉取所有远程仓库 git branch -av // 查看分支 关于分支好处： 多人协作 支线任务不会影响主线任务 创建 git branch [name] git branch // 检查分支 切换分支 git checkout [name] 删除分支 git branch -d [name] // 不能删除当前所在分支，不能删除有提交的分支 git branch -D [name] // 强制删除某个分支，即使有提交记录也可删除 创建分支并切换到此分支 git checkout -b [name] 关于合并分支正确的合并分支流程 git checkout master // 切换到主分支 git merge [name] // 将分支[name]的代码合并到主分支 解决冲突例：多分支处理同一段代码提交合并后，冲突报错 两种方案 忽略其他分支代码保留当前分支代码 git merge --abort 手动修改 修改完毕后： git add . git commit // 进入可编辑界面 按esc，写[:wq]，可退出编辑 git commit -m // 即可 不同人查看版本路线操作 git log // 查看所有日志 git log --oneline // 日志简写 git log --oneline --graph // 查看当前版本路线 不同人想要删除不想要的分支如何操作 拉取所有远程仓库 git fetch 查看所有分支 git branch -av 删除指定分支 git push origin --delete [name] 【注意：】 保证该分支确定不需要了 该分支代码是否合并到了主分支 不同人修改了不同文件如何处理目的：解决不同人修改不同文件时的冲突。 解决方案： git branch -av git merge [fileurl] 插入信息，[esc]+[:wq]退出 git push 不同人修改了相同文件如何处理 git fetch // 拉取所有仓库列表 git branch -av // 查看所有分支 git checkout -b [name] remotes/origin/test // 拉取所需要分支代码 修改代码，然后继续提交： git add . git commit -m &#39;xxxx&#39; git push github chrome插件 Octotree ：左侧树结构目录——见下图左侧目录 Enhanced GitHub: 显示文件大小——见上图中间可下载区域显示文件大小 GitZip for github: 下载单个文件夹内容 从上图的某一个文件夹上双击，会显示如下图的下载图标，点击即可下载单个目录的内容。]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[小程序之生命周期]]></title>
     <url>%2F2021%2F02%2F19%2F%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%2F</url>
     <content type="text"><![CDATA[1. 生命周期1.1 什么是生命周期？ 生命周期就是指一个对象的生老病死。基本涵义可以通俗地理解为“从摇篮到坟墓”（Cradle-to-Grave）的整个过程。 1.2 用途在技术中心，我们可以理解生命周期为从一个应用从创建到销毁的过程。在项目层面，我们每一个完整的项目中都会在不同时间不同位置处理不同问题及不同需求，也就是在特点时间执特定函数。 2. 小程序的生命周期根据官网介绍，小程序生命周期包含7个阶段： 阶段 类型 最低版本 说明 onLaunch function / 监听小程序初始化 onShow function / 监听小程序启动或切前台 onHide function / 监听小程序切后台 onError function / 错误监听函数 onPageNotFound function 1.9.90 页面不存在监听函数 onUnhandleRejection function 2.10.0 未处理的 Promise 拒绝事件监听函数 onThemeChange function 2.11.0 监听系统主题变化 注: 接受一个 Object 参数，其指定小程序的生命周期回调等。 App() 必须在 app.js 中调用，必须调用且只能调用一次。不然会出现无法预期的后果。 2.1 onLaunch触发时机： 小程序一启动时触发，被隐藏重新打开不触发，被销毁再打开才会触发。 作用： 做初始化使用 云开发的初始化 发送请求获取用户个人信息 获取本地存储数据等 代码示例： 123456App(&#123; // 小程序一启动时触发，被隐藏重新打开不触发，被销毁再打开才会触发 onLaunch (options) &#123; console.log('触发了 onLaunch'); &#125;,&#125;) 2.2 onShow触发时机： 与 onHide 是一对，当应用重新被显示的时候或者第一次启动时都会触发 作用： 重新启动定时器等执行类模块 重新出发异步请求获取最新数据 重新启动播放器等 代码示例： 123456App(&#123; // 当应用重新被显示的时候或者第一次启动时都会触发 onShow (options) &#123; console.log('触发了 onShow'); &#125;,&#125;) 2.3 onHide触发时机： 当整个小程序隐藏时会触发，如切换到其他APP 作用： 可以停止一些正在执行操作，如暂停定时器、暂停音视频播放等 代码示例： 123456App(&#123; // 当整个小程序隐藏时会触发，如切换到其他APP onHide (options) &#123; console.log('触发了 onHide'); &#125;,&#125;) 2.4 onError触发时机： 小程序运行出错时触发 作用： 收集错误信息，发送至后台，进行错误日志的记录 进行程序出错后的操作，例如弹窗提醒等 代码示例： 123456App(&#123; // 小程序运行出错时触发 onError (options) &#123; console.log('触发了 onError'); &#125;,&#125;) 2.5 onPageNotFound触发时机： 页面不存在时触发 举例： 扫二维码进入小程序 二维码指定路径为index 后面程序中删除了index页面，修改其他页面（如home）作主页 此时用户扫码，提示页面不存在，触发该周期 作用： 监听报错，处理后续操作，如提示用户或者跳转新页面 代码示例： 12345678App(&#123; // 页面不存在时触发 onPageNotFound (options) &#123; wx.redirectTo(&#123; url: 'pages/...' &#125;) // 如果是 tabbar 页面，请使用 wx.switchTab &#125;,&#125;) 2.5 onPageNotFound触发时机： 页面不存在时触发 举例： 扫二维码进入小程序 二维码指定路径为index 后面程序中删除了index页面，修改其他页面（如home）作主页 此时用户扫码，提示页面不存在，触发该周期 作用： 监听报错，处理后续操作，如提示用户或者跳转新页面 代码示例： 12345678App(&#123; // 页面不存在时触发 onPageNotFound (options) &#123; wx.redirectTo(&#123; url: 'pages/...' &#125;) // 如果是 tabbar 页面，请使用 wx.switchTab &#125;,&#125;) 2.6 onUnhandledRejection触发时机： promise中的reject未被捕获处理时触发 作用： 用于统一捕获处理，可以在该生命周期中处理错误情况，一般由于异步代码出错导致 提示：如果自己捕获了reject那么此生命周期不会触发 代码示例： 12345678910111213141516171819App(&#123; // onLaunch onLaunch() &#123; new Promise((resolve,reject)=&gt;&#123; // 触发reject reject(&#123;"msg":"错误提示"&#125;) &#125;).catch(err=&gt;&#123; // catch了 reject 那么 onUnhandledRejection 就不会触发了 console.log("捕获reject"); console.log(err); &#125;) &#125;, // promise中的reject未被捕获处理时触发 onUnhandledRejection(err)&#123; console.log("onUnhandledRejection 当发现未被捕获的reject时触发"); console.log(err); &#125;&#125;) 2.7 onThemeChange触发时机： 手机系统的主题模式（如黑夜模式）切换时触发 作用： 小程序可以随系统主题切换主题或者更换UI风格 代码示例： 123456App(&#123; // promise中的reject未被捕获处理时触发 onThemeChange(theme)&#123; console.log(theme); // 'dark' | 'light' &#125;&#125;)]]></content>
@@ -297,8 +308,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>vue</tag>
         <tag>axios</tag>
+        <tag>vue</tag>
         <tag>拦截器</tag>
       </tags>
   </entry>
@@ -324,8 +335,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>vue</tag>
         <tag>axios</tag>
+        <tag>vue</tag>
         <tag>拦截器</tag>
       </tags>
   </entry>
@@ -337,8 +348,8 @@
         <category>前端笔记</category>
       </categories>
       <tags>
-        <tag>vue</tag>
         <tag>axios</tag>
+        <tag>vue</tag>
         <tag>拦截器</tag>
       </tags>
   </entry>
